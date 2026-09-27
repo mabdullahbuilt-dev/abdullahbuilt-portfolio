@@ -1,0 +1,21 @@
+# Muhammad Abdullah — full site context
+
+Muhammad Abdullah is an independent product builder, full-stack engineer, and hackathon winner based in Faisalabad, Pakistan, working with clients worldwide. He turns early product ideas, business problems, manual workflows, and difficult features into working software.
+
+## Capabilities
+Product definition, user flows, TypeScript, JavaScript, Next.js, React, responsive interfaces, Supabase, Postgres, Prisma, REST APIs, webhooks, authentication, AI and LLM integrations, controlled agent workflows, workflow automation, GitHub tooling, blockchain-connected products, smart-contract integration, Arc, USDC, Circle CCTP, LI.FI, testing, deployment, and iteration.
+
+## Engagements
+A suitable engagement can be a complete first release or a defined feature in an existing product. Start with the user, important task, current state, constraints, required systems, and smallest complete workflow. Delivery can include implementation, testing, deployment, and handoff.
+
+## Services and decision support
+The site includes dedicated pages for custom software, SaaS, web applications, API integrations, business automation, MVPs, AI application or agent workflows, and product rescue. Buyer guides cover developer selection, MVP scope, build-versus-buy decisions, SaaS MVP cost drivers, API integration planning, AI product architecture, webhook reliability, and rescuing unstable or AI-built applications.
+
+## Selected work
+RESOLVE connects verified contributions, funding workflows, attribution, treasury, and USDC settlement. MERIDIAN connects market data, explainable strategy rules, historical replay, and optional execution. RepoDiet provides proof-carrying repository maintenance. Agora Forge connects portfolio context with cross-chain USDC execution through Circle CCTP, LI.FI, and Arc.
+
+## Contact
+Email: mabdullah.built@gmail.com
+LinkedIn: https://www.linkedin.com/in/muhammad-abdullah-builder/
+GitHub: https://github.com/velz-cmd
+Booking: https://cal.com/muhammad-abdullah-built/idea-to-product

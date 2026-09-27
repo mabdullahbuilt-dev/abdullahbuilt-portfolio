@@ -1,0 +1,5 @@
+"gap","evidence","recommended_route","implementation_state"
+"Country-specific proof for US/UK/Canada","Commercial SERPs favor local/agency trust signals","Service pages","Use worldwide positioning now; add truthful country proof only when available"
+"Third-party review authority","Gartner and Clutch appear in commercial SERPs","Off-site profiles","NOT FABRICATED; requires real reviews"
+"Core Web Vitals field data","OpenSEO crawl ran without Lighthouse","All","UNKNOWN until preview browser/Lighthouse available"
+"Backlink baseline","Ahrefs connected accounts return Insufficient plan","All","UNKNOWN"

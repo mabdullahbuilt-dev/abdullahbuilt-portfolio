@@ -1,0 +1,42 @@
+# Muhammad Abdullah
+
+> Independent product builder and full-stack engineer building custom software, SaaS products, web applications, API integrations, business automation, and MVPs for clients worldwide.
+
+Canonical site: https://abdullahbuilt.top/
+Contact: mabdullah.built@gmail.com
+
+## Primary pages
+- [Services](https://abdullahbuilt.top/services/)
+- [Selected work](https://abdullahbuilt.top/work/)
+- [Guides](https://abdullahbuilt.top/guides/)
+- [About](https://abdullahbuilt.top/about/)
+- [Project inquiry](https://abdullahbuilt.top/contact/)
+
+## Services
+- [Custom software development](https://abdullahbuilt.top/services/custom-software-development/)
+- [SaaS development](https://abdullahbuilt.top/services/saas-development/)
+- [Web application development](https://abdullahbuilt.top/services/web-application-development/)
+- [API integration development](https://abdullahbuilt.top/services/api-integration-development/)
+- [Business automation and internal tools](https://abdullahbuilt.top/services/business-automation/)
+- [MVP product development](https://abdullahbuilt.top/services/mvp-product-development/)
+- [AI application and agent development](https://abdullahbuilt.top/services/ai-application-development/)
+- [Product rescue and stabilization](https://abdullahbuilt.top/services/product-rescue/)
+
+## Buyer guides
+- [How to hire a SaaS developer](https://abdullahbuilt.top/guides/hire-saas-developer/)
+- [How to hire a web app developer](https://abdullahbuilt.top/guides/hire-web-app-developer/)
+- [Startup MVP development](https://abdullahbuilt.top/guides/startup-mvp-development/)
+- [Custom software vs SaaS](https://abdullahbuilt.top/guides/custom-software-vs-saas/)
+- [SaaS MVP development cost](https://abdullahbuilt.top/guides/saas-mvp-development-cost/)
+- [API integration planning](https://abdullahbuilt.top/guides/api-integration-planning/)
+- [Rescue an AI-built web app](https://abdullahbuilt.top/guides/rescue-ai-built-web-app/)
+- [AI feature vs automation](https://abdullahbuilt.top/guides/ai-feature-vs-automation/)
+- [Reliable webhook integration](https://abdullahbuilt.top/guides/reliable-webhook-integration/)
+
+## Evidence
+- [RESOLVE](https://abdullahbuilt.top/work/resolve/)
+- [MERIDIAN](https://abdullahbuilt.top/work/meridian/)
+- [RepoDiet](https://abdullahbuilt.top/work/repodiet/)
+- [Agora Forge](https://abdullahbuilt.top/work/agora-forge/)
+
+For expanded context, see https://abdullahbuilt.top/llms-full.txt
