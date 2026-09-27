@@ -8,8 +8,11 @@
 
 ## Current execution state
 
-- HTTP suite: 36/36 passed.
-- Local Playwright browser suite: BLOCKED because the Playwright CDN repeatedly returned a zero-byte/truncated Chromium archive for build 1243.
-- Vercel Preview rendered verification is performed through the authenticated cloud browser and recorded in the final evidence update.
+- HTTP suite: 72/72 passed (36 assertions across desktop and mobile Chromium projects).
+- Local Playwright browser suite: 76/76 passed.
+- All 27 canonical routes rendered at desktop and mobile sizes with one H1, no horizontal overflow, no invalid or missing destinations, and no page or console errors.
+- All eight service CTA flows preserved their query-string service context and preselected the matching contact form option.
+- Fourteen full-page screenshots cover seven required page types at desktop and mobile sizes in `docs/qa/screenshots/`.
+- The matching Vercel Preview was opened in an authenticated browser and its deployment was verified against the migration branch commit before this final update.
 
 No production domain or DNS changes were made.

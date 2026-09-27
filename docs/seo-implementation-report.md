@@ -10,6 +10,8 @@ Generated: 2026-09-27
 - Kept Vercel previews protected with noindex response and metadata directives.
 - Added service workflow diagrams, guide decision matrices, related proof modules, contextual service handoffs, and analytics event hooks.
 - Re-encoded the largest rendered assets as equivalent WebP files; the approved homepage portrait fell from about 2 MB to 76 KB without changing layout.
+- Removed the render-blocking third-party font request, deferred the below-the-fold Cal.com embed until it approaches the viewport, fixed the homepage subpixel horizontal overflow, and supplied real fallback destinations for dynamic project-dialog links.
+- Added desktop and mobile full-page evidence for the homepage, services hub, service detail, guides hub, guide article, case study, and contextual contact flow.
 - Expanded regression coverage for sitemap membership, duplicate metadata, canonicals, schema, Open Graph, alt text, inbound links, dead destinations, contextual CTAs, and discovery files.
 
 ## GSC baseline
@@ -22,4 +24,4 @@ OpenSEO researched SaaS, AI application, AI agent, web application, API integrat
 
 ## Verification boundary
 
-The optimized production build, 36 HTTP/SEO assertions, and the 27-route server-rendered regression pass locally. Local browser launch is blocked because the Playwright CDN returns a zero-byte/truncated Chromium archive; rendered preview verification is performed with the authenticated cloud browser instead. Production sitemap resubmission and indexing requests remain intentionally gated behind an approved production cutover; DNS and the live deployment were not changed.
+The optimized production build, 27-route server-rendered SEO regression, 72 HTTP checks, and 76 rendered Playwright checks pass. Lighthouse 13.5.0 measured four representative page types at 97–99 Performance and 100 SEO, Accessibility, and Best Practices; detailed metrics and raw reports are in `docs/performance-report.md` and `docs/qa/`. Production sitemap resubmission and indexing requests remain intentionally gated behind an approved production cutover; DNS and the live deployment were not changed.

@@ -98,6 +98,9 @@ body{font-size:17px}
   .hero-links{margin-top:24px}
 }
 
+/* Interactive fixed-position previews may extend by a subpixel while hidden. */
+html,body{overflow-x:clip}
+
 /* Desktop hero proportions: one complete composition in the first viewport. */
 @media(min-width:1001px){
   .hero{width:min(1240px,calc(100% - 96px));min-height:100svh;padding:0;align-items:center;gap:72px}

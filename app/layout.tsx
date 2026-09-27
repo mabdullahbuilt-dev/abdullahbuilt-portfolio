@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-css-tags, @next/next/no-page-custom-font -- the migrated homepage stylesheet and font links are intentionally preserved */
+/* eslint-disable @next/next/no-css-tags -- the migrated homepage stylesheets are intentionally preserved */
 import type { Metadata } from "next";
 import ClientScript from "./ClientScript";
 
@@ -38,9 +38,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <head>
         <meta name="theme-color" content="#0d0e11" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="/styles.css" />
         <link rel="stylesheet" href="/seo-pages.css" />
         <link rel="stylesheet" href="/seo-enhancements.css" />

@@ -257,6 +257,9 @@ document.addEventListener('click', (event) => {
 // Cal.com inline calendar for muhammad-abdullah-built/idea-to-product.
 const calContainer = document.getElementById('my-cal-inline-idea-to-product');
 if (calContainer) {
+  const loadCalendar = () => {
+    if (calContainer.dataset.loaded) return;
+    calContainer.dataset.loaded = 'true';
   (function (C, A, L) {
     const p = (a, ar) => a.q.push(ar);
     const d = C.document;
@@ -298,6 +301,17 @@ if (calContainer) {
     calLink: 'muhammad-abdullah-built/idea-to-product'
   });
   window.Cal.ns['idea-to-product']('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: 'dark' });
+  };
+  if ('IntersectionObserver' in window) {
+    const calendarObserver = new IntersectionObserver((entries, observer) => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      observer.disconnect();
+      loadCalendar();
+    }, { rootMargin: '300px 0px' });
+    calendarObserver.observe(calContainer);
+  } else {
+    loadCalendar();
+  }
 }
 
 const canvas = document.getElementById('field');
