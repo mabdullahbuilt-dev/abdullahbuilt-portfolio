@@ -1,36 +1,24 @@
-# SEO implementation report
+# AbdullahBuilt SEO implementation report
 
-Date: 2026-09-27
+Generated: 2026-09-27
 
-## Guardrail
+## Implemented in the migration branch
 
-The approved keychain homepage remains the visual source of truth. Its hero, draggable badge, project previews, About, Expertise, inquiry, booking, navigation, animation, and responsive implementation were not redesigned. SEO work was applied through metadata, schema, crawlable secondary routes, supporting content, and internal links.
+- Preserved the approved interactive keychain homepage source exactly.
+- Kept all 27 canonical routes as 200-status, indexable pages with unique titles, descriptions, one H1, canonical URLs, Open Graph metadata, JSON-LD, contextual internal links, and visible CTAs.
+- Reconciled the migration sitemap to all 27 valuable routes; redirects, the private inbox route, test paths, and previews are excluded.
+- Kept Vercel previews protected with noindex response and metadata directives.
+- Kept robots, sitemap, RSS, llms.txt, llms-full.txt, AI discovery files, and entity schema in source control.
+- Expanded automated regression coverage for exact sitemap membership, duplicate titles/descriptions, canonicals, schema JSON, Open Graph, image alt attributes, inbound links, dead internal destinations, and discovery files.
 
-## Implemented
+## GSC baseline
 
-- Unique concise titles and descriptions across the homepage, seven service pages, four case studies, six guides, About, and Contact.
-- Self-referencing canonical and English/x-default language signals.
-- Route-specific WebPage, CollectionPage, AboutPage, ContactPage, Service, FAQPage, Article, SoftwareApplication, BreadcrumbList, and ItemList schema.
-- Removed hidden FAQ schema from the homepage and removed the homepage WebPage entity from the global layout.
-- Rebuilt the services hub and service pages around buyer fit, deliverables, delivery process, outcomes, relevant public work, FAQs, and conversion paths.
-- Expanded each case study with a product screenshot, problem/constraints, role, scope, architecture, decisions, testing/public evidence, and contextual service links.
-- Expanded each guide with a direct answer, table of contents, decision checklist, common mistakes, service links, and case-study links.
-- Added truthful remote-delivery language for clients in the United States, United Kingdom, Canada, and other international markets; no fake offices or location pages.
-- Added a secondary contact form using the existing inquiry API, plus direct email and Cal.com fallbacks.
-- Updated sitemap freshness, robots discovery, AI discovery files, RSS, and internal link planning documentation.
-- Added dedicated AI application and agent development coverage after validating distinct service-page intent.
-- Added buyer guides for custom software versus SaaS, SaaS MVP cost/scope, and API integration planning.
-- Rebuilt the Work hub around screenshots, capability tags, case-study links, live products, and public source evidence.
-- Replaced generic service FAQs with service-specific visible questions and matching schema.
+The verified property is https://abdullahbuilt.top/. URL Inspection found 5 indexed routes, 10 discovered but not indexed routes, and 12 routes unknown to Google. The old submitted sitemap reports 19 URLs while the migration branch contains all 27. The new sitemap must not be submitted until this branch is approved and promoted to production, because Google cannot fetch preview-only source as the canonical production sitemap.
 
-## Evidence limits
+## Research
 
-- No client revenue, conversion, traffic, ranking, or performance metrics were invented.
-- Public live demos and public source repositories are the proof layer used by case studies.
-- Search Console currently reports 3 impressions, 0 clicks, and no actionable commercial query history; the only returned query is not relevant enough to guide page changes.
-- Paid keyword-volume and backlink tools were unavailable on the connected plan, so no volume or difficulty numbers are claimed.
-- The connected GitHub identity has read-only access to the featured repositories, so repository descriptions and README files were not changed.
+OpenSEO researched the highest-priority commercial seed separately in the US, UK, and Canada. Ubersuggest was used once for the same US seed as a controlled cross-check. Values are preserved by source because CPC differs between providers. Ahrefs evidence is UNKNOWN: both connected accounts returned Insufficient plan even for free subscription/project reads.
 
-## Next feedback loop
+## Verification boundary
 
-After Google collects impressions, review non-brand queries, countries, page CTR, and positions 8–30. Prioritize pages already earning impressions before creating additional content.
+The optimized production build, all 28 HTTP/SEO tests, and the 27-route server-rendered regression pass locally. Browser automation requires a Chromium binary or the Vercel preview. Production sitemap resubmission, indexing requests, preview screenshots, and final performance evidence remain intentionally gated behind branch push, Vercel preview creation, and approval; DNS and the live deployment were not changed.
