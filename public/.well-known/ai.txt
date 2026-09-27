@@ -1,0 +1,9 @@
+site: https://abdullahbuilt.top/
+name: Muhammad Abdullah
+type: independent product engineer and full-stack engineer
+language: en
+area-served: worldwide
+contact: mailto:mabdullah.built@gmail.com
+services: custom software development, SaaS development, web application development, API integrations, business automation, MVP product development, AI application and agent development, product rescue and stabilization
+canonical-summary: https://abdullahbuilt.top/ai/summary.json
+full-context: https://abdullahbuilt.top/llms-full.txt
