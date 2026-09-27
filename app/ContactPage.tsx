@@ -12,8 +12,10 @@ const services = [
   ["product-rescue", "Product Rescue & Stabilization"],
 ] as const;
 
-export default function ContactPage() {
+export default function ContactPage({ requestedService = "", source = "" }: { requestedService?: string; source?: string }) {
   const url = `${origin}/contact/`;
+  const selectedService = services.some(([value]) => value === requestedService) ? requestedService : "";
+  const selectedLabel = services.find(([value]) => value === selectedService)?.[1];
   const schema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
@@ -31,8 +33,8 @@ export default function ContactPage() {
     <section className="seo-hero">
       <p>PROJECT INQUIRY</p>
       <h1>Tell me what needs to work<span>.</span></h1>
-      <p>Share the product, current stage, important constraints, and the outcome you need. An early idea is enough to start.</p>
-      <div><a className="seo-button" href="mailto:mabdullah.built@gmail.com?subject=Project%20inquiry">Email Muhammad <span>↗</span></a><a className="seo-text-link" href="https://cal.com/muhammad-abdullah-built/idea-to-product">Book a free 15-minute fit call ↗</a></div>
+      <p>{selectedLabel ? `Your ${selectedLabel.toLowerCase()} context is already selected. Share the current stage, constraints, and outcome you need.` : "Share the product, current stage, important constraints, and the outcome you need. An early idea is enough to start."}</p>
+      <div><a className="seo-button" href={`mailto:mabdullah.built@gmail.com?subject=${encodeURIComponent(selectedLabel ? `${selectedLabel} inquiry` : "Project inquiry")}`} data-event="email_click">Email Muhammad <span>↗</span></a><a className="seo-text-link" href="https://cal.com/muhammad-abdullah-built/idea-to-product" data-event="book_call_click">Book a free 15-minute fit call ↗</a></div>
     </section>
     <section className="seo-contact-layout">
       <div>
@@ -44,9 +46,10 @@ export default function ContactPage() {
       <form className="contact-form seo-form" id="contactForm">
         <h2>Project inquiry</h2>
         <input className="honeypot" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+        <input type="hidden" name="source" value={source} />
         <label>Name<input name="name" required autoComplete="name" placeholder="Your name" /></label>
         <label>Email<input name="email" type="email" required autoComplete="email" placeholder="you@company.com" /></label>
-        <label>Relevant service<select name="service" defaultValue=""><option value="">Select a service</option>{services.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+        <label>Relevant service<select name="service" defaultValue={selectedService}><option value="">Select a service</option>{services.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
         <label>Current stage<select name="stage" defaultValue=""><option value="">Select the current stage</option><option>Idea or early scope</option><option>Prototype</option><option>Existing product</option><option>Stalled or unstable build</option><option>Defined feature</option></select></label>
         <label>Useful link <span>(optional)</span><input name="projectUrl" type="url" inputMode="url" placeholder="https://" /></label>
         <label>Timeline <span>(optional)</span><input name="timeline" placeholder="For example: 6–8 weeks" /></label>
@@ -59,7 +62,7 @@ export default function ContactPage() {
     <section className="seo-cta">
       <p>MEETING</p><h2>Prefer to talk through the fit?</h2>
       <p>Book a free 15-minute call on Cal.com. Google Meet or Zoom can be used for the conversation.</p>
-      <a className="seo-button" href="https://cal.com/muhammad-abdullah-built/idea-to-product">Book a 15-minute fit call <span>↗</span></a>
+      <a className="seo-button" href="https://cal.com/muhammad-abdullah-built/idea-to-product" data-event="book_call_click">Book a 15-minute fit call <span>↗</span></a>
     </section>
   </>;
 }

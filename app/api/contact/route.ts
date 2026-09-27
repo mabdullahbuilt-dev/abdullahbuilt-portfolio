@@ -36,6 +36,7 @@ export async function POST(request: Request) {
   const projectUrl = clean(payload.projectUrl, 500);
   const timeline = clean(payload.timeline, 120);
   const budget = clean(payload.budget, 120);
+  const source = clean(payload.source, 120);
 
   if (payload.website) return Response.json({ received: true, emailed: true }, { status: 201, headers });
   if (name.length < 2) return Response.json({ error: "Please enter your name." }, { status: 400, headers });
@@ -56,6 +57,7 @@ export async function POST(request: Request) {
     projectUrl && `Useful link: ${projectUrl}`,
     timeline && `Timeline: ${timeline}`,
     budget && `Budget range: ${budget}`,
+    source && `Source: ${source}`,
   ].filter(Boolean).join("\n");
   const detail = `${detailLines}\n\n${message}`;
 

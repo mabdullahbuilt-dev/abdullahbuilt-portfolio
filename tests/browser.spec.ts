@@ -11,6 +11,12 @@ const routes = [
   "/guides/reliable-webhook-integration/", "/about/", "/contact/",
 ];
 
+const serviceSlugs = [
+  "custom-software-development", "saas-development", "web-application-development",
+  "api-integration-development", "business-automation", "mvp-product-development",
+  "ai-application-development", "product-rescue",
+];
+
 for (const route of routes) {
   test(`${route} renders without browser failures`, async ({ page }) => {
     const errors: string[] = [];
@@ -32,6 +38,30 @@ test("contextual service inquiry preserves intent", async ({ page }) => {
   await page.locator('input[name="email"]').fill("qa@example.com");
   await page.locator('textarea[name="message"]').fill("Build and verify an AI workflow.");
   await expect(page.locator('button[type="submit"]')).toBeEnabled();
+});
+
+for (const slug of serviceSlugs) {
+  test(`${slug} CTA preserves the promised service`, async ({ page }) => {
+    await page.goto(`/services/${slug}/`);
+    const contextual = page.locator(`a[href="/contact/?service=${slug}"]`);
+    await expect(contextual.first()).toBeVisible();
+    await contextual.first().click();
+    await expect(page).toHaveURL(new RegExp(`/contact/\\?service=${slug}`));
+    await expect(page.locator('select[name="service"]')).toHaveValue(slug);
+  });
+}
+
+test("all rendered controls have a real destination or handler", async ({ page }) => {
+  for (const route of routes) {
+    await page.goto(route);
+    expect(await page.locator('a:not([href]),a[href=""],a[href="#"],a[href^="javascript:"]').count(), route).toBe(0);
+    const buttons = page.locator("button");
+    for (let index = 0; index < await buttons.count(); index += 1) {
+      const button = buttons.nth(index);
+      const type = (await button.getAttribute("type")) || "submit";
+      expect(["button", "submit", "reset"]).toContain(type);
+    }
+  }
 });
 
 test("homepage interaction targets are usable", async ({ page }) => {

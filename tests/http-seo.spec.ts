@@ -11,6 +11,12 @@ const routes = [
   "/guides/reliable-webhook-integration/", "/about/", "/contact/",
 ];
 
+const serviceSlugs = [
+  "custom-software-development", "saas-development", "web-application-development",
+  "api-integration-development", "business-automation", "mvp-product-development",
+  "ai-application-development", "product-rescue",
+];
+
 for (const route of routes) {
   test(`${route} returns complete indexable HTML`, async ({ request }) => {
     const response = await request.get(route);
@@ -20,6 +26,16 @@ for (const route of routes) {
     expect((html.match(/<h1\b/g) || []).length).toBe(1);
     expect(html).toContain('type="application/ld+json"');
     expect(html).not.toMatch(/name="robots"[^>]+noindex/i);
+    expect(html).not.toMatch(/<link[^>]+rel="canonical"[^>]+vercel\.app/i);
+    expect(html).not.toMatch(/<meta[^>]+property="og:url"[^>]+vercel\.app/i);
+  });
+}
+
+for (const slug of serviceSlugs) {
+  test(`${slug} has a contextual contact path`, async ({ request }) => {
+    const response = await request.get(`/services/${slug}/`);
+    expect(response.status()).toBe(200);
+    expect(await response.text()).toContain(`/contact/?service=${slug}`);
   });
 }
 

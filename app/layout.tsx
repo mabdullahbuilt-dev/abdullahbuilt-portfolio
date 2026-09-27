@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags, @next/next/no-page-custom-font -- the migrated homepage stylesheet and font links are intentionally preserved */
 import type { Metadata } from "next";
 import ClientScript from "./ClientScript";
 
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 const entityGraph = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Person", "@id": `${origin}/#person`, name: "Muhammad Abdullah", url: `${origin}/`, image: `${origin}/assets/abdullah-editorial.png`, jobTitle: "Independent Product Engineer and Full-Stack Engineer", email: "mailto:mabdullah.built@gmail.com", sameAs: ["https://www.linkedin.com/in/muhammad-abdullah-builder/", "https://github.com/velz-cmd", "https://www.facebook.com/profile.php?id=61594177034511"], knowsAbout: ["Custom software development", "SaaS development", "Web application development", "API integration", "Business automation", "MVP development", "AI application development", "Software product rescue", "Blockchain integrations"] },
+    { "@type": "Person", "@id": `${origin}/#person`, name: "Muhammad Abdullah", url: `${origin}/`, image: `${origin}/assets/abdullah-editorial.webp`, jobTitle: "Independent Product Engineer and Full-Stack Engineer", email: "mailto:mabdullah.built@gmail.com", sameAs: ["https://www.linkedin.com/in/muhammad-abdullah-builder/", "https://github.com/velz-cmd", "https://www.facebook.com/profile.php?id=61594177034511"], knowsAbout: ["Custom software development", "SaaS development", "Web application development", "API integration", "Business automation", "MVP development", "AI application development", "Software product rescue", "Blockchain integrations"] },
     { "@type": "ProfessionalService", "@id": `${origin}/#business`, name: "AbdullahBuilt", alternateName: "Abdullah Built", url: `${origin}/`, email: "mailto:mabdullah.built@gmail.com", description: "Independent product engineering for custom software, SaaS, web applications, integrations, automation, MVPs, AI applications, and product rescue.", provider: { "@id": `${origin}/#person` }, founder: { "@id": `${origin}/#person` }, areaServed: "Worldwide", availableLanguage: "English", contactPoint: { "@type": "ContactPoint", email: "mabdullah.built@gmail.com", contactType: "project inquiries", availableLanguage: "English" } },
     { "@type": "WebSite", "@id": `${origin}/#website`, name: "AbdullahBuilt", alternateName: ["Abdullah Built", "abdullahbuilt.top"], url: `${origin}/`, publisher: { "@id": `${origin}/#business` }, inLanguage: "en" }
   ]

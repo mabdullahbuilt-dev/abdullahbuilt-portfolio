@@ -1,6 +1,7 @@
 .seo-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .seo-proof-grid a{display:flex;flex-direction:column;gap:10px;padding:22px;border:1px solid #274052;border-radius:9px;text-decoration:none;background:#0a1017}
 .seo-proof-grid a:hover{background:#0e1923}
+.seo-proof-grid img{display:block;width:calc(100% + 44px);height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top;margin:-22px -22px 8px;border-bottom:1px solid #274052;border-radius:9px 9px 0 0}
 .seo-proof-grid strong{font-size:19px}
 .seo-proof-grid span{color:#aab8c7;line-height:1.55}
 .seo-proof-grid b{color:#79dfef;font:500 12px/1.4 DM Mono,monospace}
@@ -43,4 +44,26 @@
 .seo-actions a{color:#79dfef;text-decoration:none;font-size:13px;font-weight:600}
 .seo-category-list{display:flex;flex-wrap:wrap;gap:8px;margin:-34px 0 34px}
 .seo-card-grid small+span{display:block}
-@media(max-width:760px){.seo-proof-grid,.seo-contact-layout,.seo-work-grid{grid-template-columns:1fr}.seo-contact-layout{gap:36px}.seo-proof-grid a{padding:18px}.seo-work-grid h2+p{min-height:0}.seo-author{grid-template-columns:1fr}.seo-category-list{margin-top:-18px}}
+.seo-flow,.seo-guide-map,.seo-matrix{margin:72px 0;padding:34px;border:1px solid #274052;border-radius:14px;background:radial-gradient(circle at 85% 0,#123041 0,transparent 36%),#0a1017}
+.seo-figure-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:28px}
+.seo-figure-heading span{color:#79dfef;font:500 12px/1.4 DM Mono,monospace;letter-spacing:.12em}
+.seo-figure-heading h2{max-width:720px;margin:0;font-size:clamp(26px,4vw,42px);line-height:1.1;letter-spacing:-.025em;text-align:right}
+.seo-flow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.seo-flow-step{position:relative;display:grid;align-content:start;gap:10px;min-height:178px;padding:22px;border:1px solid #274052;border-radius:9px;background:#0d1720}
+.seo-flow-step:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:50%;z-index:2;color:#79dfef;background:#080b0f;border-radius:999px;padding:2px 4px;transform:translateY(-50%)}
+.seo-flow-step small,.seo-guide-map li small{color:#79dfef;font:500 12px/1 DM Mono,monospace}
+.seo-flow-step strong{font-size:18px}
+.seo-flow-step span{color:#9fb0bf;line-height:1.5}
+.seo-flow figcaption,.seo-guide-map figcaption,.seo-matrix figcaption{margin-top:18px;color:#7890a5;font:500 12px/1.55 DM Mono,monospace}
+.seo-guide-map ol{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0;list-style:none}
+.seo-guide-map li{display:grid;gap:12px;min-height:128px;padding:20px;border-top:2px solid #79dfef;background:#0d1720}
+.seo-guide-map li span{font-size:16px;font-weight:650;line-height:1.45}
+.seo-table-wrap{overflow-x:auto;border:1px solid #274052;border-radius:9px}
+.seo-matrix table{width:100%;border-collapse:collapse;min-width:650px;background:#0d1720}
+.seo-matrix th,.seo-matrix td{padding:16px 18px;border-bottom:1px solid #274052;text-align:left;vertical-align:top;line-height:1.45}
+.seo-matrix thead th{color:#79dfef;font:500 12px/1.4 DM Mono,monospace;letter-spacing:.06em;text-transform:uppercase}
+.seo-matrix tbody th{color:#eef4f8}.seo-matrix td{color:#aab8c7}
+.seo-editorial-hero{max-width:980px;padding-bottom:54px}
+.seo-editorial-hero h1{font-size:clamp(44px,6vw,78px);max-width:960px}
+@media(max-width:900px){.seo-flow-steps,.seo-guide-map ol{grid-template-columns:1fr 1fr}.seo-flow-step:not(:last-child)::after{display:none}}
+@media(max-width:760px){.seo-proof-grid,.seo-contact-layout,.seo-work-grid{grid-template-columns:1fr}.seo-contact-layout{gap:36px}.seo-proof-grid a{padding:18px}.seo-proof-grid img{width:calc(100% + 36px);margin:-18px -18px 8px}.seo-work-grid h2+p{min-height:0}.seo-author{grid-template-columns:1fr}.seo-category-list{margin-top:-18px}.seo-flow,.seo-guide-map,.seo-matrix{margin:48px 0;padding:22px}.seo-figure-heading{display:block}.seo-figure-heading h2{margin-top:12px;text-align:left}.seo-flow-steps,.seo-guide-map ol{grid-template-columns:1fr}.seo-flow-step{min-height:0}.seo-editorial-hero h1{font-size:44px}}

@@ -4,21 +4,22 @@ Generated: 2026-09-27
 
 ## Implemented in the migration branch
 
-- Preserved the approved interactive keychain homepage source exactly.
+- Preserved the approved interactive keychain homepage structure and interactions.
 - Kept all 27 canonical routes as 200-status, indexable pages with unique titles, descriptions, one H1, canonical URLs, Open Graph metadata, JSON-LD, contextual internal links, and visible CTAs.
 - Reconciled the migration sitemap to all 27 valuable routes; redirects, the private inbox route, test paths, and previews are excluded.
 - Kept Vercel previews protected with noindex response and metadata directives.
-- Kept robots, sitemap, RSS, llms.txt, llms-full.txt, AI discovery files, and entity schema in source control.
-- Expanded automated regression coverage for exact sitemap membership, duplicate titles/descriptions, canonicals, schema JSON, Open Graph, image alt attributes, inbound links, dead internal destinations, and discovery files.
+- Added service workflow diagrams, guide decision matrices, related proof modules, contextual service handoffs, and analytics event hooks.
+- Re-encoded the largest rendered assets as equivalent WebP files; the approved homepage portrait fell from about 2 MB to 76 KB without changing layout.
+- Expanded regression coverage for sitemap membership, duplicate metadata, canonicals, schema, Open Graph, alt text, inbound links, dead destinations, contextual CTAs, and discovery files.
 
 ## GSC baseline
 
-The verified property is https://abdullahbuilt.top/. URL Inspection found 5 indexed routes, 10 discovered but not indexed routes, and 12 routes unknown to Google. The old submitted sitemap reports 19 URLs while the migration branch contains all 27. The new sitemap must not be submitted until this branch is approved and promoted to production, because Google cannot fetch preview-only source as the canonical production sitemap.
+The verified property is https://abdullahbuilt.top/. URL Inspection found 5 indexed routes, 4 discovered but not indexed routes, and 18 routes unknown to Google. GSC's sitemap list still displays its older 19-submitted count, while the live sitemap fetch and migration branch contain all 27. No indexing request or sitemap resubmission is made against a preview; refresh the production property only after an approved cutover.
 
 ## Research
 
-OpenSEO researched the highest-priority commercial seed separately in the US, UK, and Canada. Ubersuggest was used once for the same US seed as a controlled cross-check. Values are preserved by source because CPC differs between providers. Ahrefs evidence is UNKNOWN: both connected accounts returned Insufficient plan even for free subscription/project reads.
+OpenSEO researched SaaS, AI application, AI agent, web application, API integration, business automation, MVP, product-rescue, and hiring/planning clusters separately in the US, UK, and Canada. Ubersuggest was used once for the highest-priority web-application query as a controlled cross-check. Values are preserved by source and unavailable metrics are marked UNKNOWN. Ahrefs evidence remains UNKNOWN because both connected accounts returned Insufficient plan.
 
 ## Verification boundary
 
-The optimized production build, all 28 HTTP/SEO tests, and the 27-route server-rendered regression pass locally. Browser automation requires a Chromium binary or the Vercel preview. Production sitemap resubmission, indexing requests, preview screenshots, and final performance evidence remain intentionally gated behind branch push, Vercel preview creation, and approval; DNS and the live deployment were not changed.
+The optimized production build, 36 HTTP/SEO assertions, and the 27-route server-rendered regression pass locally. Local browser launch is blocked because the Playwright CDN returns a zero-byte/truncated Chromium archive; rendered preview verification is performed with the authenticated cloud browser instead. Production sitemap resubmission and indexing requests remain intentionally gated behind an approved production cutover; DNS and the live deployment were not changed.

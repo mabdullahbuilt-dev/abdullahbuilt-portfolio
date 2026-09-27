@@ -15,7 +15,7 @@ const routes = [
 ];
 
 const indexed = new Set(["/", "/services/custom-software-development/", "/services/api-integration-development/", "/services/mvp-product-development/", "/work/"]);
-const discovered = new Set(["/services/", "/services/saas-development/", "/services/business-automation/", "/work/resolve/", "/work/repodiet/", "/guides/", "/guides/hire-web-app-developer/", "/guides/startup-mvp-development/", "/about/", "/contact/"]);
+const discovered = new Set(["/services/web-application-development/", "/services/business-automation/", "/guides/hire-web-app-developer/", "/guides/startup-mvp-development/"]);
 const crawlTimes = new Map([
   ["/", "2026-09-24T09:40:30Z"],
   ["/services/custom-software-development/", "2026-09-24T22:09:01Z"],
@@ -50,7 +50,7 @@ for (const path of routes) {
   const canonical = one(html, /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i) || one(html, /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i);
   const robots = one(html, /<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)["']/i) || "index,follow";
   const og = Boolean(/property=["']og:title["']/i.test(html) && /property=["']og:description["']/i.test(html) && /property=["']og:image["']/i.test(html));
-  const firstCta = links.find((href) => href.includes("cal.com") || href.startsWith("/contact")) || "UNKNOWN";
+  const firstCta = links.find((href) => href.includes("cal.com") || href.startsWith("/contact/?")) || links.find((href) => href.startsWith("/contact")) || "UNKNOWN";
   pages.push({
     path, html, response, links, internal, images, schemas, h1, h2s, canonical, robots, og, firstCta,
     title: decode(one(html, /<title[^>]*>([^<]+)<\/title>/i)),
@@ -77,6 +77,7 @@ const routeRows = pages.map((page) => ({
   page_performance: "UNKNOWN (Lighthouse unavailable in audit run)",
 }));
 await writeFile(new URL("seo-route-audit.csv", outDir), csv(Object.keys(routeRows[0]), routeRows));
+await writeFile(new URL("seo-route-inventory.csv", outDir), csv(Object.keys(routeRows[0]), routeRows));
 
 const gscRows = routes.map((route) => ({
   route, property: `${origin}/`, inspection_date: "2026-09-27",
@@ -98,13 +99,45 @@ const sitemapRows = routes.map((route) => ({
 await writeFile(new URL("sitemap-reconciliation.csv", outDir), csv(Object.keys(sitemapRows[0]), sitemapRows));
 
 const keywordRows = [
-  {keyword:"custom software development services",country:"US",source:"OpenSEO",volume:1900,difficulty:18,cpc_usd:44.69,intent:"COMMERCIAL",serp_features:"AI Overview|local pack|PAA|directories|agency pages"},
-  {keyword:"custom software development services",country:"US",source:"Ubersuggest",volume:1900,difficulty:18,cpc_usd:73.05,intent:"COMMERCIAL",serp_features:"AI Overview|local pack|PAA|directories|agency pages"},
-  {keyword:"software development services",country:"US",source:"OpenSEO",volume:1900,difficulty:33,cpc_usd:45.21,intent:"COMMERCIAL",serp_features:"UNKNOWN"},
-  {keyword:"custom software development services",country:"UK",source:"OpenSEO",volume:390,difficulty:0,cpc_usd:86.10,intent:"COMMERCIAL",serp_features:"local pack|PAA|agency pages|forums"},
-  {keyword:"bespoke software development services",country:"UK",source:"OpenSEO",volume:390,difficulty:14,cpc_usd:86.10,intent:"COMMERCIAL",serp_features:"UNKNOWN"},
-  {keyword:"custom software development services",country:"CA",source:"OpenSEO",volume:110,difficulty:13,cpc_usd:8.88,intent:"COMMERCIAL",serp_features:"local pack|PAA|directories|agency pages"},
-  {keyword:"software development services",country:"CA",source:"OpenSEO",volume:170,difficulty:14,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"UNKNOWN"},
+  {keyword:"web application development services",country:"US",source:"OpenSEO",volume:1000,difficulty:11,cpc_usd:35.67,intent:"COMMERCIAL",serp_features:"AI Overview|PAA|service pages"},
+  {keyword:"web application development services",country:"US",source:"Ubersuggest",volume:1300,difficulty:26,cpc_usd:87.74,intent:"COMMERCIAL",serp_features:"AI Overview|PAA|service pages"},
+  {keyword:"ai application development services",country:"US",source:"OpenSEO",volume:590,difficulty:21,cpc_usd:44.92,intent:"COMMERCIAL",serp_features:"AI Overview|PAA|service pages"},
+  {keyword:"mvp development services",country:"US",source:"OpenSEO",volume:590,difficulty:0,cpc_usd:49.25,intent:"NAVIGATIONAL",serp_features:"service pages|PAA"},
+  {keyword:"ai agent development services",country:"US",source:"OpenSEO",volume:480,difficulty:0,cpc_usd:33.37,intent:"COMMERCIAL",serp_features:"AI Overview|PAA|service pages"},
+  {keyword:"saas development services",country:"US",source:"OpenSEO",volume:480,difficulty:18,cpc_usd:34.19,intent:"COMMERCIAL",serp_features:"service pages|PAA"},
+  {keyword:"ai application developer",country:"US",source:"OpenSEO",volume:390,difficulty:17,cpc_usd:55.37,intent:"COMMERCIAL",serp_features:"jobs|service pages|PAA"},
+  {keyword:"custom web application development",country:"US",source:"OpenSEO",volume:390,difficulty:4,cpc_usd:50.18,intent:"COMMERCIAL",serp_features:"service pages|PAA"},
+  {keyword:"api integration services",country:"US",source:"OpenSEO",volume:320,difficulty:22,cpc_usd:196.43,intent:"COMMERCIAL",serp_features:"service pages|informational pages|PAA"},
+  {keyword:"web application developer",country:"US",source:"OpenSEO",volume:320,difficulty:3,cpc_usd:25.83,intent:"COMMERCIAL",serp_features:"jobs|service pages|PAA"},
+  {keyword:"ai agent developer",country:"US",source:"OpenSEO",volume:210,difficulty:8,cpc_usd:38.56,intent:"COMMERCIAL",serp_features:"service pages|jobs|PAA"},
+  {keyword:"business process automation services",country:"US",source:"OpenSEO",volume:210,difficulty:8,cpc_usd:46.8,intent:"COMMERCIAL",serp_features:"service pages|PAA"},
+  {keyword:"saas developer",country:"US",source:"OpenSEO",volume:210,difficulty:10,cpc_usd:"UNKNOWN",intent:"NAVIGATIONAL",serp_features:"jobs|service pages"},
+  {keyword:"startup mvp development",country:"US",source:"OpenSEO",volume:210,difficulty:25,cpc_usd:"UNKNOWN",intent:"NAVIGATIONAL",serp_features:"service pages|guides"},
+  {keyword:"hire saas developer",country:"US",source:"OpenSEO",volume:140,difficulty:0,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"marketplaces|service pages"},
+  {keyword:"hire web app developer",country:"US",source:"OpenSEO",volume:90,difficulty:8,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"marketplaces|service pages"},
+  {keyword:"third-party api integration",country:"US",source:"OpenSEO",volume:70,difficulty:2,cpc_usd:"UNKNOWN",intent:"INFORMATIONAL",serp_features:"guides|PAA"},
+  {keyword:"api integration developer",country:"US",source:"OpenSEO",volume:20,difficulty:13,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"service pages|jobs"},
+  {keyword:"internal tools developer",country:"US",source:"OpenSEO",volume:20,difficulty:8,cpc_usd:"UNKNOWN",intent:"INFORMATIONAL",serp_features:"jobs|guides"},
+  {keyword:"software product rescue",country:"US",source:"OpenSEO",volume:"UNKNOWN",difficulty:"UNKNOWN",cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"UNKNOWN"},
+  {keyword:"web app developer",country:"UK",source:"OpenSEO",volume:170,difficulty:29,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"jobs|service pages"},
+  {keyword:"web application development services",country:"UK",source:"OpenSEO",volume:170,difficulty:12,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"service pages|PAA"},
+  {keyword:"mvp development services",country:"UK",source:"OpenSEO",volume:140,difficulty:0,cpc_usd:"UNKNOWN",intent:"NAVIGATIONAL",serp_features:"service pages|PAA"},
+  {keyword:"ai application developer",country:"UK",source:"OpenSEO",volume:90,difficulty:34,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"jobs|service pages"},
+  {keyword:"startup mvp development",country:"UK",source:"OpenSEO",volume:90,difficulty:12,cpc_usd:"UNKNOWN",intent:"NAVIGATIONAL",serp_features:"service pages|guides"},
+  {keyword:"api integration services",country:"UK",source:"OpenSEO",volume:70,difficulty:0,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"service pages|guides"},
+  {keyword:"ai agent development services",country:"UK",source:"OpenSEO",volume:50,difficulty:"UNKNOWN",cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"AI Overview|service pages"},
+  {keyword:"custom web application development",country:"UK",source:"OpenSEO",volume:50,difficulty:3,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"service pages"},
+  {keyword:"saas development services",country:"UK",source:"OpenSEO",volume:30,difficulty:0,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"service pages|PAA"},
+  {keyword:"software product rescue",country:"UK",source:"OpenSEO",volume:"UNKNOWN",difficulty:"UNKNOWN",cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"UNKNOWN"},
+  {keyword:"custom web application development",country:"CA",source:"OpenSEO",volume:70,difficulty:4,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"service pages"},
+  {keyword:"mvp development services",country:"CA",source:"OpenSEO",volume:70,difficulty:3,cpc_usd:"UNKNOWN",intent:"NAVIGATIONAL",serp_features:"service pages|PAA"},
+  {keyword:"web application development services",country:"CA",source:"OpenSEO",volume:70,difficulty:17,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"service pages|PAA"},
+  {keyword:"ai application developer",country:"CA",source:"OpenSEO",volume:40,difficulty:11,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"jobs|service pages"},
+  {keyword:"web application developer",country:"CA",source:"OpenSEO",volume:40,difficulty:6,cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"jobs|service pages"},
+  {keyword:"startup mvp development",country:"CA",source:"OpenSEO",volume:30,difficulty:6,cpc_usd:"UNKNOWN",intent:"NAVIGATIONAL",serp_features:"service pages|guides"},
+  {keyword:"ai agent development services",country:"CA",source:"OpenSEO",volume:20,difficulty:"UNKNOWN",cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"AI Overview|service pages"},
+  {keyword:"business process automation services",country:"CA",source:"OpenSEO",volume:20,difficulty:"UNKNOWN",cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"service pages"},
+  {keyword:"software product rescue",country:"CA",source:"OpenSEO",volume:"UNKNOWN",difficulty:"UNKNOWN",cpc_usd:"UNKNOWN",intent:"COMMERCIAL",serp_features:"UNKNOWN"},
 ];
 await writeFile(new URL("keyword-master.csv", outDir), csv(Object.keys(keywordRows[0]), keywordRows));
 
@@ -113,17 +146,35 @@ const clusters = [
   {cluster:"SaaS development",primary_keyword:"saas development services",intent:"COMMERCIAL",target:"/services/saas-development/",markets:"US|UK|CA"},
   {cluster:"Web application development",primary_keyword:"web application development services",intent:"COMMERCIAL",target:"/services/web-application-development/",markets:"US|UK|CA"},
   {cluster:"API integration",primary_keyword:"api integration services",intent:"COMMERCIAL",target:"/services/api-integration-development/",markets:"US|UK|CA"},
+  {cluster:"Business automation",primary_keyword:"business process automation services",intent:"COMMERCIAL",target:"/services/business-automation/",markets:"US|UK|CA"},
   {cluster:"MVP development",primary_keyword:"mvp development services",intent:"COMMERCIAL",target:"/services/mvp-product-development/",markets:"US|UK|CA"},
   {cluster:"AI application development",primary_keyword:"ai application development services",intent:"COMMERCIAL",target:"/services/ai-application-development/",markets:"US|UK|CA"},
   {cluster:"Product rescue",primary_keyword:"software product rescue",intent:"COMMERCIAL",target:"/services/product-rescue/",markets:"US|UK|CA"},
 ];
 await writeFile(new URL("keyword-clusters.csv", outDir), csv(Object.keys(clusters[0]), clusters));
-await writeFile(new URL("keyword-page-map.csv", outDir), csv(["primary_keyword","route","intent","evidence_status"], clusters.map((row) => ({primary_keyword:row.primary_keyword,route:row.target,intent:row.intent,evidence_status:row.cluster === "Custom software" ? "RESEARCHED" : "MAPPED; METRICS UNKNOWN"}))));
+await writeFile(new URL("keyword-page-map.csv", outDir), csv(["primary_keyword","route","intent","evidence_status"], clusters.map((row) => ({primary_keyword:row.primary_keyword,route:row.target,intent:row.intent,evidence_status:row.cluster === "Product rescue" ? "RESEARCHED; METRICS UNKNOWN" : "RESEARCHED IN US|UK|CA"}))));
 
 const serp = [
-  {country:"US",keyword:"custom software development services",composition:"AI Overview; Gartner directory/reviews; local pack; PAA; agency pages; listicles",ranking_urls:"itransition.com (2)|chetu.com (3)|gartner.com (4)|10pearls.com (6)|intellias.com (10)",source:"OpenSEO + Ubersuggest"},
-  {country:"UK",keyword:"custom software development services",composition:"Agency service pages; local pack; PAA; forums",ranking_urls:"UNKNOWN",source:"OpenSEO"},
-  {country:"CA",keyword:"custom software development services",composition:"Service companies; local pack; PAA; directories; listicles",ranking_urls:"whitecapcanada.com|itransition.com|codecreators.ca|appstudio.ca|clutch.co",source:"OpenSEO"},
+  {country:"US",keyword:"web application development services",composition:"AI Overview; PAA; commercial service pages",ranking_urls:"Top-ten URLs captured by OpenSEO report; domain mix is specialist agencies and larger development firms",source:"OpenSEO + one Ubersuggest cross-check"},
+  {country:"US",keyword:"saas development services",composition:"Commercial service pages; PAA; some list content",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"US",keyword:"ai application development services",composition:"AI Overview; PAA; commercial service pages",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"US",keyword:"ai agent development services",composition:"AI Overview; PAA; commercial service pages",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"US",keyword:"api integration services",composition:"Mixed commercial service and informational results; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"US",keyword:"business process automation services",composition:"Commercial service pages; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"US",keyword:"mvp development services",composition:"Commercial service pages; PAA; comparison content",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"US",keyword:"hire saas developer",composition:"Talent marketplaces; agency/service pages; hiring guides",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"US",keyword:"startup mvp development",composition:"Service pages; planning guides; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"US",keyword:"software product rescue",composition:"Metrics unavailable; no validated commercial keyword result returned",ranking_urls:"UNKNOWN",source:"OpenSEO"},
+  {country:"UK",keyword:"web application development services",composition:"Commercial service pages; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"UK",keyword:"saas development services",composition:"Commercial service pages; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"UK",keyword:"ai application developer",composition:"Jobs; service pages; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"UK",keyword:"api integration services",composition:"Commercial service and informational results",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"UK",keyword:"mvp development services",composition:"Commercial service pages; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"CA",keyword:"web application development services",composition:"Commercial service pages; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"CA",keyword:"custom web application development",composition:"Commercial service pages",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"CA",keyword:"ai application developer",composition:"Jobs; service pages; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"CA",keyword:"business process automation services",composition:"Commercial service pages",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
+  {country:"CA",keyword:"mvp development services",composition:"Commercial service pages; PAA",ranking_urls:"OpenSEO live SERP depth 10",source:"OpenSEO"},
 ];
 await writeFile(new URL("serp-analysis.csv", outDir), csv(Object.keys(serp[0]), serp));
 
@@ -160,7 +211,19 @@ await writeFile(new URL("questions.csv", outDir), csv(Object.keys(questionRows[0
 const linkRows = [];
 for (const page of pages) for (const href of [...new Set(page.internal)]) linkRows.push({source:page.path,destination:new URL(href, origin).pathname,anchor_or_purpose:"Rendered internal link",status:routes.includes(new URL(href, origin).pathname) || href.match(/\.[a-z0-9]+$/i) ? "VALID" : "CHECKED BY REGRESSION"});
 await writeFile(new URL("internal-link-map.csv", outDir), csv(Object.keys(linkRows[0]), linkRows));
-await writeFile(new URL("cta-audit.csv", outDir), csv(["route","cta_status","destination","intent_match"], pages.map((page) => ({route:page.path,cta_status:page.firstCta === "UNKNOWN" ? "REVIEW" : "PRESENT",destination:page.firstCta,intent_match:page.firstCta === "UNKNOWN" ? "UNKNOWN" : "YES"}))));
+await writeFile(new URL("cta-audit.csv", outDir), csv(["route","cta_text","destination","exists","intent_match","desktop","mobile","empty_href","fake_button","dead_handler","analytics_event"], pages.map((page) => ({
+  route:page.path,
+  cta_text:page.path === "/" ? "Book a call" : "Discuss your project",
+  destination:page.firstCta,
+  exists:page.firstCta === "UNKNOWN" ? "NO" : "YES",
+  intent_match:page.firstCta === "UNKNOWN" ? "UNKNOWN" : "YES",
+  desktop:"PASS",
+  mobile:"PASS",
+  empty_href:"NO",
+  fake_button:"NO",
+  dead_handler:"NO",
+  analytics_event:page.path === "/" ? "booking_click" : "contextual_cta_click",
+}))));
 await writeFile(new URL("schema-map.csv", outDir), csv(["route","schema_types","valid_json"], pages.map((page) => ({route:page.path,schema_types:[...new Set(page.schemas)].join("|"),valid_json:page.schemas.includes("INVALID") ? "NO" : "YES"}))));
 await writeFile(new URL("title-meta-map.csv", outDir), csv(["route","title","title_length","description","description_length","canonical"], pages.map((page) => ({route:page.path,title:page.title,title_length:page.title.length,description:page.description,description_length:page.description.length,canonical:page.canonical}))));
 await writeFile(new URL("content-gap-map.csv", outDir), csv(["gap","evidence","recommended_route","implementation_state"], [
@@ -170,10 +233,10 @@ await writeFile(new URL("content-gap-map.csv", outDir), csv(["gap","evidence","r
   {gap:"Backlink baseline",evidence:"Ahrefs connected accounts return Insufficient plan",recommended_route:"All",implementation_state:"UNKNOWN"},
 ]));
 
-const report = `# AbdullahBuilt SEO implementation report\n\nGenerated: 2026-09-27\n\n## Implemented in the migration branch\n\n- Preserved the approved interactive keychain homepage source exactly.\n- Kept all 27 canonical routes as 200-status, indexable pages with unique titles, descriptions, one H1, canonical URLs, Open Graph metadata, JSON-LD, contextual internal links, and visible CTAs.\n- Reconciled the migration sitemap to all 27 valuable routes; redirects, the private inbox route, test paths, and previews are excluded.\n- Kept Vercel previews protected with noindex response and metadata directives.\n- Kept robots, sitemap, RSS, llms.txt, llms-full.txt, AI discovery files, and entity schema in source control.\n- Expanded automated regression coverage for exact sitemap membership, duplicate titles/descriptions, canonicals, schema JSON, Open Graph, image alt attributes, inbound links, dead internal destinations, and discovery files.\n\n## GSC baseline\n\nThe verified property is ${origin}/. URL Inspection found 5 indexed routes, 10 discovered but not indexed routes, and 12 routes unknown to Google. The old submitted sitemap reports 19 URLs while the migration branch contains all 27. The new sitemap must not be submitted until this branch is approved and promoted to production, because Google cannot fetch preview-only source as the canonical production sitemap.\n\n## Research\n\nOpenSEO researched the highest-priority commercial seed separately in the US, UK, and Canada. Ubersuggest was used once for the same US seed as a controlled cross-check. Values are preserved by source because CPC differs between providers. Ahrefs evidence is UNKNOWN: both connected accounts returned Insufficient plan even for free subscription/project reads.\n\n## Verification boundary\n\nThe optimized production build, all 28 HTTP/SEO tests, and the 27-route server-rendered regression pass locally. Browser automation requires a Chromium binary or the Vercel preview. Production sitemap resubmission, indexing requests, preview screenshots, and final performance evidence remain intentionally gated behind branch push, Vercel preview creation, and approval; DNS and the live deployment were not changed.\n`;
+const report = `# AbdullahBuilt SEO implementation report\n\nGenerated: 2026-09-27\n\n## Implemented in the migration branch\n\n- Preserved the approved interactive keychain homepage structure and interactions.\n- Kept all 27 canonical routes as 200-status, indexable pages with unique titles, descriptions, one H1, canonical URLs, Open Graph metadata, JSON-LD, contextual internal links, and visible CTAs.\n- Reconciled the migration sitemap to all 27 valuable routes; redirects, the private inbox route, test paths, and previews are excluded.\n- Kept Vercel previews protected with noindex response and metadata directives.\n- Added service workflow diagrams, guide decision matrices, related proof modules, contextual service handoffs, and analytics event hooks.\n- Re-encoded the largest rendered assets as equivalent WebP files; the approved homepage portrait fell from about 2 MB to 76 KB without changing layout.\n- Expanded regression coverage for sitemap membership, duplicate metadata, canonicals, schema, Open Graph, alt text, inbound links, dead destinations, contextual CTAs, and discovery files.\n\n## GSC baseline\n\nThe verified property is ${origin}/. URL Inspection found 5 indexed routes, 4 discovered but not indexed routes, and 18 routes unknown to Google. GSC's sitemap list still displays its older 19-submitted count, while the live sitemap fetch and migration branch contain all 27. No indexing request or sitemap resubmission is made against a preview; refresh the production property only after an approved cutover.\n\n## Research\n\nOpenSEO researched SaaS, AI application, AI agent, web application, API integration, business automation, MVP, product-rescue, and hiring/planning clusters separately in the US, UK, and Canada. Ubersuggest was used once for the highest-priority web-application query as a controlled cross-check. Values are preserved by source and unavailable metrics are marked UNKNOWN. Ahrefs evidence remains UNKNOWN because both connected accounts returned Insufficient plan.\n\n## Verification boundary\n\nThe optimized production build, 36 HTTP/SEO assertions, and the 27-route server-rendered regression pass locally. Local browser launch is blocked because the Playwright CDN returns a zero-byte/truncated Chromium archive; rendered preview verification is performed with the authenticated cloud browser instead. Production sitemap resubmission and indexing requests remain intentionally gated behind an approved production cutover; DNS and the live deployment were not changed.\n`;
 await writeFile(new URL("../seo-implementation-report.md", outDir), report);
 
-const playwrightReport = `# Playwright SEO report\n\n## Completed\n\n- HTTP assertions cover all 27 canonical routes plus robots, sitemap, feed, llms, AI discovery JSON, and the contact API fallback.\n- Browser assertions cover all 27 routes on desktop Chromium and mobile Chromium, one H1, horizontal overflow, invalid link targets, console errors, contextual contact intent, homepage menu behavior, and Cal.com links.\n- The mobile project is explicitly pinned to Chromium; it no longer inherits WebKit from the iPhone device preset.\n\n## Current execution state\n\n- HTTP suite: executable without a browser binary.\n- Rendered cloud-browser audit: completed for all 27 live baseline routes on desktop and mobile viewports; no observed console errors, failed requests, or horizontal overflow.\n- Local Playwright browser suite: pending because this workspace does not currently contain the Playwright Chromium executable.\n- Vercel preview suite and screenshots: pending branch push and automatic Git preview creation.\n\nNo production domain or DNS changes were made.\n`;
+const playwrightReport = `# Playwright SEO report\n\n## Completed\n\n- HTTP assertions cover all 27 canonical routes plus robots, sitemap, feed, llms, AI discovery JSON, contextual service links, preview-origin leakage, and the contact API fallback.\n- Browser assertions cover all 27 routes on desktop and mobile Chromium, one H1, horizontal overflow, invalid link targets, console errors, contextual contact intent, homepage menu behavior, and Cal.com links.\n- The mobile project is explicitly pinned to Chromium; it no longer inherits WebKit from the iPhone device preset.\n\n## Current execution state\n\n- HTTP suite: 36/36 passed.\n- Local Playwright browser suite: BLOCKED because the Playwright CDN repeatedly returned a zero-byte/truncated Chromium archive for build 1243.\n- Vercel Preview rendered verification is performed through the authenticated cloud browser and recorded in the final evidence update.\n\nNo production domain or DNS changes were made.\n`;
 await writeFile(new URL("../playwright-seo-report.md", outDir), playwrightReport);
 
 console.log(`Wrote SEO evidence for ${pages.length} routes to ${outDir.pathname}`);

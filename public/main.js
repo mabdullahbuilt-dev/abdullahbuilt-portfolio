@@ -24,10 +24,10 @@ if (menuButton && menu) {
 }
 
 const projects = {
-  resolve: { src:'/assets/resolve.png', name:'Resolve', description:'Evidence-backed contribution funding on Arc', live:'https://resolve-task.vercel.app/', code:'https://github.com/velz-cmd/Things-to-do', width:1917, height:900, cropTop:77 },
-  meridian: { src:'/assets/meridian.png', name:'Meridian', description:'Market intelligence and strategy replay', live:'https://trader-arc.vercel.app/', code:'https://github.com/velz-cmd/Meridian', width:1917, height:910, cropTop:72 },
-  repodiet: { src:'/assets/repodiet.png', name:'RepoDiet', description:'Verified repository cleanup and reviewable pull requests', live:'https://skillswap-skillswap7.vercel.app/', code:'https://github.com/smokychain22/agentPass', width:1915, height:908, cropTop:55 },
-  agora: { src:'/assets/agora.png', name:'Agora Forge', description:'Cross-chain USDC portfolio and execution', live:'https://circle-arc-net.vercel.app/', code:'https://github.com/Ibrahimmovic/Circle-Arc-Net', width:1917, height:910, cropTop:63 }
+  resolve: { src:'/assets/resolve.webp', name:'Resolve', description:'Evidence-backed contribution funding on Arc', live:'https://resolve-task.vercel.app/', code:'https://github.com/velz-cmd/Things-to-do', width:1917, height:900, cropTop:77 },
+  meridian: { src:'/assets/meridian.webp', name:'Meridian', description:'Market intelligence and strategy replay', live:'https://trader-arc.vercel.app/', code:'https://github.com/velz-cmd/Meridian', width:1917, height:910, cropTop:72 },
+  repodiet: { src:'/assets/repodiet.webp', name:'RepoDiet', description:'Verified repository cleanup and reviewable pull requests', live:'https://skillswap-skillswap7.vercel.app/', code:'https://github.com/smokychain22/agentPass', width:1915, height:908, cropTop:55 },
+  agora: { src:'/assets/agora.webp', name:'Agora Forge', description:'Cross-chain USDC portfolio and execution', live:'https://circle-arc-net.vercel.app/', code:'https://github.com/Ibrahimmovic/Circle-Arc-Net', width:1917, height:910, cropTop:63 }
 };
 const projectDialog = document.getElementById('projectDialog');
 const dialogImage = document.getElementById('dialogImage');
@@ -184,6 +184,8 @@ fetch('/api/contact').then((response) => response.json()).then((result) => {
 }).catch(() => {});
 contactForm.addEventListener('submit', async (event) => {
   event.preventDefault();
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'contact_form_submit', service: String(new FormData(contactForm).get('service') || 'general') });
   const button = contactForm.querySelector('button[type="submit"]');
   const data = new FormData(contactForm);
   button.disabled = true;
@@ -203,6 +205,7 @@ contactForm.addEventListener('submit', async (event) => {
         projectUrl: String(data.get('projectUrl') || ''),
         timeline: String(data.get('timeline') || ''),
         budget: String(data.get('budget') || ''),
+        source: String(data.get('source') || ''),
         website: String(data.get('website') || '')
       })
     });
@@ -236,7 +239,20 @@ contactForm.addEventListener('submit', async (event) => {
     button.innerHTML = (contactEmailDelivery ? 'Send message' : 'Continue to email') + ' <span aria-hidden="true">↗</span>';
   }
 });
+contactForm.addEventListener('focusin', () => {
+  if (contactForm.dataset.started) return;
+  contactForm.dataset.started = 'true';
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'contact_form_start', service: String(serviceField?.value || 'general') });
+});
 }
+
+document.addEventListener('click', (event) => {
+  const target = event.target instanceof Element ? event.target.closest('[data-event]') : null;
+  if (!target) return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: target.getAttribute('data-event'), service: target.getAttribute('data-service') || undefined, destination: target.getAttribute('href') || undefined });
+});
 
 // Cal.com inline calendar for muhammad-abdullah-built/idea-to-product.
 const calContainer = document.getElementById('my-cal-inline-idea-to-product');
