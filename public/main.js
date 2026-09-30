@@ -24,9 +24,9 @@ if (menuButton && menu) {
 }
 
 const projects = {
-  resolve: { src:'/assets/resolve.webp', name:'Resolve', description:'Evidence-backed contribution funding on Arc', live:'https://resolve-task.vercel.app/', code:'https://github.com/velz-cmd/Things-to-do', width:1917, height:900, cropTop:77 },
-  meridian: { src:'/assets/meridian.webp', name:'Meridian', description:'Market intelligence and strategy replay', live:'https://trader-arc.vercel.app/', code:'https://github.com/velz-cmd/Meridian', width:1917, height:910, cropTop:72 },
-  repodiet: { src:'/assets/repodiet.webp', name:'RepoDiet', description:'Verified repository cleanup and reviewable pull requests', live:'https://skillswap-skillswap7.vercel.app/', code:'https://github.com/smokychain22/agentPass', width:1915, height:908, cropTop:55 },
+  resolve: { src:'/assets/resolve.webp', name:'Resolve', description:'Evidence-backed contribution funding on Arc', live:'https://www.useresolve.stream', code:'https://github.com/velz-cmd/Things-to-do', width:1917, height:900, cropTop:77 },
+  meridian: { src:'/assets/meridian.webp', name:'Meridian', description:'Market intelligence and strategy replay', live:'https://meridianarc.stream', code:'https://github.com/velz-cmd/Meridian', width:1917, height:910, cropTop:72 },
+  repodiet: { src:'/assets/repodiet.webp', name:'RepoDiet', description:'Verified repository cleanup and reviewable pull requests', live:'https://repodiet.uk', code:'https://github.com/smokychain22/agentPass', width:1915, height:908, cropTop:55 },
   agora: { src:'/assets/agora.webp', name:'Agora Forge', description:'Cross-chain USDC portfolio and execution', live:'https://circle-arc-net.vercel.app/', code:'https://github.com/Ibrahimmovic/Circle-Arc-Net', width:1917, height:910, cropTop:63 }
 };
 const projectDialog = document.getElementById('projectDialog');

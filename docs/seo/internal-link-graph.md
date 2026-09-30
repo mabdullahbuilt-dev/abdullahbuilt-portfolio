@@ -23,9 +23,9 @@ Columns:
 | `/services/ai-application-development/` | 2 | 6 | 6 | 9 | no | ok | Service AI Application & Agent Development → (3); AI application development → (3); AI AI Application & Agent Development → (1) |
 | `/services/product-rescue/` | 2 | 5 | 5 | 9 | no | ok | Service Product Rescue & Stabilization → (2); Rescue Product Rescue & Stabilization → (1); Product Rescue & Stabilization Diagnose a stalle (1) |
 | `/work/` | 1 | 26 | 5 | 6 | no | high | Work (4); View software case studies ↗ (1) |
-| `/work/resolve/` | 2 | 14 | 14 | 9 | no | ok | resolve-task.vercel.app (6); View RESOLVE case study ↗ (6); resolve-task.vercel.app RESOLVE Outcome-backed p (2) |
-| `/work/meridian/` | 2 | 12 | 12 | 9 | no | ok | trader-arc.vercel.app (5); View MERIDIAN case study ↗ (5); trader-arc.vercel.app MERIDIAN A complete learni (2) |
-| `/work/repodiet/` | 2 | 10 | 10 | 10 | no | ok | skillswap-skillswap7.vercel.app (5); View RepoDiet case study ↗ (5); Proof-carrying software maintenance RepoDiet Rep (1) |
+| `/work/resolve/` | 2 | 14 | 14 | 9 | no | ok | www.useresolve.stream (6); View RESOLVE case study ↗ (6); www.useresolve.stream RESOLVE Outcome-backed pay (2) |
+| `/work/meridian/` | 2 | 12 | 12 | 9 | no | ok | meridianarc.stream (5); View MERIDIAN case study ↗ (5); meridianarc.stream MERIDIAN A complete learning  (2) |
+| `/work/repodiet/` | 2 | 10 | 10 | 10 | no | ok | repodiet.uk (5); View RepoDiet case study ↗ (5); Proof-carrying software maintenance RepoDiet Rep (1) |
 | `/work/agora-forge/` | 2 | 10 | 10 | 8 | no | ok | circle-arc-net.vercel.app (4); View Agora Forge case study ↗ (4); circle-arc-net.vercel.app Agora Forge Cross-chai (2) |
 | `/guides/` | 1 | 26 | 10 | 17 | no | high | Guides (9); Read product development guides ↗ (1) |
 | `/guides/hire-saas-developer/` | 2 | 3 | 3 | 8 | no | high | Hiring How to hire a SaaS developer for a produc (2); Hiring How to hire a SaaS developer for a produc (1) |

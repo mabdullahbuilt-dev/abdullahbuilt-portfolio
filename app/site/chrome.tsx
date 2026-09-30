@@ -12,7 +12,7 @@ export function Header({ path }: { path: string }) {
 }
 
 export function Footer() {
-  return <footer className="seo-footer"><span>© 2026 Muhammad Abdullah</span><div><a href="mailto:mabdullah.built@gmail.com">Email</a><a href="https://www.linkedin.com/in/muhammad-abdullah-builder/">LinkedIn</a><a href="https://github.com/velz-cmd">GitHub</a><Link href="/contact/">Start a project</Link></div></footer>;
+  return <footer className="seo-footer"><span>© 2026 Muhammad Abdullah</span><div><a href="mailto:mabdullah.built@gmail.com">Email</a><a href="https://www.linkedin.com/in/muhammad-abdullah-builder">LinkedIn</a><a href="https://github.com/velz-cmd">GitHub</a><a href="https://www.facebook.com/mabdullah.built/">Facebook</a><Link href="/contact/">Start a project</Link></div></footer>;
 }
 
 export function Crumbs({ items }: { items: { name: string; href?: string }[] }) {

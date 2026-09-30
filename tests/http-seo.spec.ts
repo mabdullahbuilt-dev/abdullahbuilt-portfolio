@@ -58,7 +58,7 @@ test("every route ships parseable JSON-LD with apex-only @id and url values", as
     for (const block of blocks) {
       const data = JSON.parse(block);
       const ids = JSON.stringify(data).match(/"(?:@id|url|item)":"[^"]+"/g) || [];
-      for (const id of ids) if (!/mailto:|vercel\.app\/"|github\.com|linkedin\.com|facebook\.com|resolve-task|trader-arc|skillswap|circle-arc/.test(id)) expect(id, route).toMatch(/https:\/\/abdullahbuilt\.top\//);
+      for (const id of ids) if (!/mailto:|github\.com|linkedin\.com|facebook\.com|useresolve\.stream|meridianarc\.stream|repodiet\.uk|circle-arc-net\.vercel\.app/.test(id)) expect(id, route).toMatch(/https:\/\/abdullahbuilt\.top\//);
     }
   }
 });
@@ -93,4 +93,58 @@ test("vercel.app aliases are noindex while the canonical host stays indexable", 
   expect(alias.headers()["x-robots-tag"] || "").toContain("noindex");
   const canonical = await request.get("/services/", { headers: { host: "abdullahbuilt.top" } });
   expect(canonical.headers()["x-robots-tag"] || "").not.toContain("noindex");
+});
+
+const projectLive: Record<string, string> = {
+  resolve: "https://www.useresolve.stream",
+  meridian: "https://meridianarc.stream",
+  repodiet: "https://repodiet.uk",
+  "agora-forge": "https://circle-arc-net.vercel.app/",
+};
+const staleProjectHosts = /resolve-task\.vercel\.app|resolve-self\.vercel\.app|trader-arc\.vercel\.app|skillswap-skillswap7\.vercel\.app/;
+const profiles = {
+  linkedin: "https://www.linkedin.com/in/muhammad-abdullah-builder",
+  facebook: "https://www.facebook.com/mabdullah.built/",
+  github: "https://github.com/velz-cmd",
+};
+
+test("case studies link to the owner-confirmed project domains and state the role", async ({ request }) => {
+  for (const [slug, live] of Object.entries(projectLive)) {
+    const html = await (await request.get(`/work/${slug}/`)).text();
+    const hrefs = [...html.matchAll(/<a[^>]*href="([^"]+)"[^>]*>(?:View live project|Open the live build)/g)].map(match => match[1]);
+    expect(hrefs.length, slug).toBeGreaterThanOrEqual(2);
+    for (const href of hrefs) expect(href, slug).toBe(live);
+    expect(html, slug).toContain("Full-stack engineer");
+    const graph = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.stringify(JSON.parse(match[1]))).join("");
+    expect(graph, slug).toContain(`"url":"${live}"`);
+  }
+});
+
+test("no public page or machine file points at a stale project deployment", async ({ request }) => {
+  for (const path of [...routes, "/main.js", "/llms.txt", "/llms-full.txt", "/.well-known/ai.txt", "/ai/summary.json", "/ai/service.json", "/ai/faq.json"]) {
+    expect(await (await request.get(path)).text(), path).not.toMatch(staleProjectHosts);
+  }
+  const home = await (await request.get("/")).text();
+  for (const live of Object.values(projectLive)) expect(home).toContain(`href="${live}"`);
+  const script = await (await request.get("/main.js")).text();
+  for (const live of Object.values(projectLive)) expect(script).toContain(`live:'${live}'`);
+});
+
+test("Person entity uses the owner-confirmed public profiles", async ({ request }) => {
+  const html = await (await request.get("/")).text();
+  const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)![1])["@graph"];
+  const person = graph.find((node: { "@type": string }) => node["@type"] === "Person");
+  expect(person.sameAs).toEqual([profiles.linkedin, profiles.github, profiles.facebook]);
+  expect(person.jobTitle).toBe("Full-Stack Engineer");
+  const about = await (await request.get("/about/")).text();
+  for (const url of Object.values(profiles)) expect(about).toContain(`href="${url}"`);
+  const summary = await (await request.get("/ai/summary.json")).json();
+  expect(summary.sameAs).toEqual([profiles.linkedin, profiles.github, profiles.facebook]);
+  expect(summary.projects.map((project: { url: string }) => project.url)).toEqual(Object.values(projectLive));
+});
+
+test("feed lists every guide on the canonical host", async ({ request }) => {
+  const xml = await (await request.get("/feed.xml")).text();
+  const links = [...xml.matchAll(/<link>https:\/\/abdullahbuilt\.top(\/guides\/[^<]+)<\/link>/g)].map(match => match[1]).sort();
+  expect(links).toEqual(routes.filter(route => route.startsWith("/guides/") && route !== "/guides/").sort());
 });

@@ -799,7 +799,7 @@
 .profiles{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:32px}
 .profiles a{color:var(--accent);font-weight:600;text-decoration:none}
 .profiles a:hover{text-decoration:underline}
-.profile-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:28px 0 0;padding:0;list-style:none;border-top:1px solid var(--line2)}
+.profile-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(max-content,1.25fr);margin:28px 0 0;padding:0;list-style:none;border-top:1px solid var(--line2)}
 .profile-list li+li{border-left:1px solid var(--line)}
 .profile-list a{display:block;padding:18px 16px;text-decoration:none;transition:background .2s}
 .profile-list li:first-child a{padding-left:0}
@@ -813,7 +813,7 @@
 .contact__steps li::before{content:counter(cs,decimal-leading-zero);grid-row:1 / span 2;color:var(--accent);font:500 12px/1.7 var(--mono)}
 .contact__steps strong{font-size:16px}
 .contact__steps span{color:var(--muted);font-size:14.5px;line-height:1.5}
-@media (max-width: 980px){.portrait{justify-self:start}.portrait img{width:180px}.capmap{grid-template-columns:repeat(2,minmax(0,1fr))}.capmap>li:not(:nth-child(3n+1)){padding-left:0;border-left:0}.capmap>li:nth-child(2n){padding-left:20px;border-left:1px solid var(--line)}.profile-list{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-list li:nth-child(3){border-left:0}.profile-list li:nth-child(3) a{padding-left:0}.seo-page .contact{grid-template-columns:1fr}}
+@media (max-width: 980px){.portrait{justify-self:start}.portrait img{width:180px}.capmap{grid-template-columns:repeat(2,minmax(0,1fr))}.capmap>li:not(:nth-child(3n+1)){padding-left:0;border-left:0}.capmap>li:nth-child(2n){padding-left:20px;border-left:1px solid var(--line)}.profile-list{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-list li:nth-child(2n+1){border-left:0}.profile-list li:nth-child(2n+1) a{padding-left:0}.seo-page .contact{grid-template-columns:1fr}}
 @media (max-width: 760px){.principles,.capmap,.profile-list{grid-template-columns:1fr}.capmap>li:nth-child(2n){padding-left:0;border-left:0}.profile-list li+li{border-left:0}.profile-list a,.profile-list li:first-child a{padding:14px 0}}
 .dg__node:has(>.dg__spine-zone)>.dg__index{grid-row:2 / span 3}
 @media (max-width: 1080px){.sec--band,.sec--wide,.sec--center{grid-template-columns:1fr}}

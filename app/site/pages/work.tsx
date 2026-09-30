@@ -31,15 +31,15 @@ export function CaseStudy({ project }: { project: Project }) {
     <Crumbs items={[{ name: "Home", href: "/" }, { name: "Work", href: "/work/" }, { name: project.name }]} />
     <Hero variant="case" eyebrow={`Case study / ${project.subtitle}`} title={project.name} lede={<p>{project.description}</p>}
       actions={<><a className="seo-button" href={project.live}>View live project <span>↗</span></a><a className="seo-text-link" href={project.code}>Inspect source ↗</a></>}
-      aside={<dl className="facts">{visual.facts.map(fact => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>} />
+      aside={<dl className="facts">{[{ label: "Role", value: "Full-stack engineer" }, ...visual.facts].map(fact => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>} />
     <div className="band band--deep"><div className="band__inner">
       <AnnotatedShot eager shot={{ src: media.image, width: media.width, height: media.height, alt: media.alt, host: hostOf(project.live) }} notes={visual.notes} caption="Product interface from the working public build." />
     </div></div>
-    <p className="seo-byline case-byline">Product and engineering work by Muhammad Abdullah · Updated {updatedLong}</p>
+    <p className="seo-byline case-byline">Role: Full-stack engineer — Muhammad Abdullah · Updated {updatedLong}</p>
     <Section index={idx()} label="Context" title="Problem and constraints">
       <div className="prose"><p>{project.context}</p><p>The product needed to make a technically dense workflow understandable without hiding the states a user must evaluate. The public build and source repository are linked above; no private client metrics are claimed.</p></div>
     </Section>
-    <Section index={idx()} label="Role" title="Role and scope" intro={<p>Product structure, interaction design, full-stack implementation, integration flow, and deployment were treated as one connected release. The goal was a demonstrable working system rather than a static concept.</p>}>
+    <Section index={idx()} label="Role" title="Role and scope" intro={<p>Muhammad Abdullah was the full-stack engineer on {project.name}. Product structure, interaction design, full-stack implementation, integration flow, and deployment were treated as one connected release. The goal was a demonstrable working system rather than a static concept.</p>}>
       <ol className="roles">{visual.role.map(item => <li key={item.label}><span>{item.label}</span><strong>{item.text}</strong></li>)}</ol>
     </Section>
     <Section index={idx()} label="Build" title="What was built" intro={<p>{project.built}</p>}>

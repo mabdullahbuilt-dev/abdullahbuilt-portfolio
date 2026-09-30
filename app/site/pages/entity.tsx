@@ -20,8 +20,9 @@ const principles = [
   { title: "Test, ship, hand over", text: "Verified behavior, a deployed release, and a codebase the client owns." },
 ];
 const profiles = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/muhammad-abdullah-builder/", text: "Background and experience" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/muhammad-abdullah-builder", text: "Background and experience" },
   { label: "GitHub", href: "https://github.com/velz-cmd", text: "Public repositories" },
+  { label: "Facebook", href: "https://www.facebook.com/mabdullah.built/", text: "Public profile" },
   { label: "Résumé", href: "/Muhammad_Abdullah_Resume.pdf", text: "PDF" },
   { label: "Email", href: "mailto:mabdullah.built@gmail.com", text: "mabdullah.built@gmail.com" },
 ];
@@ -35,7 +36,7 @@ export function AboutPage() {
       <div className="pg-hero__copy">
         <p className="ab-eyebrow">About</p>
         <h1>A product partner for the part where ideas become real<span className="pg-hero__dot">.</span></h1>
-        <div className="pg-hero__lede"><p>I’m Muhammad Abdullah, an independent product builder, full-stack engineer, and hackathon winner based in Faisalabad, working remotely with clients worldwide.</p></div>
+        <div className="pg-hero__lede"><p>I’m Muhammad Abdullah, an independent product builder and full-stack engineer based in Faisalabad, working remotely with clients worldwide.</p></div>
       </div>
       <div className="pg-hero__aside"><figure className="portrait"><img src="/assets/abdullah.png" width="320" height="320" alt="Muhammad Abdullah" fetchPriority="high" /><figcaption>Faisalabad · remote worldwide</figcaption></figure></div>
     </header>

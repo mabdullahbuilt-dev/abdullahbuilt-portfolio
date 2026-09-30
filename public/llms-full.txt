@@ -1,6 +1,6 @@
 # AbdullahBuilt — full site context
 
-AbdullahBuilt (abdullahbuilt.top, also written "Abdullah Built") is the independent practice of Muhammad Abdullah. Muhammad Abdullah is an independent product builder, full-stack engineer, and hackathon winner based in Faisalabad, Pakistan, working with clients worldwide. He turns early product ideas, business problems, manual workflows, and difficult features into working software.
+AbdullahBuilt (abdullahbuilt.top, also written "Abdullah Built") is the independent practice of Muhammad Abdullah. Muhammad Abdullah is an independent product builder and full-stack engineer based in Faisalabad, Pakistan, working with clients worldwide. He turns early product ideas, business problems, manual workflows, and difficult features into working software.
 
 ## Capabilities
 Product definition, user flows, TypeScript, JavaScript, Next.js, React, responsive interfaces, Supabase, Postgres, Prisma, REST APIs, webhooks, authentication, AI and LLM integrations, controlled agent workflows, workflow automation, GitHub tooling, blockchain-connected products, smart-contract integration, Arc, USDC, Circle CCTP, LI.FI, testing, deployment, and iteration.
@@ -14,8 +14,15 @@ The site includes dedicated pages for custom software, SaaS, web applications, A
 ## Selected work
 RESOLVE connects verified contributions, funding workflows, attribution, treasury, and USDC settlement. MERIDIAN connects market data, explainable strategy rules, historical replay, and optional execution. RepoDiet provides proof-carrying repository maintenance. Agora Forge connects portfolio context with cross-chain USDC execution through Circle CCTP, LI.FI, and Arc.
 
+Muhammad Abdullah was the full-stack engineer on all four projects.
+- RESOLVE: https://www.useresolve.stream (case study: https://abdullahbuilt.top/work/resolve/)
+- MERIDIAN: https://meridianarc.stream (case study: https://abdullahbuilt.top/work/meridian/)
+- RepoDiet: https://repodiet.uk (case study: https://abdullahbuilt.top/work/repodiet/)
+- Agora Forge: https://circle-arc-net.vercel.app/ (case study: https://abdullahbuilt.top/work/agora-forge/)
+
 ## Contact
 Email: mabdullah.built@gmail.com
-LinkedIn: https://www.linkedin.com/in/muhammad-abdullah-builder/
+LinkedIn: https://www.linkedin.com/in/muhammad-abdullah-builder
 GitHub: https://github.com/velz-cmd
+Facebook: https://www.facebook.com/mabdullah.built/
 Booking: https://cal.com/muhammad-abdullah-built/idea-to-product
