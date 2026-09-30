@@ -34,7 +34,7 @@
 | 11 | SERP intent | PARTIAL | 4 live search-result samples (SaaS services = agencies; hire guide = guides + marketplaces; webhook = technical articles; rescue = "vibe code rescue") | Rescue terminology gap closed | Sample the remaining priority queries |
 | 12 | Topical authority | PARTIAL | 7 clusters mapped below; 9 guides | — | Add pages only for distinct intent |
 | 13 | Content quality | IMPLEMENTED + VERIFIED | Page-specific content; generic boilerplate removed in the redesign | — | Owner experience inputs |
-| 14 | AI-content quality | IMPLEMENTED + VERIFIED | No mass generation; no invented clients, metrics, or prices; `[OWNER INPUT NEEDED]` where evidence is missing | — | — |
+| 14 | AI-content quality | IMPLEMENTED + VERIFIED | No mass generation; no invented clients, metrics, or prices; unverifiable specifics (provider names, anecdotes, awards) are omitted | — | — |
 | 15 | Programmatic SEO | NOT IMPLEMENTED (by decision) | No structured data model with distinct, validated intents yet; see decision below | Opportunity study | Revisit when GSC shows long-tail demand |
 | 16 | Image SEO | PARTIAL | WebP, fixed dimensions, lazy below the fold, descriptive alts; screenshots sanitized; OG image present | — | AVIF/responsive `srcset` for case-study images (P2) |
 | 17 | Video SEO | NOT APPLICABLE (no videos) | No VideoObject (correct) | Roadmap in `brand-entity-and-authority.md` | Owner records video 1 |
@@ -43,7 +43,7 @@
 | 20 | GEO/AEO/AI search | IMPLEMENTED + VERIFIED | llms.txt, llms-full.txt, ai.txt, AI JSON endpoints live; AI crawlers allowed | Brand added to all discovery files | — (no AI-citation promises) |
 | 21 | Backlinks | PARTIAL | Verified baseline: owned GitHub mentions only; GSC Links report UI-only | 0 backlinks created (no external access) | Priority queue in authority doc |
 | 22 | Brand mentions | IMPLEMENTED + VERIFIED (audit) | No unlinked brand mentions exist to reclaim | — | Re-check +60 days |
-| 23 | Digital PR | PLANNED ONLY | No real news hook yet | Pitch and bio drafts (not sent) | Hackathon proof `[OWNER INPUT NEEDED]` |
+| 23 | Digital PR | PLANNED ONLY | No real news hook yet | Pitch and bio drafts (not sent) | Unverified hackathon claim removed from the site (2026-09-30); no PR hook |
 | 24 | Press releases | NOT APPLICABLE (now) | No hook; syndicated releases would be a link scheme | — | — |
 | 25 | EMD/domain strategy | IMPLEMENTED + VERIFIED (decision) | No EMDs recommended | — | Optional defensive `.com` (owner) |
 | 26 | Algorithm monitoring | IMPLEMENTED BUT NOT VERIFIED | Status Dashboard not reachable from this environment | `search-change-log.md` created | Owner fills in incident details |
@@ -77,7 +77,7 @@
 | AI / automation | /services/ | ai-application-development, business-automation | ai-feature-vs-automation | RepoDiet, RESOLVE | — | none |
 | Product rescue | /services/ | product-rescue | rescue-ai-built-web-app | RepoDiet, MERIDIAN | "vibe code rescue" wording (FAQ added) | none |
 | Hiring / buyer education | /guides/ | (services) | hire-saas-developer, hire-web-app-developer | all | — | none |
-| Work / proof | /work/ | contact | — | 4 case studies | Role clarity on team projects `[OWNER INPUT NEEDED]` | work: 4 impressions |
+| Work / proof | /work/ | contact | — | 4 case studies | Role OWNER-CONFIRMED: Full-stack engineer on all four | work: 4 impressions |
 
 ## Programmatic SEO decision
 

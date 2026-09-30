@@ -5,6 +5,12 @@
   ],
   "name": "Muhammad Abdullah",
   "url": "https://abdullahbuilt.top/",
+  "jobTitle": "Full-stack engineer",
+  "sameAs": [
+    "https://www.linkedin.com/in/muhammad-abdullah-builder",
+    "https://github.com/velz-cmd",
+    "https://www.facebook.com/mabdullah.built/"
+  ],
   "description": "Independent product builder and full-stack engineer building custom software, SaaS products, web applications, integrations, automation, and MVPs for clients worldwide.",
   "areaServed": "Worldwide",
   "language": "English",
@@ -17,6 +23,32 @@
     "MVP product development",
     "AI application and agent development",
     "Product rescue and stabilization"
+  ],
+  "projects": [
+    {
+      "name": "RESOLVE",
+      "role": "Full-stack engineer",
+      "url": "https://www.useresolve.stream",
+      "caseStudy": "https://abdullahbuilt.top/work/resolve/"
+    },
+    {
+      "name": "MERIDIAN",
+      "role": "Full-stack engineer",
+      "url": "https://meridianarc.stream",
+      "caseStudy": "https://abdullahbuilt.top/work/meridian/"
+    },
+    {
+      "name": "RepoDiet",
+      "role": "Full-stack engineer",
+      "url": "https://repodiet.uk",
+      "caseStudy": "https://abdullahbuilt.top/work/repodiet/"
+    },
+    {
+      "name": "Agora Forge",
+      "role": "Full-stack engineer",
+      "url": "https://circle-arc-net.vercel.app/",
+      "caseStudy": "https://abdullahbuilt.top/work/agora-forge/"
+    }
   ],
   "contact": "mabdullah.built@gmail.com",
   "updated": "2026-09-30"

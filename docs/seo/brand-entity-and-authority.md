@@ -18,14 +18,15 @@ Nothing here claims rankings, backlinks, or coverage that does not exist.
 | Person | **Muhammad Abdullah** | Person JSON-LD, About, bylines, footer |
 | Canonical site | `https://abdullahbuilt.top/` | canonicals, sitemap, JSON-LD `@id`s |
 | Relationship | Person → `brand` and `worksFor` → AbdullahBuilt; AbdullahBuilt → `founder` and `provider` → Person | layout JSON-LD (SEO branch) |
-| Role | Independent product engineer and full-stack engineer | Person `jobTitle` |
+| Role | **Full-stack engineer** (OWNER-CONFIRMED) — on RESOLVE, MERIDIAN, RepoDiet, and Agora Forge | Person `jobTitle` "Full-Stack Engineer"; case-study hero fact, byline, and role section; `ai/summary.json` projects |
 | Location | Faisalabad, Pakistan; remote worldwide | About, llms-full.txt (no fake offices) |
 | Contact | mabdullah.built@gmail.com | Person, ContactPoint |
-| `sameAs` | LinkedIn `/in/muhammad-abdullah-builder/`, GitHub `velz-cmd`, a Facebook profile | Person JSON-LD. **The Facebook URL could not be verified from this environment; confirm it is yours and public.** |
+| `sameAs` | LinkedIn https://www.linkedin.com/in/muhammad-abdullah-builder, GitHub https://github.com/velz-cmd, Facebook https://www.facebook.com/mabdullah.built/ (all OWNER-CONFIRMED) | Person JSON-LD, About profile list, footers, llms-full.txt, ai.txt, ai/summary.json |
+| Project live URLs | RESOLVE https://www.useresolve.stream · MERIDIAN https://meridianarc.stream · RepoDiet https://repodiet.uk · Agora Forge https://circle-arc-net.vercel.app/ (all OWNER-CONFIRMED; the old `resolve-task`, `resolve-self`, `trader-arc`, `skillswap-skillswap7` Vercel URLs were removed everywhere, including the résumé PDF link targets) | case studies, proof cards, homepage rows and preview dialog, SoftwareApplication `url`, AI files; CI asserts them |
 
 **Not claimed anywhere:** offices, company size, credentials, awards, reviews, clients, or education.
 
-"Hackathon winner" appears in the About copy, which predates this work. **`[OWNER INPUT NEEDED]` Name the hackathon and link the public result.** Until then, do not repeat the claim off-site.
+"Hackathon winner" was removed from the homepage, About, and llms-full.txt on 2026-09-30: no public evidence of a win was found (web search shows MERIDIAN as a lablab.ai hackathon **submission**, not a winner). It must not be used off-site.
 
 ## 2. Brand SERP — current evidence (free web search, 2026-09-30)
 
@@ -48,8 +49,8 @@ Nothing here claims rankings, backlinks, or coverage that does not exist.
 | Profile name / bio (velz-cmd) | "Abdullah", bio "Product Builder" | Set name to "Muhammad Abdullah", bio to "Independent product engineer · AbdullahBuilt · abdullahbuilt.top" | BLOCKED (owner) |
 | Profile website | **Not set** | Add `https://abdullahbuilt.top` | BLOCKED (owner) |
 | Repos Meridian, Things-to-do (RESOLVE) | No descriptions, no homepage | Description + homepage (live demo) + README link to the case study (`/work/meridian/`, `/work/resolve/`) | BLOCKED (owner; outside this session's repo scope) |
-| agentPass (RepoDiet) | A fork; upstream is `pirthvi-r12/agentPass` | Confirm your role. If you contributed, say so accurately in the README and case study. | `[OWNER INPUT NEEDED]` |
-| Circle-Arc-Net (Agora Forge) | Owned by `Ibrahimmovic` | Same: confirm your role | `[OWNER INPUT NEEDED]` |
+| agentPass (RepoDiet) | Source linked from the case study (`smokychain22/agentPass`) | Role OWNER-CONFIRMED: Full-stack engineer (stated on the case study) | DONE |
+| Circle-Arc-Net (Agora Forge) | Owned by `Ibrahimmovic` | Role OWNER-CONFIRMED: Full-stack engineer (stated on the case study) | DONE |
 | Case study → source repo | Present on all four case studies | — | DONE |
 | Stars/forks | — | No manipulation | policy |
 
@@ -88,7 +89,7 @@ No unlinked mentions of AbdullahBuilt were found, so there is **nothing to recla
 
 **News hook assessment:**
 - A site relaunch alone is **not news**.
-- A named hackathon win with a public result **could be** news: `[OWNER INPUT NEEDED]`.
+- A hackathon win is **not** a usable hook: it could not be verified, and the claim was removed.
 - An open-source release of the webhook reference code **could be** a developer-community launch rather than press.
 
 **Decision:** no press release now. Syndicated releases would be a link scheme without a real hook.
@@ -132,3 +133,17 @@ The site already states remote, worldwide, English-language delivery truthfully.
 **No exact-match or keyword domains are recommended.** They would split authority, dilute the entity, and risk doorway patterns.
 
 A defensive registration of the `.com` for the brand is optional and only after an availability check. No domain was registered; that needs owner approval.
+
+## 10. Project-site attribution (cross-linking)
+
+The owner controls the product sites https://www.useresolve.stream, https://meridianarc.stream and https://repodiet.uk, but their source repositories are **not** in this session's GitHub scope. The sites are also unreachable from this sandbox (egress block), so their current footers could not be inspected.
+
+**Recommended (not implemented; BLOCKED BY EXTERNAL ACCESS):** a single footer credit on each product site:
+
+> Engineering by Muhammad Abdullah — [AbdullahBuilt](https://abdullahbuilt.top/)
+
+Rules for the credit:
+- The anchor is the brand, not an exact-match keyword.
+- One link in the footer or About area, not a sitewide keyword link.
+- Keep the credit only on sites the owner controls. None for Agora Forge (repo owned by `Ibrahimmovic`).
+- This is not a reciprocal-link scheme: each case study already links to its product because it is the real product.

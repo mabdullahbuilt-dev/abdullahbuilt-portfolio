@@ -5,6 +5,7 @@ owner: Muhammad Abdullah
 type: independent product engineer and full-stack engineer
 language: en
 area-served: worldwide
+profiles: https://www.linkedin.com/in/muhammad-abdullah-builder, https://github.com/velz-cmd, https://www.facebook.com/mabdullah.built/
 contact: mailto:mabdullah.built@gmail.com
 services: custom software development, SaaS development, web application development, API integrations, business automation, MVP product development, AI application and agent development, product rescue and stabilization
 canonical-summary: https://abdullahbuilt.top/ai/summary.json

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Muhammad Abdullah — Product Engineering</title>
+    <title>AbdullahBuilt — Muhammad Abdullah, Full-Stack Engineer</title>
     <link>https://abdullahbuilt.top/</link>
     <description>Software product case studies and practical development guides.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 27 Sep 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2026 00:00:00 GMT</lastBuildDate>
     <item><title>Reliable webhook integration</title><link>https://abdullahbuilt.top/guides/reliable-webhook-integration/</link><guid>https://abdullahbuilt.top/guides/reliable-webhook-integration/</guid><pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate><description>Retries, idempotency, ordering, observability, and recovery for dependable webhook workflows.</description></item>
     <item><title>AI feature vs automation</title><link>https://abdullahbuilt.top/guides/ai-feature-vs-automation/</link><guid>https://abdullahbuilt.top/guides/ai-feature-vs-automation/</guid><pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate><description>Choose between deterministic automation, model reasoning, agents, and human review.</description></item>
     <item><title>How to rescue an AI-built web app</title><link>https://abdullahbuilt.top/guides/rescue-ai-built-web-app/</link><guid>https://abdullahbuilt.top/guides/rescue-ai-built-web-app/</guid><pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate><description>Assess, stabilize, verify, and release an inherited or AI-built application.</description></item>
@@ -13,5 +13,7 @@
     <item><title>SaaS MVP development cost and scope</title><link>https://abdullahbuilt.top/guides/saas-mvp-development-cost/</link><guid>https://abdullahbuilt.top/guides/saas-mvp-development-cost/</guid><pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate><description>A scope-first guide to the decisions that determine the cost of a SaaS MVP.</description></item>
     <item><title>Custom software vs SaaS</title><link>https://abdullahbuilt.top/guides/custom-software-vs-saas/</link><guid>https://abdullahbuilt.top/guides/custom-software-vs-saas/</guid><pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate><description>A practical build-or-buy decision framework.</description></item>
     <item><title>Startup MVP development: build a complete learning loop</title><link>https://abdullahbuilt.top/guides/startup-mvp-development/</link><guid>https://abdullahbuilt.top/guides/startup-mvp-development/</guid><pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate><description>A practical guide to defining and shipping a useful MVP.</description></item>
+    <item><title>How to hire a web app developer</title><link>https://abdullahbuilt.top/guides/hire-web-app-developer/</link><guid>https://abdullahbuilt.top/guides/hire-web-app-developer/</guid><pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate><description>A practical guide to reviewing frontend, backend, data, integrations, testing, ownership, and deployment.</description></item>
+    <item><title>How to hire a SaaS developer</title><link>https://abdullahbuilt.top/guides/hire-saas-developer/</link><guid>https://abdullahbuilt.top/guides/hire-saas-developer/</guid><pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate><description>A practical guide to evaluating SaaS product scope, architecture, integrations, delivery, ownership, and handoff.</description></item>
   </channel>
 </rss>

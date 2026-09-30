@@ -57,6 +57,15 @@ These results reflect Google's last crawl (as of 2026-09-24), which predates the
 
 "Discovered – currently not indexed" on a new, low-authority domain usually means Google has not yet spent crawl budget on the page. It is not a technical block: none of these URLs is blocked by robots or noindex, and every one is in the sitemap. The lever is authority and internal and external links, not more indexing requests.
 
+## Re-inspection after the SEO deploy (2026-09-30, production `dd82963`)
+
+The five URLs that were "unknown to Google" are now **Discovered – currently not indexed**: `/services/product-rescue/`, `/work/repodiet/`, `/guides/startup-mvp-development/`, `/guides/custom-software-vs-saas/`, `/contact/`. Google has now discovered them from the sitemap and internal links; referring URLs include `/services/custom-software-development/`, `/guides/hire-saas-developer/` and `sitemap.xml`. None is indexed yet.
+
+**Updated totals:**
+- Indexed: 5
+- Discovered – not indexed: 22
+- Unknown: 0
+
 ## Performance baseline (Search Analytics)
 
 | Window | Clicks | Impressions | CTR | Avg position |
