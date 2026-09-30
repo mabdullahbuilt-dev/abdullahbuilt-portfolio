@@ -17,7 +17,7 @@ export function projectSchema(project: Project) {
   const url = `${origin}/work/${project.slug}/`, media = projectMedia[project.slug];
   return { "@context": "https://schema.org", "@graph": [
     { "@type": "WebPage", "@id": `${url}#webpage`, url, name: `${project.name} software case study`, description: project.description, isPartOf: { "@id": `${origin}/#website` }, dateModified: updated },
-    { "@type": "SoftwareApplication", "@id": `${url}#software`, name: project.name, description: project.description, url: project.live, author: { "@id": `${origin}/#person` }, applicationCategory: "BusinessApplication", image: `${origin}${media.image}`, dateModified: updated },
+    { "@type": "SoftwareApplication", "@id": `${url}#software`, name: project.name, description: project.description, url: project.live, contributor: { "@id": `${origin}/#person` }, applicationCategory: project.slug === "repodiet" ? "DeveloperApplication" : "FinanceApplication", operatingSystem: "Web", image: `${origin}${media.image}`, dateModified: updated },
     crumb([["Home", `${origin}/`], ["Work", `${origin}/work/`], [project.name, url]]),
   ] };
 }

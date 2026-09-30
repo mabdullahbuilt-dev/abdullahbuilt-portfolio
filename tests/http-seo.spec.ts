@@ -101,7 +101,7 @@ const projectLive: Record<string, string> = {
   repodiet: "https://repodiet.uk",
   "agora-forge": "https://circle-arc-net.vercel.app/",
 };
-const staleProjectHosts = /resolve-task\.vercel\.app|resolve-self\.vercel\.app|trader-arc\.vercel\.app|skillswap-skillswap7\.vercel\.app/;
+const staleProjectHosts = /resolve-task\.vercel\.app|resolve-self\.vercel\.app|trader-arc\.vercel\.app|skillswap-skillswap7\.vercel\.app|skillswap-virid-kappa\.vercel\.app/;
 const profiles = {
   linkedin: "https://www.linkedin.com/in/muhammad-abdullah-builder",
   facebook: "https://www.facebook.com/mabdullah.built/",
@@ -147,4 +147,68 @@ test("feed lists every guide on the canonical host", async ({ request }) => {
   const xml = await (await request.get("/feed.xml")).text();
   const links = [...xml.matchAll(/<link>https:\/\/abdullahbuilt\.top(\/guides\/[^<]+)<\/link>/g)].map(match => match[1]).sort();
   expect(links).toEqual(routes.filter(route => route.startsWith("/guides/") && route !== "/guides/").sort());
+});
+
+const machineFiles = ["/sitemap.xml", "/robots.txt", "/feed.xml", "/llms.txt", "/llms-full.txt", "/.well-known/ai.txt", "/ai/summary.json", "/ai/service.json", "/ai/faq.json"];
+const visibleText = (html: string) => html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+
+test("trailing-slash policy: redirect target, final URL and canonical agree on every route", async ({ request }) => {
+  for (const route of routes) {
+    const page = await request.get(route, { maxRedirects: 0 });
+    expect(page.status(), `${route} must render directly`).toBe(200);
+    const canonical = ((await page.text()).match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
+    expect(canonical, route).toBe(`https://abdullahbuilt.top${route}`);
+    if (route === "/") continue;
+    const bare = await request.get(route.slice(0, -1), { maxRedirects: 0 });
+    expect(bare.status(), `${route.slice(0, -1)} must redirect once`).toBe(308);
+    expect(new URL(bare.headers().location, "http://x").pathname, route).toBe(route);
+  }
+});
+
+test("machine files use the canonical host and carry no stale project deployments", async ({ request }) => {
+  for (const path of machineFiles) {
+    const response = await request.get(path);
+    expect(response.status(), path).toBe(200);
+    const body = await response.text();
+    expect(body, path).not.toMatch(staleProjectHosts);
+    expect(body, path).not.toMatch(/abdullahbuilt-portfolio[\w-]*\.vercel\.app/);
+    if (path.endsWith(".json")) expect(() => JSON.parse(body), path).not.toThrow();
+  }
+});
+
+test("no unverified award claims anywhere", async ({ request }) => {
+  for (const path of [...routes, ...machineFiles, "/main.js"]) {
+    expect(await (await request.get(path)).text(), path).not.toMatch(/hackathon winner|won the .*hackathon|award-winning/i);
+  }
+});
+
+test("case studies keep the verified evidence qualifiers", async ({ request }) => {
+  const text = async (slug: string) => visibleText(await (await request.get(`/work/${slug}/`)).text());
+  const agora = await text("agora-forge");
+  expect(agora).not.toMatch(/\b(AI|LLM)[- ]agents?\b|autonomous(ly)? (sign|execut)/i);
+  expect(agora).toMatch(/rule-based/i);
+  expect(agora).toContain("Circle CCTP via Circle App Kit (testnet)");
+  const repodiet = await text("repodiet");
+  expect(repodiet).not.toMatch(/independent(ly)? verif|independent check/i);
+  expect(repodiet).toMatch(/separate verifier role/i);
+  const meridian = await text("meridian");
+  expect(meridian).toContain("Co-built — Muhammad Abdullah served as full-stack engineer, with work including the Gate strategy desk and BSC testnet execution.");
+  expect(meridian).not.toMatch(/\bsole (author|creator|builder|engineer)|AI trading agent/i);
+  const resolve = await text("resolve");
+  expect(resolve).toMatch(/disabled by a feature flag/i);
+  expect(resolve).toMatch(/Arc Testnet/);
+  expect(resolve).not.toMatch(/mainnet (deployment|payouts?) (is|are) (live|running|enabled)|live payouts (are )?(enabled|running)/i);
+  for (const slug of ["resolve", "meridian", "repodiet", "agora-forge"]) {
+    const html = await (await request.get(`/work/${slug}/`)).text();
+    const graph = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+    const app = graph.flatMap(block => block["@graph"] || [block]).find((node: { "@type": string }) => node["@type"] === "SoftwareApplication");
+    expect(app.contributor["@id"], slug).toBe("https://abdullahbuilt.top/#person");
+    expect(app.author, slug).toBeUndefined();
+  }
+});
+
+test("service proof never describes RepoDiet verification as independent", async ({ request }) => {
+  for (const route of routes.filter(route => route.startsWith("/services/") || route === "/about/" || route === "/work/")) {
+    expect(visibleText(await (await request.get(route)).text()), route).not.toMatch(/independent(ly)? verif/i);
+  }
 });

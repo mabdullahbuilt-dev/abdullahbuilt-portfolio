@@ -12,13 +12,12 @@ A suitable engagement can be a complete first release or a defined feature in an
 The site includes dedicated pages for custom software, SaaS, web applications, API integrations, business automation, MVPs, AI application or agent workflows, and product rescue. Buyer guides cover developer selection, MVP scope, build-versus-buy decisions, SaaS MVP cost drivers, API integration planning, AI product architecture, webhook reliability, and rescuing unstable or AI-built applications.
 
 ## Selected work
-RESOLVE connects verified contributions, funding workflows, attribution, treasury, and USDC settlement. MERIDIAN connects market data, explainable strategy rules, historical replay, and optional execution. RepoDiet provides proof-carrying repository maintenance. Agora Forge connects portfolio context with cross-chain USDC execution through Circle CCTP, LI.FI, and Arc.
+All four builds are public, testnet-stage products. No users, volume, revenue, returns, or audits are claimed.
 
-Muhammad Abdullah was the full-stack engineer on all four projects.
-- RESOLVE: https://www.useresolve.stream (case study: https://abdullahbuilt.top/work/resolve/)
-- MERIDIAN: https://meridianarc.stream (case study: https://abdullahbuilt.top/work/meridian/)
-- RepoDiet: https://repodiet.uk (case study: https://abdullahbuilt.top/work/repodiet/)
-- Agora Forge: https://circle-arc-net.vercel.app/ (case study: https://abdullahbuilt.top/work/agora-forge/)
+- RESOLVE — evidence-backed contribution funding: evidence connectors, identity resolution, versioned policy snapshots, quadratic funding in bigint micro-USDC, and ERC-8183 escrow via Circle. Settlement runs on Arc Testnet, and live on-chain payouts are currently disabled by a feature flag. Role: full-stack engineer. https://www.useresolve.stream (case study: https://abdullahbuilt.top/work/resolve/)
+- MERIDIAN — explainable market-strategy desk from the BNB Hackathon (Track 2): eight deterministic skills, a nine-check gate, a GRANT/DENY constitution permit, replay against a baseline, and wallet-signed swaps on BSC Testnet. Co-built — Muhammad Abdullah served as full-stack engineer, with work including the Gate strategy desk and BSC testnet execution. https://meridianarc.stream (case study: https://abdullahbuilt.top/work/meridian/)
+- RepoDiet — contract-bound repository maintenance from the OKX.AI Genesis Hackathon: evidence-gated triage, signed commit-pinned contracts, isolated branches, and a separate verifier role with its own verification and signing boundary (in the same service) issuing in-toto/DSSE receipts. Public JavaScript/TypeScript repositories only. Role: full-stack engineer. https://repodiet.uk (case study: https://abdullahbuilt.top/work/repodiet/)
+- Agora Forge — cross-chain USDC portfolio workspace from the Agora Agent Hackathon: multichain portfolio aggregation, Circle CCTP via Circle App Kit (testnet), LI.FI route comparison and quote-to-transaction execution, and a rule-based, wallet-approved agent console (not an AI/LLM agent). Role: full-stack engineer. https://circle-arc-net.vercel.app/ (case study: https://abdullahbuilt.top/work/agora-forge/)
 
 ## Contact
 Email: mabdullah.built@gmail.com
