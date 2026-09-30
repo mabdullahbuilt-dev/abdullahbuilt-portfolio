@@ -120,3 +120,4 @@ html,body{overflow-x:clip}
   .badge-hint{top:606px}
   .badge-caption{padding:12px 14px}
 }
+.footer>span{flex:none}.footer-pages{display:flex;gap:17px;flex-wrap:wrap}
