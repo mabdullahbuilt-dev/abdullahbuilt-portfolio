@@ -25,6 +25,8 @@ Tracks official Google Search changes, AbdullahBuilt deploys, and what Search Co
 | 2026-09-30 | Owner-confirmed entity facts: real project domains (useresolve.stream, meridianarc.stream, repodiet.uk), Facebook profile in `sameAs`, Full-stack engineer role on case studies, unverified hackathon claim removed, feed.xml complete | `4fd38fe`, [PR #5](https://github.com/mabdullahbuilt-dev/abdullahbuilt-portfolio/pull/5) | Clearer person–brand–project entity graph | 2026-10-30 |
 | 2026-09-30 | Brand-first homepage title; "\| AbdullahBuilt" title suffix; Person↔brand schema; vercel.app noindex; extra internal links; rescue FAQ | `dd82963`, [PR #4](https://github.com/mabdullahbuilt-dev/abdullahbuilt-portfolio/pull/4) | Brand-query association; fewer duplicate hosts | 2026-10-30 |
 
+| 2026-09-30 | Evidence-backed case-study corrections (testnet qualifiers, Meridian co-built attribution, RepoDiet separate verifier role, Agora rule-based console, limitations sections), SoftwareApplication `contributor`, slash/canonical and claim regression tests | branch `claude/final-evidence-seo-closeout` | Accurate project entities; no redirect/canonical conflict once the apex serves the current Vercel build | after DNS cut-over |
+
 ## Snapshots
 
 | Date | Window | Clicks | Impressions | CTR | Avg pos. | Indexed (of 27) | Notes |

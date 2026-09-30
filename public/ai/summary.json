@@ -29,25 +29,29 @@
       "name": "RESOLVE",
       "role": "Full-stack engineer",
       "url": "https://www.useresolve.stream",
-      "caseStudy": "https://abdullahbuilt.top/work/resolve/"
+      "caseStudy": "https://abdullahbuilt.top/work/resolve/",
+      "environment": "Arc Testnet; live on-chain payouts disabled by feature flag"
     },
     {
       "name": "MERIDIAN",
-      "role": "Full-stack engineer",
+      "role": "Full-stack engineer (co-built; Gate strategy desk and BSC testnet execution)",
       "url": "https://meridianarc.stream",
-      "caseStudy": "https://abdullahbuilt.top/work/meridian/"
+      "caseStudy": "https://abdullahbuilt.top/work/meridian/",
+      "environment": "BSC Testnet execution; Arc Testnet decision anchoring"
     },
     {
       "name": "RepoDiet",
       "role": "Full-stack engineer",
       "url": "https://repodiet.uk",
-      "caseStudy": "https://abdullahbuilt.top/work/repodiet/"
+      "caseStudy": "https://abdullahbuilt.top/work/repodiet/",
+      "environment": "Public JS/TS repositories; x402 Quick Triage on X Layer"
     },
     {
       "name": "Agora Forge",
       "role": "Full-stack engineer",
       "url": "https://circle-arc-net.vercel.app/",
-      "caseStudy": "https://abdullahbuilt.top/work/agora-forge/"
+      "caseStudy": "https://abdullahbuilt.top/work/agora-forge/",
+      "environment": "Arc Testnet and Sepolia testnets; rule-based, wallet-approved automation"
     }
   ],
   "contact": "mabdullah.built@gmail.com",

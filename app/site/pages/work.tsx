@@ -39,7 +39,7 @@ export function CaseStudy({ project }: { project: Project }) {
     <Section index={idx()} label="Context" title="Problem and constraints">
       <div className="prose"><p>{project.context}</p><p>The product needed to make a technically dense workflow understandable without hiding the states a user must evaluate. The public build and source repository are linked above; no private client metrics are claimed.</p></div>
     </Section>
-    <Section index={idx()} label="Role" title="Role and scope" intro={<p>Muhammad Abdullah was the full-stack engineer on {project.name}. Product structure, interaction design, full-stack implementation, integration flow, and deployment were treated as one connected release. The goal was a demonstrable working system rather than a static concept.</p>}>
+    <Section index={idx()} label="Role" title="Role and scope" intro={<p>{project.attribution || `Muhammad Abdullah worked on ${project.name} as a full-stack engineer.`}{project.origin ? ` Origin: ${project.origin}.` : ""}</p>}>
       <ol className="roles">{visual.role.map(item => <li key={item.label}><span>{item.label}</span><strong>{item.text}</strong></li>)}</ol>
     </Section>
     <Section index={idx()} label="Build" title="What was built" intro={<p>{project.built}</p>}>
@@ -47,9 +47,13 @@ export function CaseStudy({ project }: { project: Project }) {
     </Section>
     <Section index={idx()} label={visual.map.eyebrow} title="Architecture and workflow" layout="band" intro={<p>{project.architecture}</p>}>
       <Diagram id={`${project.slug}-map`} spec={visual.map} variant="band" />
+      <ul className="tags case-stack" aria-label={`${project.name} stack`}>{project.stack.map(item => <li key={item}>{item}</li>)}</ul>
     </Section>
     <Section index={idx()} label="Decisions" title="Selected technical decisions">
       <Ledger items={project.decisions.map((decision, i) => ({ title: decision, text: visual.why[i] }))} />
+    </Section>
+    <Section index={idx()} label="Constraints" title="Environment and limitations" intro="What this build does not claim, stated plainly.">
+      <Ledger items={project.limitations} />
     </Section>
     <Section index={idx()} label="Evidence" title="Testing and public evidence" intro="Everything here can be checked without taking my word for it.">
       <ul className="evidence">

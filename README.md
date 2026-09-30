@@ -4,12 +4,12 @@ Production source for [abdullahbuilt.top](https://abdullahbuilt.top/), the portf
 
 **Muhammad Abdullah** is a full-stack engineer who works under the **AbdullahBuilt** brand. Profiles: [LinkedIn](https://www.linkedin.com/in/muhammad-abdullah-builder) · [GitHub](https://github.com/velz-cmd) · [Facebook](https://www.facebook.com/mabdullah.built/)
 
-### Selected work (role: full-stack engineer)
+### Selected work (role: full-stack engineer; all builds are testnet-stage)
 
 | Project | Live product | Case study |
 |---|---|---|
 | RESOLVE | https://www.useresolve.stream | https://abdullahbuilt.top/work/resolve/ |
-| MERIDIAN | https://meridianarc.stream | https://abdullahbuilt.top/work/meridian/ |
+| MERIDIAN (co-built) | https://meridianarc.stream | https://abdullahbuilt.top/work/meridian/ |
 | RepoDiet | https://repodiet.uk | https://abdullahbuilt.top/work/repodiet/ |
 | Agora Forge | https://circle-arc-net.vercel.app/ | https://abdullahbuilt.top/work/agora-forge/ |
 
