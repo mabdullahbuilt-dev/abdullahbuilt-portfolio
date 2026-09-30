@@ -5,7 +5,7 @@ const isVercelPreview = process.env.VERCEL_ENV === "preview";
 const nextConfig: NextConfig = {
   trailingSlash: true,
   async headers() {
-    const headers = [
+    const headers: Awaited<ReturnType<NonNullable<NextConfig["headers"]>>> = [
       {
         source: "/",
         headers: [
@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
+    // Production also answers on *.vercel.app aliases; keep those copies out of the index.
+    // The canonical host (abdullahbuilt.top) is never matched.
+    headers.push({
+      source: "/:path*",
+      has: [{ type: "host", value: "(?<vercelHost>.+\\.vercel\\.app)" }],
+      headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+    });
     if (isVercelPreview) {
       headers.push({
         source: "/:path*",

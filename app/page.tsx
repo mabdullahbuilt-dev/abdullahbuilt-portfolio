@@ -9,7 +9,7 @@ export default function HomePage() {
     "@type": "WebPage",
     "@id": "https://abdullahbuilt.top/#webpage",
     url: "https://abdullahbuilt.top/",
-    name: "Muhammad Abdullah | Full-Stack SaaS, AI & Web App Developer",
+    name: "AbdullahBuilt | Muhammad Abdullah, Full-Stack Product Developer",
     dateModified: "2026-09-27",
     inLanguage: "en",
     isPartOf: { "@id": "https://abdullahbuilt.top/#website" },

@@ -21,6 +21,12 @@ export function proofItems(slugs: string[], why: (slug: string) => string): Proo
   });
 }
 
+// Guides that answer a service's buying questions even though they belong to another cluster.
+const extraGuides: Record<string, string[]> = {
+  "business-automation": ["ai-feature-vs-automation", "api-integration-planning"],
+  "web-application-development": ["custom-software-vs-saas"],
+  "custom-software-development": ["hire-web-app-developer"],
+};
 const counter = () => { let n = 0; return () => String(++n).padStart(2, "0"); };
 const processLabels: Record<string, string[]> = {
   "custom-software-development": ["Map", "Build", "Hand over"],
@@ -48,7 +54,7 @@ function BestFit({ items, spec = false }: { items: string[]; spec?: boolean }) {
 function ServiceFrame({ service, aside, children, next, deliverablesInline = false }: { service: Service; aside: ReactNode; children: ReactNode; next: () => string; deliverablesInline?: boolean }) {
   const fit = serviceFit[service.slug], copy = serviceCopy[service.slug], labels = processLabels[service.slug];
   const proof = proofItems(serviceProof[service.slug], slug => proofWhy[service.slug][slug]);
-  const relatedGuides = guides.filter(guide => guide.service === service.slug).slice(0, 3);
+  const relatedGuides = [...guides.filter(guide => guide.service === service.slug), ...(extraGuides[service.slug] ?? []).map(slug => guides.find(g => g.slug === slug)!)].slice(0, 3);
   return <>
     <Schema data={serviceSchema(service)} />
     <Crumbs items={[{ name: "Home", href: "/" }, { name: "Services", href: "/services/" }, { name: service.name }]} />

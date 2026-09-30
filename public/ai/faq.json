@@ -1,9 +1,21 @@
 {
   "questions": [
-    {"question":"What kinds of projects are a good fit?","answer":"Custom software, SaaS products, web applications, API integrations, internal tools, MVPs, AI-assisted workflows, product rescue, and defined features in existing systems."},
-    {"question":"Can an early idea be enough to start?","answer":"Yes. Begin with the intended user, important task, current state, constraints, and smallest complete workflow worth building."},
-    {"question":"Does Muhammad work internationally?","answer":"Yes. Project work is available to founders and teams worldwide in English."},
-    {"question":"How can a client start?","answer":"Email mabdullah.built@gmail.com or use the contact and booking links on abdullahbuilt.top."}
+    {
+      "question": "What kinds of projects are a good fit?",
+      "answer": "Custom software, SaaS products, web applications, API integrations, internal tools, MVPs, AI-assisted workflows, product rescue, and defined features in existing systems."
+    },
+    {
+      "question": "Can an early idea be enough to start?",
+      "answer": "Yes. Begin with the intended user, important task, current state, constraints, and smallest complete workflow worth building."
+    },
+    {
+      "question": "Does Muhammad work internationally?",
+      "answer": "Yes. Project work is available to founders and teams worldwide in English."
+    },
+    {
+      "question": "How can a client start?",
+      "answer": "Email mabdullah.built@gmail.com or use the contact and booking links on abdullahbuilt.top."
+    }
   ],
-  "updated":"2026-09-27"
+  "updated": "2026-09-30"
 }

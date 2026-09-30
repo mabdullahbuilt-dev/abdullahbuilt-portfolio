@@ -1,9 +1,26 @@
 {
+  "brand": "AbdullahBuilt",
   "provider": "Muhammad Abdullah",
   "providerUrl": "https://abdullahbuilt.top/",
   "servicesUrl": "https://abdullahbuilt.top/services/",
-  "engagements": ["Complete product build", "MVP", "Defined feature", "Existing codebase work", "Product rescue and stabilization", "API integration", "Internal tool", "AI application or agent workflow"],
-  "delivery": ["Product scoping", "Interface and application development", "Backend and data", "Integrations", "Testing", "Deployment and handoff"],
+  "engagements": [
+    "Complete product build",
+    "MVP",
+    "Defined feature",
+    "Existing codebase work",
+    "Product rescue and stabilization",
+    "API integration",
+    "Internal tool",
+    "AI application or agent workflow"
+  ],
+  "delivery": [
+    "Product scoping",
+    "Interface and application development",
+    "Backend and data",
+    "Integrations",
+    "Testing",
+    "Deployment and handoff"
+  ],
   "areaServed": "Worldwide",
   "contact": "mailto:mabdullah.built@gmail.com"
 }

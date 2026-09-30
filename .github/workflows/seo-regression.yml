@@ -1,0 +1,37 @@
+name: SEO and UI regression
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: corepack enable && pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm run lint
+      - name: Build
+        run: pnpm run build
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: HTTP / SEO contract (27 routes, sitemap, JSON-LD, titles, host rules)
+        run: pnpm exec playwright test tests/http-seo.spec.ts --project=desktop-chromium
+      - name: Browser smoke (desktop + mobile)
+        run: pnpm exec playwright test tests/browser.spec.ts
+      - name: SEO regression audit
+        run: |
+          pnpm exec next start -H 127.0.0.1 -p 3000 &
+          npx --yes wait-on http://127.0.0.1:3000/ --timeout 60000
+          node scripts/seo-regression.mjs --base-url http://127.0.0.1:3000

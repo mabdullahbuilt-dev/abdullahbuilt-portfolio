@@ -1,4 +1,4 @@
-import { projectMedia, projects, services, updatedLong, type Project } from "../content";
+import { guides, projectMedia, projects, services, updatedLong, type Project } from "../content";
 import { hubHeadings, hubSchema, projectSchema } from "../schema";
 import { ContextCta, Crumbs, Schema } from "../chrome";
 import { Diagram } from "../ui/Diagram";
@@ -7,6 +7,20 @@ import { capabilityColumns, capabilityRows, caseVisuals } from "../data/work";
 import { proofItems } from "./services";
 
 const hostOf = (url: string) => new URL(url).host;
+// Further services each build is genuine evidence for (beyond projectMedia.services).
+const caseServicesExtra: Record<string, string[]> = {
+  resolve: ["ai-application-development"],
+  repodiet: ["product-rescue", "ai-application-development"],
+  meridian: ["mvp-product-development"],
+  "agora-forge": [],
+};
+// Guides that explain the engineering decisions each build demonstrates.
+const caseGuides: Record<string, string[]> = {
+  resolve: ["api-integration-planning", "reliable-webhook-integration"],
+  meridian: ["startup-mvp-development", "ai-feature-vs-automation"],
+  repodiet: ["rescue-ai-built-web-app", "ai-feature-vs-automation"],
+  "agora-forge": ["api-integration-planning", "hire-web-app-developer"],
+};
 
 export function CaseStudy({ project }: { project: Project }) {
   const media = projectMedia[project.slug], visual = caseVisuals[project.slug];
@@ -43,7 +57,8 @@ export function CaseStudy({ project }: { project: Project }) {
       </ul>
       <p className="evidence__links"><a className="x-link" href={project.live}>Open the live build ↗</a><a className="x-link" href={project.code}>Read the source ↗</a></p>
     </Section>
-    <RelatedRail title="Relevant services" items={media.services.map(slug => { const s = services.find(x => x.slug === slug)!; return { href: `/services/${slug}/`, kicker: "Service", label: s.name }; })} />
+    <RelatedRail title="Relevant services" items={[...media.services, ...caseServicesExtra[project.slug]].map(slug => { const s = services.find(x => x.slug === slug)!; return { href: `/services/${slug}/`, kicker: "Service", label: s.name }; })} />
+    <RelatedRail title="Guides behind this build" items={caseGuides[project.slug].map(slug => { const g = guides.find(x => x.slug === slug)!; return { href: `/guides/${slug}/`, kicker: g.category, label: g.title }; })} />
     <RelatedRail title="Next case study" items={[{ href: `/work/${next.slug}/`, kicker: next.subtitle, label: next.name, text: next.description }]} />
     <ContextCta service={media.services[0]} />
   </>;

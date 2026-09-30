@@ -1,5 +1,7 @@
 site: https://abdullahbuilt.top/
-name: Muhammad Abdullah
+name: AbdullahBuilt
+alternate-names: Abdullah Built
+owner: Muhammad Abdullah
 type: independent product engineer and full-stack engineer
 language: en
 area-served: worldwide
