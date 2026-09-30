@@ -8,7 +8,8 @@ import { chromium } from "@playwright/test";
 const args = Object.fromEntries(process.argv.slice(2).map((value, index, all) => value.startsWith("--") ? [value.slice(2), all[index + 1]] : null).filter(Boolean));
 const baseUrl = String(args["base-url"] || "http://127.0.0.1:3100").replace(/\/$/, "");
 const out = args.out || "docs/ui/interaction-audit.md";
-const pages = String(args.pages || "/services/ai-application-development/,/services/api-integration-development/,/guides/reliable-webhook-integration/").split(",");
+const allSecondary = ["/services/", "/services/custom-software-development/", "/services/saas-development/", "/services/web-application-development/", "/services/api-integration-development/", "/services/business-automation/", "/services/mvp-product-development/", "/services/ai-application-development/", "/services/product-rescue/", "/work/", "/work/resolve/", "/work/meridian/", "/work/repodiet/", "/work/agora-forge/", "/guides/", "/guides/hire-saas-developer/", "/guides/hire-web-app-developer/", "/guides/startup-mvp-development/", "/guides/custom-software-vs-saas/", "/guides/saas-mvp-development-cost/", "/guides/api-integration-planning/", "/guides/rescue-ai-built-web-app/", "/guides/ai-feature-vs-automation/", "/guides/reliable-webhook-integration/", "/about/", "/contact/"];
+const pages = args.pages ? String(args.pages).split(",") : allSecondary;
 const SELECTOR = 'a[href], button, summary, input:not([type=hidden]), select, textarea, [tabindex]:not([tabindex="-1"])';
 
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
@@ -35,15 +36,20 @@ async function inspect(viewport, path) {
     }, index);
     await page.evaluate(() => (document.activeElement instanceof HTMLElement) && document.activeElement.blur());
     await handle.scrollIntoViewIfNeeded().catch(() => {});
-    const hit = await handle.evaluate(node => {
-      if (node.closest(".seo-skip") || node.classList.contains("seo-skip")) return "skip-link (visible on focus)";
+    const hit = await handle.evaluate(original => {
+      if (original.closest(".seo-skip") || original.classList.contains("seo-skip")) return "skip-link (visible on focus)";
+      if (original.closest(".honeypot") || original.classList.contains("honeypot")) return "spam trap (intentionally hidden)";
+      const closed = original.closest("details:not([open])");
+      if (closed && !original.matches("summary") && original.closest("summary") === null) return "in collapsed disclosure (opens from its summary)";
+      // Visually hidden radios are operated through their label: test the label instead.
+      const node = original.matches("input[type=radio]") ? (original.closest("label") || document.querySelector(`label[for="${original.id}"]`) || original) : original;
       const rect = node.getBoundingClientRect();
       if (!rect.width || !rect.height) return "hidden";
       const x = Math.min(Math.max(rect.left + rect.width / 2, 1), innerWidth - 1), y = Math.min(Math.max(rect.top + Math.min(rect.height / 2, 20), 1), innerHeight - 1);
       const top = document.elementFromPoint(x, y);
       return top && (top === node || node.contains(top) || top.contains(node)) ? "pass" : `covered by ${top?.tagName.toLowerCase()}.${top?.className}`;
     });
-    const keyboard = await handle.evaluate(node => { node.focus({ preventScroll: true }); return document.activeElement === node && node.tabIndex >= 0; });
+    const keyboard = await handle.evaluate(node => { if (node.classList.contains("honeypot")) return "n/a"; if (node.closest("details:not([open])") && !node.closest("summary")) return "after opening"; node.focus({ preventScroll: true }); return document.activeElement === node && node.tabIndex >= 0; });
     results.push({ ...info, hit, keyboard });
   }
   // Behaviour checks that need interaction.
@@ -68,9 +74,10 @@ const apiContext = await browser.newContext();
 const htmlCache = new Map();
 for (const path of pages) {
   const desktop = await inspect({ width: 1440, height: 900 }, path);
+  const tablet = await inspect({ width: 820, height: 1180 }, path);
   const mobile = await inspect({ width: 390, height: 844 }, path);
   for (const [index, item] of desktop.results.entries()) {
-    const mobileItem = mobile.results[index];
+    const mobileItem = mobile.results[index], tabletItem = tablet.results[index];
     let action, target = item.href || "", expected, check = "pass";
     if (item.tag === "a" && item.href?.startsWith("#")) {
       action = "anchor"; expected = `scrolls to ${item.href}`;
@@ -90,15 +97,20 @@ for (const path of pages) {
       action = "disclosure"; expected = "opens / closes answer"; target = "details"; check = desktop.behaviour[index] === "toggles details" ? "pass" : "DID NOT TOGGLE";
     } else if (item.tag === "button") {
       action = "button"; target = item.className.includes("ab-code__copy") ? "clipboard" : item.type || "submit";
-      expected = item.className.includes("ab-code__copy") ? "copies code, shows Copied ✓ (e2e)" : "handler";
+      expected = item.className.includes("ab-code__copy") ? "copies code, shows Copied ✓ (e2e)" : item.type === "reset" ? "shows every decision path again (e2e)" : item.className.includes("scorecard__reset") ? "clears ratings (e2e)" : item.type === "submit" ? "validates, then sends or opens prepared email (not sent in audit)" : "handler";
       if (!item.type) check = "MISSING TYPE";
+    } else if (item.tag === "input" && item.type === "radio") {
+      action = "choice"; target = item.className.includes("tree__radio") ? "decision tree" : "scorecard"; expected = target === "decision tree" ? "narrows the visible path (e2e)" : "updates the live summary (e2e)";
+    } else if (["input", "select", "textarea"].includes(item.tag)) {
+      action = "form field"; target = "contact form"; expected = "accepts input";
     } else if (item.tag === "pre") {
       action = "scroll region"; target = "code"; expected = "keyboard-scrollable code";
     } else { action = item.tag; expected = "focusable control"; }
-    const desktopHit = item.hit, mobileHit = mobileItem?.hit ?? "missing";
-    const ok = check === "pass" && !/covered|hidden|missing/.test(`${desktopHit} ${mobileHit}`) && item.keyboard;
+    const desktopHit = item.hit, tabletHit = tabletItem?.hit ?? "missing", mobileHit = mobileItem?.hit ?? "missing";
+    const hiddenOk = /spam trap/.test(desktopHit);
+    const ok = hiddenOk || (check === "pass" && !/covered|hidden|missing/.test(`${desktopHit} ${tabletHit} ${mobileHit}`.replace(/in collapsed disclosure[^;]*/g, "")) && item.keyboard);
     if (!ok) failures += 1;
-    rows.push({ page: path, region: item.region, element: item.tag, label: item.label || "(no text)", action, target, expected, desktop: desktopHit, mobile: mobileHit, keyboard: item.keyboard ? "pass" : "NOT FOCUSABLE", status: ok ? "PASS" : `FAIL — ${check !== "pass" ? check : !item.keyboard ? "not focusable" : `desktop: ${desktopHit}; mobile: ${mobileHit}`}` });
+    rows.push({ page: path, region: item.region, element: item.tag, label: item.label || "(no text)", action, target, expected, desktop: desktopHit, tablet: tabletHit, mobile: mobileHit, keyboard: item.keyboard === "n/a" || item.keyboard === "after opening" ? item.keyboard : item.keyboard ? "pass" : "NOT FOCUSABLE", status: ok ? "PASS" : `FAIL — ${check !== "pass" ? check : !item.keyboard ? "not focusable" : `desktop: ${desktopHit}; tablet: ${tabletHit}; mobile: ${mobileHit}`}` });
   }
 }
 await apiContext.close();
@@ -106,16 +118,16 @@ await browser.close();
 
 const escape = value => String(value).replace(/\|/g, "\\|");
 const lines = [
-  "# Interaction audit — visual pilot pages",
+  "# Interaction audit — all 26 secondary pages",
   "",
   `Generated by \`scripts/interaction-audit.mjs\` against \`${baseUrl}\` on ${new Date().toISOString().slice(0, 10)}.`,
-  "Desktop = 1440×900, mobile = 390×844. \"pass\" in a viewport column means the element is visible and not covered at its centre after scrolling into view. Keyboard = focusable with tabIndex ≥ 0. External destinations are validated by URL only (the audit environment cannot fetch third-party sites).",
+  "Desktop = 1440×900, tablet = 820×1180, mobile = 390×844. \"pass\" in a viewport column means the element is visible and not covered at its centre after scrolling into view. Keyboard = focusable with tabIndex ≥ 0. External destinations are validated by URL only (the audit environment cannot fetch third-party sites).",
   "",
   `**${rows.length} interactive elements · ${rows.length - failures} PASS · ${failures} FAIL**`,
   "",
-  "| Page | Region | Element | Label | Action | Target | Expected result | Desktop | Mobile | Keyboard | Status |",
-  "|---|---|---|---|---|---|---|---|---|---|---|",
-  ...rows.map(row => `| ${[row.page, row.region, row.element, row.label, row.action, row.target, row.expected, row.desktop, row.mobile, row.keyboard, row.status].map(escape).join(" | ")} |`),
+  "| Page | Region | Element | Label | Action | Target | Expected result | Desktop | Tablet | Mobile | Keyboard | Status |",
+  "|---|---|---|---|---|---|---|---|---|---|---|---|",
+  ...rows.map(row => `| ${[row.page, row.region, row.element, row.label, row.action, row.target, row.expected, row.desktop, row.tablet, row.mobile, row.keyboard, row.status].map(escape).join(" | ")} |`),
   "",
 ];
 writeFileSync(out, lines.join("\n"));

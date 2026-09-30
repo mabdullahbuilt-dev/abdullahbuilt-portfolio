@@ -7,6 +7,12 @@ export default function GuideToc({ items, articleId }: { items: { id: string; la
   const [active, setActive] = useState("");
   const [progress, setProgress] = useState(0);
   const detailsRef = useRef<HTMLDetailsElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    // Without JS the list stays open in the flow. With JS on small screens it becomes a collapsed sticky bar.
+    if (navRef.current) navRef.current.dataset.ready = "true";
+    if (detailsRef.current && window.matchMedia("(max-width: 980px)").matches) detailsRef.current.open = false;
+  }, []);
   useEffect(() => {
     const sections = items.map(item => document.getElementById(item.id)).filter((node): node is HTMLElement => Boolean(node));
     const article = document.getElementById(articleId);
@@ -28,7 +34,7 @@ export default function GuideToc({ items, articleId }: { items: { id: string; la
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); if (frame) window.cancelAnimationFrame(frame); };
   }, [items, articleId]);
   const current = items.findIndex(item => item.id === active);
-  return <nav className="toc" aria-label="On this page">
+  return <nav ref={navRef} className="toc" aria-label="On this page">
     <details ref={detailsRef} className="toc__details" open>
       <summary className="toc__summary">
         <span>On this page</span>

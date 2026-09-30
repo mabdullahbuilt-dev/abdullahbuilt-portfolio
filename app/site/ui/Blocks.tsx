@@ -113,6 +113,7 @@ function TreeLevel({ node, name, depth }: { node: TreeNode; name: string; depth:
 export function DecisionTree({ id, root, title, caption }: { id: string; root: TreeNode; title: string; caption?: ReactNode }) {
   const name = id;
   return <form className="tree" id={id} aria-label={title}>
+    <p className="ab-eyebrow">Decision tool</p><h2 className="tree__title">{title}</h2>
     <div className="tree__bar"><p className="tree__instructions">Choose answers to narrow the path. Before you choose, every branch is shown.</p><button type="reset" className="tree__reset">Show all paths</button></div>
     <TreeLevel node={root} name={name} depth={0} />
     {caption && <p className="tree__caption">{caption}</p>}

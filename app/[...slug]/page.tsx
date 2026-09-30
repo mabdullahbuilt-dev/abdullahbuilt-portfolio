@@ -4,9 +4,9 @@ import ContactPage from "../ContactPage";
 import { guides, key, projects, routeList, services } from "../site/content";
 import { Footer, Header } from "../site/chrome";
 import { ServicePage, ServicesHub } from "../site/pages/services";
-import { WebhookGuide } from "../site/pages/guides";
+import { GuidePage, GuidesHub } from "../site/pages/guides";
 import { CaseStudy, WorkHub } from "../site/pages/work";
-import { About, GuidePage, IndexPage } from "../site/pages/legacy";
+import { AboutPage } from "../site/pages/entity";
 import "../site/ui/site.css";
 
 function metaFor(path:string): Metadata {
@@ -31,11 +31,11 @@ export default async function SeoPage({ params, searchParams }: { params: Promis
   const service = services.find(x => `services/${x.slug}` === path), project = projects.find(x => `work/${x.slug}` === path), guide = guides.find(x => `guides/${x.slug}` === path);
   const content = service ? <ServicePage service={service} />
     : project ? <CaseStudy project={project} />
-    : guide ? (guide.slug === "reliable-webhook-integration" ? <WebhookGuide guide={guide} /> : <GuidePage guide={guide} />)
+    : guide ? <GuidePage guide={guide} />
     : path === "services" ? <ServicesHub />
     : path === "work" ? <WorkHub />
-    : path === "guides" ? <IndexPage type="guides" />
-    : path === "about" ? <About />
+    : path === "guides" ? <GuidesHub />
+    : path === "about" ? <AboutPage />
     : <ContactPage requestedService={requestedService} source={source} />;
   return <div className="seo-page"><Header path={path} /><main id="main" className="seo-main">{content}</main><Footer /></div>;
 }
