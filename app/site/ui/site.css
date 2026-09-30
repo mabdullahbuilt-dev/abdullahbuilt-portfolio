@@ -354,9 +354,9 @@
 
 /* ================= Screenshots & proof ================= */
 .shot{display:block;overflow:hidden;border:1px solid var(--line2);border-radius:10px;background:#05080b;box-shadow:0 30px 80px rgba(0,0,0,.45)}
-.shot__bar{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-bottom:1px solid var(--line);background:#0b121a}
+.shot__bar{display:flex;min-width:0;overflow:hidden;align-items:center;gap:6px;height:30px;padding:0 12px;border-bottom:1px solid var(--line);background:#0b121a}
 .shot__bar i{width:8px;height:8px;border-radius:50%;background:var(--line2)}
-.shot__bar span{margin-left:10px;color:var(--subtle);font:500 11px/1 var(--mono)}
+.shot__bar span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:10px;color:var(--subtle);font:500 11px/1 var(--mono)}
 .shot img{display:block;width:100%;height:auto}
 .annot{margin:0}
 .annot__stage{position:relative}
