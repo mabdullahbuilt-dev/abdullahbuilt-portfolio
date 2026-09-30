@@ -22,10 +22,11 @@ Tracks official Google Search changes, AbdullahBuilt deploys, and what Search Co
 | Date | Change | Commit / PR | Expected effect | Check on |
 |---|---|---|---|---|
 | 2026-09-30 | 26 secondary pages redesigned; screenshots sanitized; truthful dateModified and lastmod | `a7a39df`, [PR #3](https://github.com/mabdullahbuilt-dev/abdullahbuilt-portfolio/pull/3) | Recrawl of redesigned pages; no metadata changes | 2026-10-14 |
-| 2026-09-30 | Brand-first homepage title; "\| AbdullahBuilt" title suffix; Person↔brand schema; vercel.app noindex; extra internal links; rescue FAQ | SEO branch `claude/seo-a-to-z` | Brand-query association; fewer duplicate hosts | 2026-10-30 |
+| 2026-09-30 | Brand-first homepage title; "\| AbdullahBuilt" title suffix; Person↔brand schema; vercel.app noindex; extra internal links; rescue FAQ | `dd82963`, [PR #4](https://github.com/mabdullahbuilt-dev/abdullahbuilt-portfolio/pull/4) | Brand-query association; fewer duplicate hosts | 2026-10-30 |
 
 ## Snapshots
 
 | Date | Window | Clicks | Impressions | CTR | Avg pos. | Indexed (of 27) | Notes |
 |---|---|---|---|---|---|---|---|
 | 2026-09-30 | 2026-06-27 → 2026-09-27 | 2 | 11 | 18.2% | ~5 | 5 | Baseline (see `indexation-and-gsc-baseline.md`) |
+| 2026-09-30 (post-deploy) | re-inspection | — | — | — | 5 | Previously unknown URLs now Discovered (22 discovered, 0 unknown) |
