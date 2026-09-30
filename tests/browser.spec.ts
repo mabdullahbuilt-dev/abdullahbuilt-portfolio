@@ -74,3 +74,26 @@ test("homepage interaction targets are usable", async ({ page }) => {
   await expect(page.locator("#siteMenu")).toBeVisible();
   expect(await page.locator('a[href="https://cal.com/muhammad-abdullah-built/idea-to-product"]').count()).toBeGreaterThanOrEqual(2);
 });
+
+const visualPilotRoutes = ["/services/ai-application-development/", "/services/api-integration-development/", "/guides/reliable-webhook-integration/"];
+
+for (const route of visualPilotRoutes) {
+  test(`${route} keeps diagram meaning in semantic HTML`, async ({ page, request }) => {
+    const html = await (await request.get(route)).text();
+    expect(html).toMatch(/<figure class="ab-diagram[^"]*"[^>]*>[\s\S]*?<ol class="ab-diagram__stages"/);
+    expect((html.match(/class="ab-diagram__stage"/g) || []).length).toBe(4);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(route);
+    expect(await page.evaluate(() => document.getAnimations().length)).toBe(0);
+    for (const node of await page.locator("a.ab-diagram__node").all()) {
+      const hash = await node.getAttribute("href");
+      await expect(page.locator(hash!)).toHaveCount(1);
+    }
+  });
+}
+
+test("guide section navigation tracks the active section", async ({ page }) => {
+  await page.goto("/guides/reliable-webhook-integration/");
+  await page.locator("#make-processing-idempotent").scrollIntoViewIfNeeded();
+  await expect(page.locator('.ab-section-nav a[aria-current="location"]')).toHaveCount(1);
+});
