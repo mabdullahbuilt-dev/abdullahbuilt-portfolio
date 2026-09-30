@@ -77,23 +77,132 @@ test("homepage interaction targets are usable", async ({ page }) => {
 
 const visualPilotRoutes = ["/services/ai-application-development/", "/services/api-integration-development/", "/guides/reliable-webhook-integration/"];
 
+test("visual pilots keep diagram meaning in server-rendered HTML", async ({ request }) => {
+  const ai = await (await request.get("/services/ai-application-development/")).text();
+  const api = await (await request.get("/services/api-integration-development/")).text();
+  const guide = await (await request.get("/guides/reliable-webhook-integration/")).text();
+  expect((ai.match(/class="ab-sch__node[ "]/g) || []).length).toBe(6);
+  expect(ai).toContain("Human review boundary");
+  expect((api.match(/class="ab-sch__node[ "]/g) || []).length).toBe(6);
+  expect((api.match(/<tr class="ab-row--/g) || []).length).toBe(8);
+  expect((guide.match(/class="ab-seqd__msg/g) || []).length).toBe(9);
+  expect(guide).toContain("timingSafeEqual");
+  expect(guide).toContain("on conflict (provider, event_id) do nothing");
+  for (const html of [ai, api, guide]) expect(html).not.toMatch(/data-seq="pending"/);
+});
+
 for (const route of visualPilotRoutes) {
-  test(`${route} keeps diagram meaning in semantic HTML`, async ({ page, request }) => {
-    const html = await (await request.get(route)).text();
-    expect(html).toMatch(/<figure class="ab-diagram[^"]*"[^>]*>[\s\S]*?<ol class="ab-diagram__stages"/);
-    expect((html.match(/class="ab-diagram__stage"/g) || []).length).toBe(4);
+  test(`${route} is fully visible with reduced motion`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(route);
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(150);
     expect(await page.evaluate(() => document.getAnimations().length)).toBe(0);
-    for (const node of await page.locator("a.ab-diagram__node").all()) {
-      const hash = await node.getAttribute("href");
-      await expect(page.locator(hash!)).toHaveCount(1);
+    expect(await page.locator("[data-seq]").count()).toBe(0);
+  });
+
+  test(`${route} clips no content outside the viewport`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "networkidle" });
+    const offenders = await page.evaluate(() => {
+      const width = document.documentElement.clientWidth;
+      const scrollers = [...document.querySelectorAll("pre, .ab-table__scroll, .seo-table-wrap")];
+      return [...document.querySelectorAll("main *")].filter(node => {
+        if (scrollers.some(scroller => scroller !== node && scroller.contains(node))) return false;
+        const rect = node.getBoundingClientRect();
+        return rect.width > 0 && rect.right > width + 1;
+      }).slice(0, 5).map(node => `${node.tagName}.${node.className}`);
+    });
+    expect(offenders).toEqual([]);
+  });
+
+  test(`${route} has no lower-cased service names in headings or controls`, async ({ page }) => {
+    await page.goto(route);
+    const text = await page.locator("h1, h2, h3, a, button, summary").allInnerTexts();
+    const joined = text.join("\n");
+    expect(joined).not.toMatch(/\b(ai|api|saas)\b/);
+    expect(joined).not.toMatch(/\ba (AI|API)\b/);
+  });
+
+  test(`${route} external links are real and screenshots are clean`, async ({ page }) => {
+    await page.goto(route);
+    const hrefs = await page.locator('a[href^="http"]').evaluateAll(links => links.map(link => link.getAttribute("href")!));
+    for (const href of hrefs) {
+      const url = new URL(href);
+      expect(url.protocol, href).toBe("https:");
+      expect(url.hostname, href).not.toMatch(/localhost|127\.0\.0\.1|abdullahbuilt-portfolio/);
     }
+    const sources = await page.locator("main img").evaluateAll(images => images.map(image => image.getAttribute("src")!));
+    for (const src of sources.filter(value => /resolve|meridian|repodiet|agora/.test(value))) expect(src).toMatch(/-viewport\.webp$/);
   });
 }
 
-test("guide section navigation tracks the active section", async ({ page }) => {
+test("pilot content is visible without JavaScript", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("/services/api-integration-development/");
+  const opacities = await page.locator(".ab-sch__node, .ab-table tbody tr").evaluateAll(nodes => nodes.map(node => getComputedStyle(node).opacity));
+  expect(opacities.length).toBeGreaterThan(10);
+  expect(opacities.every(value => value === "1")).toBe(true);
+  await context.close();
+});
+
+test("guide table of contents jumps to every section and tracks position", async ({ page }) => {
   await page.goto("/guides/reliable-webhook-integration/");
-  await page.locator("#make-processing-idempotent").scrollIntoViewIfNeeded();
-  await expect(page.locator('.ab-section-nav a[aria-current="location"]')).toHaveCount(1);
+  const links = page.locator(".ab-section-nav a");
+  const count = await links.count();
+  expect(count).toBe(9);
+  for (let index = 0; index < count; index += 1) {
+    const hash = (await links.nth(index).getAttribute("href"))!;
+    await expect(page.locator(hash)).toHaveCount(1);
+  }
+  await links.nth(2).click();
+  await expect(page).toHaveURL(/#expect-delay-and-reordering$/);
+  // The site uses smooth scrolling; wait for the section to arrive at the top.
+  await expect.poll(() => page.locator("#expect-delay-and-reordering").evaluate(node => Math.round(node.getBoundingClientRect().top)), { timeout: 4000 }).toBeLessThan(80);
+  await expect(page.locator('.ab-section-nav a[aria-current="location"]')).toHaveAttribute("href", "#expect-delay-and-reordering");
+});
+
+test("FAQ items open and close with mouse and keyboard", async ({ page }) => {
+  await page.goto("/services/ai-application-development/");
+  const item = page.locator(".ab-faq details").first();
+  await item.locator("summary").click();
+  await expect(item).toHaveAttribute("open", "");
+  await item.locator("summary").click();
+  await expect(item).not.toHaveAttribute("open", "");
+  await item.locator("summary").focus();
+  await page.keyboard.press("Enter");
+  await expect(item).toHaveAttribute("open", "");
+});
+
+test("code copy buttons copy the snippet and confirm", async ({ page, context, browserName }) => {
+  test.skip(browserName !== "chromium");
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/guides/reliable-webhook-integration/");
+  const button = page.locator(".ab-code__copy").first();
+  await button.click();
+  await expect(button).toHaveText("Copied ✓");
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("timingSafeEqual");
+  await expect(page.locator(".ab-code__status").first()).toHaveText("Code copied to clipboard");
+});
+
+test("primary navigation keeps all five sections reachable and marks the current one", async ({ page }) => {
+  await page.goto("/services/api-integration-development/");
+  const nav = page.locator(".seo-header nav a");
+  await expect(nav).toHaveCount(5);
+  for (const link of await nav.all()) await expect(link).toBeVisible();
+  await expect(page.locator('.seo-header nav a[aria-current="page"]')).toHaveText("Services");
+  await nav.filter({ hasText: "Guides" }).click();
+  await expect(page).toHaveURL(/\/guides\/$/);
+});
+
+test("every service page closes with a correctly worded contextual CTA", async ({ page }) => {
+  for (const slug of serviceSlugs) {
+    await page.goto(`/services/${slug}/`);
+    const closing = page.locator(`.seo-cta a[href="/contact/?service=${slug}"]`);
+    await expect(closing).toHaveCount(1);
+    const label = await closing.innerText();
+    expect(label).toMatch(/^Start an? /);
+    expect(label).not.toMatch(/\ba (ai|api|mvp|[aeiou])/i);
+    expect(label).not.toMatch(/\b(ai|api|saas|mvp)\b/);
+  }
 });

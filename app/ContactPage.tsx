@@ -33,7 +33,7 @@ export default function ContactPage({ requestedService = "", source = "" }: { re
     <section className="seo-hero">
       <p>PROJECT INQUIRY</p>
       <h1>Tell me what needs to work<span>.</span></h1>
-      <p>{selectedLabel ? `Your ${selectedLabel.toLowerCase()} context is already selected. Share the current stage, constraints, and outcome you need.` : "Share the product, current stage, important constraints, and the outcome you need. An early idea is enough to start."}</p>
+      <p>{selectedLabel ? `${selectedLabel} is preselected below. Share the current stage, constraints, and outcome you need.` : "Share the product, current stage, important constraints, and the outcome you need. An early idea is enough to start."}</p>
       <div><a className="seo-button" href={`mailto:mabdullah.built@gmail.com?subject=${encodeURIComponent(selectedLabel ? `${selectedLabel} inquiry` : "Project inquiry")}`} data-event="email_click">Email Muhammad <span>↗</span></a><a className="seo-text-link" href="https://cal.com/muhammad-abdullah-built/idea-to-product" data-event="book_call_click">Book a free 15-minute fit call ↗</a></div>
     </section>
     <section className="seo-contact-layout">
