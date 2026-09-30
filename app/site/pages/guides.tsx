@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { guideSources, guides, projects, services, type Guide } from "../content";
+import { guideSources, guides, projects, services, updatedLong, type Guide } from "../content";
 import { guideSchema, hubHeadings, hubSchema } from "../schema";
 import { Author, ContextCta, Crumbs, Schema } from "../chrome";
 import { Diagram, type DiagramSpec } from "../ui/Diagram";
@@ -39,7 +39,7 @@ export function GuideShell({ guide, kind, toc, words, children, cta, minRead = 4
           <p className="ab-eyebrow">{guide.category} / {kind}</p>
           <h1>{guide.title}<span className="pg-hero__dot">.</span></h1>
           <div className="pg-hero__lede"><p>{guide.description}</p></div>
-          <p className="pg-hero__meta">By Muhammad Abdullah · Published {longDate(published)} · Updated September 27, 2026 · {readingTime} min read</p>
+          <p className="pg-hero__meta">By Muhammad Abdullah · Published {longDate(published)} · Updated {updatedLong} · {readingTime} min read</p>
         </div>
       </header>
       {feature && <div className="band band--grid guide-feature"><div className="band__inner">{feature}</div></div>}

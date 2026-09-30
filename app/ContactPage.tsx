@@ -24,7 +24,7 @@ export default function ContactPage({ requestedService = "", source = "" }: { re
     name: "Start a software project",
     isPartOf: { "@id": `${origin}/#website` },
     about: { "@id": `${origin}/#business` },
-    dateModified: "2026-09-27",
+    dateModified: "2026-09-30",
   };
 
   return <>

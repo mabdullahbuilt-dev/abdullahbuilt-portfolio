@@ -1,4 +1,4 @@
-import { projectMedia, projects, services, type Project } from "../content";
+import { projectMedia, projects, services, updatedLong, type Project } from "../content";
 import { hubHeadings, hubSchema, projectSchema } from "../schema";
 import { ContextCta, Crumbs, Schema } from "../chrome";
 import { Diagram } from "../ui/Diagram";
@@ -21,7 +21,7 @@ export function CaseStudy({ project }: { project: Project }) {
     <div className="band band--deep"><div className="band__inner">
       <AnnotatedShot eager shot={{ src: media.image, width: media.width, height: media.height, alt: media.alt, host: hostOf(project.live) }} notes={visual.notes} caption="Product interface from the working public build." />
     </div></div>
-    <p className="seo-byline case-byline">Product and engineering work by Muhammad Abdullah · Updated September 27, 2026</p>
+    <p className="seo-byline case-byline">Product and engineering work by Muhammad Abdullah · Updated {updatedLong}</p>
     <Section index={idx()} label="Context" title="Problem and constraints">
       <div className="prose"><p>{project.context}</p><p>The product needed to make a technically dense workflow understandable without hiding the states a user must evaluate. The public build and source repository are linked above; no private client metrics are claimed.</p></div>
     </Section>

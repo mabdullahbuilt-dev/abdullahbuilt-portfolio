@@ -36,7 +36,9 @@ QA columns: **SEO** = title, description, canonical, hreflang, JSON-LD, H1 and i
 | 26 | `/about/` | Entity | Principles, capability map, proof, real profiles | ✓ | ✓ | ✓ | 1440 | pending |
 | 27 | `/contact/` | Conversion | Quiet form, contextual preselect, next steps | ✓ | ✓ | ✓ | 1440 · 390 | pending |
 
-Latest verification (local production build): lint + typecheck clean · Playwright 382/382 · HTTP/SEO 72/72 · SEO regression 27/27 · interaction audit 821 elements, 0 failures · SSR diff vs `main`: 0 metadata / JSON-LD / H1 / link differences.
+Latest verification (local production build): lint + typecheck clean · Playwright 382/382 (both suites) · SEO regression 27/27 · interaction audit 821 elements, 0 failures · SSR diff vs `main`: metadata, canonicals, H1s and internal links identical; JSON-LD identical except the intentional date and clean-image changes below.
+
+Final visual QA (all 26 pages × 1440 / 820 / 390, full scroll, automated overlap / gap / clipping / console detectors plus contact-sheet review): **PASS WITH P2 ONLY**. The P2s are that the service pages share one lower-page structure (delivery, proof, stack, FAQ) and that some inline links are small (enlarged where cheap). The Claude-in-Chrome extension was not available in this environment, so this QA was run with headless Chromium.
 
 ## System
 
@@ -89,9 +91,14 @@ Metadata, canonicals, JSON-LD, H1s and internal links are unchanged. These visib
 3. **Eyebrows** such as "SERVICE / …" and "CASE STUDY / …" are now uppercased with CSS (text content changes case only).
 4. **Additions:** signals ("Signs …"), scope/comparison matrices, case-study rationale and annotations, About principles and capability map. All are drawn from the existing copy or public builds; there are no prices, metrics, testimonials or credentials.
 
+## Pre-merge decisions (final execution command)
+
+- **Screenshot privacy (P0).** The four original screenshots used by the homepage hover previews (`/assets/{resolve,meridian,repodiet,agora}.webp`) were sanitized in place, with dimensions unchanged: browser chrome, extension icons, the Windows taskbar (weather, clock, open apps) and the `abdullahlp114` account chip are masked with the adjacent app background. The homepage design is unchanged. The unreferenced full-resolution `*.png` originals were removed from `public/assets`.
+- **Structured data.** `SoftwareApplication.image` now points to the clean `-viewport.webp` crops. This is the only JSON-LD value that differs from `main` apart from dates.
+- **Dates.** The 26 secondary pages gained substantive content in the redesign (new sections, matrices, guide-specific checklists), so `dateModified`, the visible "Updated" bylines and the sitemap `lastmod` move to 2026-09-30. The homepage keeps 2026-09-27 because its content did not change. Guide `datePublished` values are untouched.
+
 ## Owner inputs still needed
 
-- The homepage hover previews still use the uncropped screenshots (browser chrome, username); the homepage is locked.
-- JSON-LD `SoftwareApplication.image` is kept on the original screenshots to match `main`. Recommend switching it to the clean `-viewport.webp` crops in the SEO workstream.
-- A real integration failure example, and the AI providers used, would strengthen the API and AI pages.
-- `dateModified` should be bumped at merge. Resend environment variables are still unverified in production. No production inquiry was sent.
+- `[OWNER INPUT NEEDED]` A real integration failure you handled, and the AI model providers actually used, would strengthen the API and AI pages. Nothing has been invented in their place.
+- Production email delivery (Resend environment variables) cannot be verified from this environment without sending a real inquiry, which is not allowed. It remains **unverified**.
+- Google Images may keep cached copies of the old unsanitized screenshots until it recrawls them.

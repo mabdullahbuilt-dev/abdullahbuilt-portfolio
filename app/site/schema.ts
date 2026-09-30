@@ -17,7 +17,7 @@ export function projectSchema(project: Project) {
   const url = `${origin}/work/${project.slug}/`, media = projectMedia[project.slug];
   return { "@context": "https://schema.org", "@graph": [
     { "@type": "WebPage", "@id": `${url}#webpage`, url, name: `${project.name} software case study`, description: project.description, isPartOf: { "@id": `${origin}/#website` }, dateModified: updated },
-    { "@type": "SoftwareApplication", "@id": `${url}#software`, name: project.name, description: project.description, url: project.live, author: { "@id": `${origin}/#person` }, applicationCategory: "BusinessApplication", image: `${origin}${media.image.replace("-viewport", "")}` /* unchanged from main; the cleaner viewport crop is an SEO-workstream recommendation */, dateModified: updated },
+    { "@type": "SoftwareApplication", "@id": `${url}#software`, name: project.name, description: project.description, url: project.live, author: { "@id": `${origin}/#person` }, applicationCategory: "BusinessApplication", image: `${origin}${media.image}`, dateModified: updated },
     crumb([["Home", `${origin}/`], ["Work", `${origin}/work/`], [project.name, url]]),
   ] };
 }
@@ -54,5 +54,5 @@ export function aboutSchema() {
 
 export function contactSchema() {
   const url = `${origin}/contact/`;
-  return { "@context": "https://schema.org", "@type": "ContactPage", "@id": `${url}#webpage`, url, name: "Start a software project", isPartOf: { "@id": `${origin}/#website` }, about: { "@id": `${origin}/#business` }, dateModified: "2026-09-27" };
+  return { "@context": "https://schema.org", "@type": "ContactPage", "@id": `${url}#webpage`, url, name: "Start a software project", isPartOf: { "@id": `${origin}/#website` }, about: { "@id": `${origin}/#business` }, dateModified: updated };
 }

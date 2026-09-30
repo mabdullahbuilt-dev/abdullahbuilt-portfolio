@@ -818,3 +818,6 @@
 .dg__node:has(>.dg__spine-zone)>.dg__index{grid-row:2 / span 3}
 @media (max-width: 1080px){.sec--band,.sec--wide,.sec--center{grid-template-columns:1fr}}
 .article__body .rail__title{margin:0 0 16px;font:500 11.5px/1 var(--mono);letter-spacing:.14em}
+/* Comfortable targets for inline links in lists and bylines (WCAG 2.2 target size) */
+.refs a{display:inline-block;padding:6px 0}
+.author .x-link,.sec__intro .x-link{display:inline-block;padding:4px 0}

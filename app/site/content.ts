@@ -1,7 +1,9 @@
 // Site content: services, projects, guides and their supporting data.
 // Moved verbatim from app/[...slug]/page.tsx so each page composition can import it.
 export const origin = "https://abdullahbuilt.top";
-export const updated = "2026-09-27";
+// Last substantive content change on the secondary pages (v3 redesign added page-specific content).
+export const updated = "2026-09-30";
+export const updatedLong = "September 30, 2026";
 
 export type Service = {
   slug: string; name: string; title: string; description: string;
