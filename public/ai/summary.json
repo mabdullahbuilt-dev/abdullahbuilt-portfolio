@@ -1,10 +1,23 @@
 {
+  "brand": "AbdullahBuilt",
+  "alternateNames": [
+    "Abdullah Built"
+  ],
   "name": "Muhammad Abdullah",
   "url": "https://abdullahbuilt.top/",
   "description": "Independent product builder and full-stack engineer building custom software, SaaS products, web applications, integrations, automation, and MVPs for clients worldwide.",
   "areaServed": "Worldwide",
   "language": "English",
-  "services": ["Custom software development", "SaaS development", "Web application development", "API integration development", "Business automation and internal tools", "MVP product development", "AI application and agent development", "Product rescue and stabilization"],
+  "services": [
+    "Custom software development",
+    "SaaS development",
+    "Web application development",
+    "API integration development",
+    "Business automation and internal tools",
+    "MVP product development",
+    "AI application and agent development",
+    "Product rescue and stabilization"
+  ],
   "contact": "mabdullah.built@gmail.com",
-  "updated": "2026-09-27"
+  "updated": "2026-09-30"
 }

@@ -1,6 +1,6 @@
-# Muhammad Abdullah — full site context
+# AbdullahBuilt — full site context
 
-Muhammad Abdullah is an independent product builder, full-stack engineer, and hackathon winner based in Faisalabad, Pakistan, working with clients worldwide. He turns early product ideas, business problems, manual workflows, and difficult features into working software.
+AbdullahBuilt (abdullahbuilt.top, also written "Abdullah Built") is the independent practice of Muhammad Abdullah. Muhammad Abdullah is an independent product builder, full-stack engineer, and hackathon winner based in Faisalabad, Pakistan, working with clients worldwide. He turns early product ideas, business problems, manual workflows, and difficult features into working software.
 
 ## Capabilities
 Product definition, user flows, TypeScript, JavaScript, Next.js, React, responsive interfaces, Supabase, Postgres, Prisma, REST APIs, webhooks, authentication, AI and LLM integrations, controlled agent workflows, workflow automation, GitHub tooling, blockchain-connected products, smart-contract integration, Arc, USDC, Circle CCTP, LI.FI, testing, deployment, and iteration.

@@ -214,7 +214,7 @@ export type ProofItem = { slug: string; name: string; subtitle: string; summary:
 export function ProofPanel({ item, reverse = false, heading = "h3" }: { item: ProofItem; reverse?: boolean; heading?: "h2" | "h3" }) {
   const H = heading;
   return <article className={`proof${reverse ? " proof--reverse" : ""}`}>
-    <Link href={`/work/${item.slug}/`} className="proof__media" data-event="case_study_click" aria-label={`${item.name} case study`}><ScreenshotFrame src={item.image} width={item.width} height={item.height} alt={item.alt} host={item.host} /></Link>
+    <Link href={`/work/${item.slug}/`} className="proof__media" data-event="case_study_click"><ScreenshotFrame src={item.image} width={item.width} height={item.height} alt={item.alt} host={item.host} /></Link>
     <div className="proof__body">
       <p className="ab-eyebrow">{item.subtitle}</p>
       <H className="proof__title">{item.name}</H>

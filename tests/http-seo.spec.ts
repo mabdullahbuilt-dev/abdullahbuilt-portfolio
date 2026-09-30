@@ -49,3 +49,48 @@ test("discovery files and contact fallback work", async ({ request }) => {
   expect(response.status()).toBe(201);
   expect(await response.json()).toEqual({ received: true, emailed: false });
 });
+
+test("every route ships parseable JSON-LD with apex-only @id and url values", async ({ request }) => {
+  for (const route of routes) {
+    const html = await (await request.get(route)).text();
+    const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => match[1]);
+    expect(blocks.length, route).toBeGreaterThan(0);
+    for (const block of blocks) {
+      const data = JSON.parse(block);
+      const ids = JSON.stringify(data).match(/"(?:@id|url|item)":"[^"]+"/g) || [];
+      for (const id of ids) if (!/mailto:|vercel\.app\/"|github\.com|linkedin\.com|facebook\.com|resolve-task|trader-arc|skillswap|circle-arc/.test(id)) expect(id, route).toMatch(/https:\/\/abdullahbuilt\.top\//);
+    }
+  }
+});
+
+test("sitemap lists exactly the 27 canonical routes", async ({ request }) => {
+  const xml = await (await request.get("/sitemap.xml")).text();
+  const locs = [...xml.matchAll(/<loc>https:\/\/abdullahbuilt\.top([^<]*)<\/loc>/g)].map(match => match[1]).sort();
+  expect(locs).toEqual([...routes].sort());
+});
+
+test("titles carry the AbdullahBuilt brand consistently", async ({ request }) => {
+  for (const route of routes) {
+    const title = ((await (await request.get(route)).text()).match(/<title>([^<]*)<\/title>/) || [])[1] || "";
+    if (route === "/") expect(title).toMatch(/^AbdullahBuilt \| Muhammad Abdullah/);
+    else expect(title, route).toMatch(/\| AbdullahBuilt$/);
+    expect(title, route).not.toContain("Abdullah Built");
+  }
+});
+
+test("entity graph links Muhammad Abdullah to the AbdullahBuilt brand", async ({ request }) => {
+  const html = await (await request.get("/")).text();
+  const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)![1])["@graph"];
+  const person = graph.find((node: { "@type": string }) => node["@type"] === "Person");
+  const brand = graph.find((node: { "@type": string }) => node["@type"] === "ProfessionalService");
+  expect(person.brand["@id"]).toBe("https://abdullahbuilt.top/#business");
+  expect(brand.name).toBe("AbdullahBuilt");
+  expect(brand.founder["@id"]).toBe("https://abdullahbuilt.top/#person");
+});
+
+test("vercel.app aliases are noindex while the canonical host stays indexable", async ({ request }) => {
+  const alias = await request.get("/services/", { headers: { host: "abdullahbuilt-portfolio.vercel.app" } });
+  expect(alias.headers()["x-robots-tag"] || "").toContain("noindex");
+  const canonical = await request.get("/services/", { headers: { host: "abdullahbuilt.top" } });
+  expect(canonical.headers()["x-robots-tag"] || "").not.toContain("noindex");
+});

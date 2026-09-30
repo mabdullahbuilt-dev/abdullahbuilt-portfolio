@@ -1,6 +1,6 @@
-# Muhammad Abdullah
+# AbdullahBuilt — Muhammad Abdullah
 
-> Independent product builder and full-stack engineer building custom software, SaaS products, web applications, API integrations, business automation, and MVPs for clients worldwide.
+> AbdullahBuilt (also written "Abdullah Built") is the independent practice of Muhammad Abdullah, a product builder and full-stack engineer building custom software, SaaS products, web applications, API integrations, business automation, and MVPs for clients worldwide.
 
 Canonical site: https://abdullahbuilt.top/
 Contact: mabdullah.built@gmail.com
