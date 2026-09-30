@@ -212,3 +212,23 @@ test("service proof never describes RepoDiet verification as independent", async
     expect(visibleText(await (await request.get(route)).text()), route).not.toMatch(/independent(ly)? verif/i);
   }
 });
+
+test("stale project deployments appear only in explicitly historical records", async () => {
+  const { readdirSync, readFileSync, statSync } = await import("node:fs");
+  const { join } = await import("node:path");
+  const historical = new Set(["docs/ui/interaction-audit.md", "docs/qa/lighthouse-home.json"]);
+  const skip = /^(node_modules|\.next|\.git|\.sites-runtime|test-results|playwright-report|build)$/;
+  const offenders: string[] = [];
+  const walk = (dir: string) => {
+    for (const name of readdirSync(dir)) {
+      if (skip.test(name)) continue;
+      const path = join(dir, name), rel = path.replace(/^\.\//, "");
+      if (statSync(path).isDirectory()) { walk(path); continue; }
+      if (rel === "tests/http-seo.spec.ts" || historical.has(rel)) continue;
+      if (staleProjectHosts.test(readFileSync(path).toString("latin1"))) offenders.push(rel);
+    }
+  };
+  walk(".");
+  expect(offenders).toEqual([]);
+  for (const rel of historical) expect(readFileSync(rel, "utf8").slice(0, 400), rel).toMatch(/historical|lighthouseVersion/i);
+});
