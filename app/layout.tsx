@@ -1,6 +1,11 @@
 /* eslint-disable @next/next/no-css-tags -- the migrated homepage stylesheets are intentionally preserved */
 import type { Metadata } from "next";
+import { DM_Mono, Inter } from "next/font/google";
 import ClientScript from "./ClientScript";
+
+// Self-hosted at build time; stylesheets reference these variables ahead of the named families.
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const dmMono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-dm-mono", display: "swap" });
 
 const origin = "https://abdullahbuilt.top";
 const isVercelPreview = process.env.VERCEL_ENV === "preview";
@@ -35,7 +40,7 @@ const entityGraph = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${dmMono.variable}`}>
       <head>
         <meta name="theme-color" content="#0d0e11" />
         <link rel="stylesheet" href="/styles.css" />

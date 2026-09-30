@@ -24,22 +24,25 @@ export default function ContactPage({ requestedService = "", source = "" }: { re
     name: "Start a software project",
     isPartOf: { "@id": `${origin}/#website` },
     about: { "@id": `${origin}/#business` },
-    dateModified: "2026-09-27",
+    dateModified: "2026-09-30",
   };
 
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     <nav className="seo-crumbs" aria-label="Breadcrumb"><Link href="/">Home</Link><span> / Contact</span></nav>
-    <section className="seo-hero">
-      <p>PROJECT INQUIRY</p>
-      <h1>Tell me what needs to work<span>.</span></h1>
-      <p>{selectedLabel ? `Your ${selectedLabel.toLowerCase()} context is already selected. Share the current stage, constraints, and outcome you need.` : "Share the product, current stage, important constraints, and the outcome you need. An early idea is enough to start."}</p>
-      <div><a className="seo-button" href={`mailto:mabdullah.built@gmail.com?subject=${encodeURIComponent(selectedLabel ? `${selectedLabel} inquiry` : "Project inquiry")}`} data-event="email_click">Email Muhammad <span>↗</span></a><a className="seo-text-link" href="https://cal.com/muhammad-abdullah-built/idea-to-product" data-event="book_call_click">Book a free 15-minute fit call ↗</a></div>
-    </section>
-    <section className="seo-contact-layout">
+    <header className="pg-hero pg-hero--contact">
+      <div className="pg-hero__copy">
+        <p className="ab-eyebrow">PROJECT INQUIRY</p>
+        <h1>Tell me what needs to work<span className="pg-hero__dot">.</span></h1>
+        <div className="pg-hero__lede"><p>{selectedLabel ? `${selectedLabel} is preselected below. Share the current stage, constraints, and outcome you need.` : "Share the product, current stage, important constraints, and the outcome you need. An early idea is enough to start."}</p></div>
+        <div className="pg-hero__actions"><a className="seo-button" href={`mailto:mabdullah.built@gmail.com?subject=${encodeURIComponent(selectedLabel ? `${selectedLabel} inquiry` : "Project inquiry")}`} data-event="email_click">Email Muhammad <span>↗</span></a><a className="seo-text-link" href="https://cal.com/muhammad-abdullah-built/idea-to-product" data-event="book_call_click">Book a free 15-minute fit call ↗</a></div>
+      </div>
+    </header>
+    <section className="seo-contact-layout contact">
       <div>
         <h2>Start with the critical path</h2>
         <p>A useful first message includes who the user is, what they need to do, what exists today, the important systems or constraints, and any timing requirement.</p>
+        <ol className="contact__steps" aria-label="What happens next"><li><strong>You send the brief</strong><span>Email or the form — an early idea is enough.</span></li><li><strong>I reply with questions</strong><span>About the user, the workflow, and constraints.</span></li><li><strong>We agree on a first step</strong><span>A fit call, a scope, or a pointer elsewhere.</span></li></ol>
         <a className="seo-contact" href="mailto:mabdullah.built@gmail.com">mabdullah.built@gmail.com</a>
         <p className="seo-note">If direct email delivery is unavailable, the form opens a prepared Gmail message with your project details so nothing is lost.</p>
       </div>
@@ -59,10 +62,10 @@ export default function ContactPage({ requestedService = "", source = "" }: { re
         <p className="form-status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </section>
-    <section className="seo-cta">
-      <p>MEETING</p><h2>Prefer to talk through the fit?</h2>
-      <p>Book a free 15-minute call on Cal.com. Google Meet or Zoom can be used for the conversation.</p>
-      <a className="seo-button" href="https://cal.com/muhammad-abdullah-built/idea-to-product" data-event="book_call_click">Book a 15-minute fit call <span>↗</span></a>
-    </section>
+    <section className="cta" aria-labelledby="meeting-heading"><div className="cta__inner">
+      <div><p className="ab-eyebrow">MEETING</p><h2 id="meeting-heading">Prefer to talk through the fit?</h2>
+      <p>Book a free 15-minute call on Cal.com. Google Meet or Zoom can be used for the conversation.</p></div>
+      <div className="cta__actions"><a className="seo-button" href="https://cal.com/muhammad-abdullah-built/idea-to-product" data-event="book_call_click">Book a 15-minute fit call <span>↗</span></a></div>
+    </div></section>
   </>;
 }

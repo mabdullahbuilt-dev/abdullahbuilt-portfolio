@@ -4,10 +4,10 @@
 .seo-proof-grid img{display:block;width:calc(100% + 44px);height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top;margin:-22px -22px 8px;border-bottom:1px solid #274052;border-radius:9px 9px 0 0}
 .seo-proof-grid strong{font-size:19px}
 .seo-proof-grid span{color:#aab8c7;line-height:1.55}
-.seo-proof-grid b{color:#79dfef;font:500 12px/1.4 DM Mono,monospace}
+.seo-proof-grid b{color:#79dfef;font:500 12px/1.4 var(--font-dm-mono),"DM Mono",monospace}
 .seo-case-image{margin:0 0 26px;border:1px solid #274052;background:#0a1017;border-radius:12px;overflow:hidden}
 .seo-case-image img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top}
-.seo-case-image figcaption{padding:12px 16px;color:#7890a5;font:500 12px/1.4 DM Mono,monospace}
+.seo-case-image figcaption{padding:12px 16px;color:#7890a5;font:500 12px/1.4 var(--font-dm-mono),"DM Mono",monospace}
 .seo-toc{display:grid;gap:10px;margin:38px 0;padding:24px;border-left:2px solid #79dfef;background:#0a1017}
 .seo-toc strong{margin-bottom:4px}
 .seo-toc a{color:#b7c3cf;text-decoration:none}
@@ -18,8 +18,8 @@
 .seo-note{font-size:14px!important;color:#7890a5!important}
 .seo-form{display:grid;gap:16px}
 .seo-form h2{margin:0 0 4px}
-.seo-form label{display:grid;gap:8px;color:#aab8c7;font:500 12px/1.4 DM Mono,monospace;text-transform:uppercase;letter-spacing:.08em}
-.seo-form input,.seo-form textarea,.seo-form select{width:100%;border:1px solid #274052;border-radius:7px;background:#111a24;color:#f4f7fb;padding:15px 16px;font:500 16px/1.5 Inter,sans-serif}
+.seo-form label{display:grid;gap:8px;color:#aab8c7;font:500 12px/1.4 var(--font-dm-mono),"DM Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.seo-form input,.seo-form textarea,.seo-form select{width:100%;border:1px solid #274052;border-radius:7px;background:#111a24;color:#f4f7fb;padding:15px 16px;font:500 16px/1.5 var(--font-inter),Inter,sans-serif}
 .seo-form textarea{resize:vertical}
 .seo-form input:focus,.seo-form textarea:focus,.seo-form select:focus{outline:2px solid #79dfef;outline-offset:2px}
 .seo-form button{border:0;border-radius:7px;background:#e7f7fb;color:#07101a;padding:16px 20px;font-weight:700;cursor:pointer}
@@ -36,33 +36,33 @@
 .seo-work-grid article{overflow:hidden;border:1px solid #274052;border-radius:12px;background:#0a1017}
 .seo-work-grid article>img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top;border-bottom:1px solid #274052}
 .seo-work-grid article>div{padding:26px}
-.seo-work-grid article>div>p:first-child,.seo-card-grid small{display:block;margin-bottom:12px;color:#79dfef;font:500 12px/1.4 DM Mono,monospace;text-transform:uppercase;letter-spacing:.08em}
+.seo-work-grid article>div>p:first-child,.seo-card-grid small{display:block;margin-bottom:12px;color:#79dfef;font:500 12px/1.4 var(--font-dm-mono),"DM Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
 .seo-work-grid h2{margin:0 0 12px;font-size:28px}
 .seo-work-grid h2+p{min-height:78px;color:#aab8c7;line-height:1.6}
 .seo-tags{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0}
-.seo-tags span,.seo-category-list span{padding:7px 9px;border:1px solid #274052;border-radius:999px;color:#aab8c7;font:500 11px/1.2 DM Mono,monospace}
+.seo-tags span,.seo-category-list span{padding:7px 9px;border:1px solid #274052;border-radius:999px;color:#aab8c7;font:500 11px/1.2 var(--font-dm-mono),"DM Mono",monospace}
 .seo-actions{display:flex;flex-wrap:wrap;gap:14px;padding-top:4px}
 .seo-actions a{color:#79dfef;text-decoration:none;font-size:13px;font-weight:600}
 .seo-category-list{display:flex;flex-wrap:wrap;gap:8px;margin:-34px 0 34px}
 .seo-card-grid small+span{display:block}
 .seo-flow,.seo-guide-map,.seo-matrix{margin:72px 0;padding:34px;border:1px solid #274052;border-radius:14px;background:radial-gradient(circle at 85% 0,#123041 0,transparent 36%),#0a1017}
 .seo-figure-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:28px}
-.seo-figure-heading span{color:#79dfef;font:500 12px/1.4 DM Mono,monospace;letter-spacing:.12em}
+.seo-figure-heading span{color:#79dfef;font:500 12px/1.4 var(--font-dm-mono),"DM Mono",monospace;letter-spacing:.12em}
 .seo-figure-heading h2{max-width:720px;margin:0;font-size:clamp(26px,4vw,42px);line-height:1.1;letter-spacing:-.025em;text-align:right}
 .seo-flow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .seo-flow-step{position:relative;display:grid;align-content:start;gap:10px;min-height:178px;padding:22px;border:1px solid #274052;border-radius:9px;background:#0d1720}
 .seo-flow-step:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:50%;z-index:2;color:#79dfef;background:#080b0f;border-radius:999px;padding:2px 4px;transform:translateY(-50%)}
-.seo-flow-step small,.seo-guide-map li small{color:#79dfef;font:500 12px/1 DM Mono,monospace}
+.seo-flow-step small,.seo-guide-map li small{color:#79dfef;font:500 12px/1 var(--font-dm-mono),"DM Mono",monospace}
 .seo-flow-step strong{font-size:18px}
 .seo-flow-step span{color:#9fb0bf;line-height:1.5}
-.seo-flow figcaption,.seo-guide-map figcaption,.seo-matrix figcaption{margin-top:18px;color:#7890a5;font:500 12px/1.55 DM Mono,monospace}
+.seo-flow figcaption,.seo-guide-map figcaption,.seo-matrix figcaption{margin-top:18px;color:#7890a5;font:500 12px/1.55 var(--font-dm-mono),"DM Mono",monospace}
 .seo-guide-map ol{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0;list-style:none}
 .seo-guide-map li{display:grid;gap:12px;min-height:128px;padding:20px;border-top:2px solid #79dfef;background:#0d1720}
 .seo-guide-map li span{font-size:16px;font-weight:650;line-height:1.45}
 .seo-table-wrap{overflow-x:auto;border:1px solid #274052;border-radius:9px}
 .seo-matrix table{width:100%;border-collapse:collapse;min-width:650px;background:#0d1720}
 .seo-matrix th,.seo-matrix td{padding:16px 18px;border-bottom:1px solid #274052;text-align:left;vertical-align:top;line-height:1.45}
-.seo-matrix thead th{color:#79dfef;font:500 12px/1.4 DM Mono,monospace;letter-spacing:.06em;text-transform:uppercase}
+.seo-matrix thead th{color:#79dfef;font:500 12px/1.4 var(--font-dm-mono),"DM Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
 .seo-matrix tbody th{color:#eef4f8}.seo-matrix td{color:#aab8c7}
 .seo-editorial-hero{max-width:980px;padding-bottom:54px}
 .seo-editorial-hero h1{font-size:clamp(44px,6vw,78px);max-width:960px}
