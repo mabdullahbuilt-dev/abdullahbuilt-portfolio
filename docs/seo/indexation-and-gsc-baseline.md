@@ -66,6 +66,53 @@ The five URLs that were "unknown to Google" are now **Discovered – currently n
 - Discovered – not indexed: 22
 - Unknown: 0
 
+
+## Final inspection after production `4fd38fe` (2026-09-30, 16:08 UTC)
+
+| Route | Coverage |
+|---|---|
+| `/` | Submitted and indexed (crawl 2026-09-24) |
+| `/services/` | Discovered – not indexed |
+| `/services/custom-software-development/` | Submitted and indexed (crawl 2026-09-24) |
+| `/services/saas-development/` | Discovered – not indexed |
+| `/services/web-application-development/` | Unknown to Google |
+| `/services/api-integration-development/` | Submitted and indexed (crawl 2026-09-24) |
+| `/services/business-automation/` | Discovered – not indexed |
+| `/services/mvp-product-development/` | Submitted and indexed (crawl 2026-09-24) |
+| `/services/ai-application-development/` | Unknown to Google |
+| `/services/product-rescue/` | Discovered – not indexed |
+| `/work/` | Submitted and indexed (crawl 2026-09-24) |
+| `/work/resolve/` | Discovered – not indexed |
+| `/work/meridian/` | Unknown to Google |
+| `/work/repodiet/` | Discovered – not indexed |
+| `/work/agora-forge/` | Discovered – not indexed |
+| `/guides/` | Unknown to Google |
+| `/guides/hire-saas-developer/` | Discovered – not indexed |
+| `/guides/hire-web-app-developer/` | Unknown to Google |
+| `/guides/startup-mvp-development/` | Discovered – not indexed |
+| `/guides/custom-software-vs-saas/` | Discovered – not indexed |
+| `/guides/saas-mvp-development-cost/` | Discovered – not indexed |
+| `/guides/api-integration-planning/` | Unknown to Google |
+| `/guides/rescue-ai-built-web-app/` | Discovered – not indexed |
+| `/guides/ai-feature-vs-automation/` | Unknown to Google |
+| `/guides/reliable-webhook-integration/` | Discovered – not indexed |
+| `/about/` | Discovered – not indexed |
+| `/contact/` | Unknown to Google |
+
+**Totals:**
+- Indexed: 5
+- Discovered – not indexed: 14
+- Unknown to Google: 8
+- Crawled – not indexed: 0
+- Canonical conflicts: 0
+- Blocked: 0
+
+On every indexed page, Google's canonical matches the declared one, and Breadcrumb rich results PASS.
+
+Several URLs that read "Discovered" earlier today now read "Unknown". Google has not crawled the site since 2026-09-24, so no page changed state because of a crawl; the URL Inspection API is reporting inconsistent discovery data. The lever remains the same: internal and external links, plus one manual indexing request for each priority URL.
+
+Request Indexing is **UI-only**. Google's Indexing API covers only job-posting and livestream pages, so this session cannot trigger it.
+
 ## Performance baseline (Search Analytics)
 
 | Window | Clicks | Impressions | CTR | Avg position |
