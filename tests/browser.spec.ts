@@ -295,9 +295,9 @@ const captureMailto = () => {
 };
 
 for (const route of ["/contact/?service=ai-application-development", "/contact/", "/"]) {
-  test(`${route} inquiry form builds an encoded mailto draft and never calls an API`, async ({ page }) => {
-    const apiCalls: string[] = [];
-    page.on("request", request => { if (/\/api\//.test(request.url())) apiCalls.push(request.url()); });
+  test(`${route} inquiry form builds an encoded mailto draft and never calls this site's API`, async ({ page, baseURL }) => {
+    const siteOrigin = new URL(baseURL!).origin, apiCalls: string[] = [];
+    page.on("request", request => { const url = new URL(request.url()); if (url.origin === siteOrigin && url.pathname.startsWith("/api/")) apiCalls.push(request.url()); });
     await page.addInitScript(captureMailto);
     await page.goto(route, { waitUntil: "networkidle" });
     await page.waitForFunction(() => !!document.querySelector("#contactForm") && document.body.innerHTML.length > 0);
