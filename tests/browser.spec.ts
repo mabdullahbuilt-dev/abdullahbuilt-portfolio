@@ -282,3 +282,99 @@ test("hub, entity, and guide CTAs carry their source or service into contact", a
     await expect(page.locator(`.cta a[href="${href}"]`), route).toHaveCount(1);
   }
 });
+
+
+// The form must open the visitor's default mail handler through mailto:. The draft anchor's click is captured
+// and cancelled in the page, so no mail application is opened and nothing is ever sent.
+const captureMailto = () => {
+  const w = window as unknown as { __mailto?: string };
+  document.addEventListener("click", event => {
+    const anchor = (event.target as Element | null)?.closest?.("a");
+    if (anchor && anchor.getAttribute("href")?.startsWith("mailto:")) { w.__mailto = anchor.getAttribute("href") || ""; event.preventDefault(); }
+  }, true);
+};
+
+for (const route of ["/contact/?service=ai-application-development", "/contact/", "/"]) {
+  test(`${route} inquiry form builds an encoded mailto draft and never calls an API`, async ({ page }) => {
+    const apiCalls: string[] = [];
+    page.on("request", request => { if (/\/api\//.test(request.url())) apiCalls.push(request.url()); });
+    await page.addInitScript(captureMailto);
+    await page.goto(route, { waitUntil: "networkidle" });
+    await page.waitForFunction(() => !!document.querySelector("#contactForm") && document.body.innerHTML.length > 0);
+    const message = "Build & verify: a workflow, 100% — with ümlauts?";
+    await page.locator('input[name="name"]').fill("QA Tester");
+    await page.locator('input[name="email"]').fill("qa@example.com");
+    await page.locator('textarea[name="message"]').fill(message);
+    const hasExtras = await page.locator('select[name="stage"]').count();
+    if (hasExtras) {
+      await page.locator('select[name="stage"]').selectOption("Prototype");
+      await page.locator('input[name="projectUrl"]').fill("https://example.com/a?b=c&d=e");
+      await page.locator('input[name="timeline"]').fill("6–8 weeks");
+    }
+    await page.locator('button[type="submit"]').click();
+    await expect(page.locator("#formStatus")).toHaveText("Opening your email app. Review the message and press Send to finish.");
+    const mailto = await page.evaluate(() => (window as unknown as { __mailto?: string }).__mailto || "");
+    expect(mailto.startsWith("mailto:mabdullah.built@gmail.com?subject=")).toBe(true);
+    const subject = decodeURIComponent((mailto.match(/subject=([^&]*)/) || [])[1] || "");
+    const body = decodeURIComponent((mailto.match(/body=([^&]*)/) || [])[1] || "");
+    expect(subject).toBe(route.includes("service=") ? "AI Application & Agent Development inquiry from QA Tester" : "Project inquiry from QA Tester");
+    expect(body).toContain("Name: QA Tester");
+    expect(body).toContain("Email: qa@example.com");
+    expect(body).toContain(message);
+    expect(body).toMatch(/Source: http/);
+    if (route.includes("service=")) expect(body).toContain("Relevant service: AI Application & Agent Development");
+    if (hasExtras) { expect(body).toContain("Current stage: Prototype"); expect(body).toContain("Useful link: https://example.com/a?b=c&d=e"); expect(body).toContain("Timeline: 6–8 weeks"); }
+    expect(mailto).not.toMatch(/\s/);
+    expect(mailto).not.toMatch(/mail\.google\.com/);
+    expect(apiCalls).toEqual([]);
+  });
+}
+
+test("incomplete inquiry is blocked by validation and opens no email draft", async ({ page }) => {
+  await page.addInitScript(captureMailto);
+  await page.goto("/contact/", { waitUntil: "networkidle" });
+  await page.locator('input[name="name"]').fill("QA Tester");
+  await page.locator('button[type="submit"]').click();
+  await page.waitForTimeout(300);
+  expect(await page.evaluate(() => (window as unknown as { __mailto?: string }).__mailto || "")).toBe("");
+  await expect(page.locator("#formStatus")).toHaveText("");
+});
+
+// Dead-button guard: every button on every page must be a recognised, wired control.
+for (const route of routes) {
+  test(`${route} has no dead buttons or empty links`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "networkidle" });
+    const problems = await page.evaluate(() => {
+      const bad: string[] = [];
+      for (const el of document.querySelectorAll<HTMLElement>("button,[role=button],input[type=button],input[type=submit]")) {
+        const type = el.getAttribute("type"), cls = el.className.toString();
+        const wired =
+          (type === "submit" && !!el.closest("form")) ||
+          (type === "reset" && !!el.closest("form")) ||
+          (!!el.getAttribute("aria-controls") && !!document.getElementById(el.getAttribute("aria-controls")!)) ||
+          (el.hasAttribute("data-open-preview") && !!document.getElementById("projectDialog")) ||
+          cls.includes("dialog-close") || cls.includes("ab-code__copy");
+        if (!wired) bad.push(`${el.tagName} ${cls} ${el.textContent?.trim().slice(0, 30)}`);
+      }
+      for (const a of document.querySelectorAll<HTMLAnchorElement>("a")) {
+        const href = a.getAttribute("href");
+        if (!href || href === "#" || href.startsWith("javascript:")) bad.push(`link ${a.textContent?.trim().slice(0, 30)} -> ${href}`);
+      }
+      return bad;
+    });
+    expect(problems).toEqual([]);
+  });
+}
+
+test("homepage menu and project preview controls respond", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.waitForFunction(() => !!document.querySelector("#projectDialog"));
+  await page.waitForTimeout(500);
+  const menu = page.locator(".menu-button");
+  if (await menu.isVisible()) { await menu.click(); await expect(menu).toHaveAttribute("aria-expanded", "true"); }
+  await page.locator(".project-preview-trigger").first().click({ force: true });
+  await expect(page.locator("#projectDialog")).toHaveAttribute("open", "");
+  await expect(page.locator("#dialogLive")).toHaveAttribute("href", "https://www.useresolve.stream");
+  await page.locator(".dialog-close").click();
+  await expect(page.locator("#projectDialog")).not.toHaveAttribute("open", "");
+});

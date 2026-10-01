@@ -44,7 +44,7 @@ export default function ContactPage({ requestedService = "", source = "" }: { re
         <p>A useful first message includes who the user is, what they need to do, what exists today, the important systems or constraints, and any timing requirement.</p>
         <ol className="contact__steps" aria-label="What happens next"><li><strong>You send the brief</strong><span>Email or the form — an early idea is enough.</span></li><li><strong>I reply with questions</strong><span>About the user, the workflow, and constraints.</span></li><li><strong>We agree on a first step</strong><span>A fit call, a scope, or a pointer elsewhere.</span></li></ol>
         <a className="seo-contact" href="mailto:mabdullah.built@gmail.com">mabdullah.built@gmail.com</a>
-        <p className="seo-note">If direct email delivery is unavailable, the form opens a prepared Gmail message with your project details so nothing is lost.</p>
+        <p className="seo-note">Submitting the form opens a prepared email in your default email app. Review it and press Send to finish.</p>
       </div>
       <form className="contact-form seo-form" id="contactForm">
         <h2>Project inquiry</h2>
@@ -58,7 +58,7 @@ export default function ContactPage({ requestedService = "", source = "" }: { re
         <label>Timeline <span>(optional)</span><input name="timeline" placeholder="For example: 6–8 weeks" /></label>
         <label>Budget range <span>(optional)</span><select name="budget" defaultValue=""><option value="">Prefer not to say yet</option><option>Under $2,500</option><option>$2,500–$5,000</option><option>$5,000–$10,000</option><option>$10,000+</option></select></label>
         <label>What are you building?<textarea name="message" rows={6} required minLength={3} placeholder="Describe the product, important workflow, constraints, and desired outcome" /></label>
-        <button type="submit" className="contact-submit">Send message <span aria-hidden="true">↗</span></button>
+        <button type="submit" className="contact-submit">Send inquiry <span aria-hidden="true">↗</span></button>
         <p className="form-status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </section>
