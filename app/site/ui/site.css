@@ -49,7 +49,7 @@
 .sec{display:grid;grid-template-columns:168px minmax(0,1fr);gap:0 48px;padding:84px 0;border-top:1px solid var(--line)}
 .sec__rail{position:relative}
 .sec__rail>*{display:block}
-.sec__index{position:sticky;top:28px;color:var(--line2);font:500 44px/1 var(--mono);letter-spacing:-.04em}
+.sec__index{position:sticky;top:28px;color:#42667f;font:500 44px/1 var(--mono);letter-spacing:-.04em}
 .sec__index:empty{display:none}
 .sec__label{position:sticky;top:82px;margin-top:10px;color:var(--accent);font:500 11.5px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase}
 .sec__index:empty+.sec__label{top:28px}

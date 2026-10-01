@@ -45,9 +45,7 @@ test("discovery files and contact fallback work", async ({ request }) => {
     expect(response.status(), route).toBe(200);
     expect((await response.body()).byteLength, route).toBeGreaterThan(20);
   }
-  const response = await request.post("/api/contact/", { data: { name: "QA Tester", email: "qa@example.com", message: "Test inquiry", service: "ai-application-development" } });
-  expect(response.status()).toBe(201);
-  expect(await response.json()).toEqual({ received: true, emailed: false });
+  expect((await request.post("/api/contact/", { data: { name: "QA", email: "qa@example.com", message: "x" } })).status(), "no email API exists").toBe(404);
 });
 
 test("every route ships parseable JSON-LD with apex-only @id and url values", async ({ request }) => {
@@ -231,4 +229,40 @@ test("stale project deployments appear only in explicitly historical records", a
   walk(".");
   expect(offenders).toEqual([]);
   for (const rel of historical) expect(readFileSync(rel, "utf8").slice(0, 400), rel).toMatch(/historical|lighthouseVersion/i);
+});
+
+
+const CANONICAL_EMAIL = "mabdullah.built@gmail.com";
+const CV_SHA256 = "7a8f5b730061492426338edb1bf8478bf4764117ab622f6e84fdf12b119864f0";
+
+test("canonical email only: old address absent, mailto actions, visible fallback, no Gmail-web or email API", async ({ request }) => {
+  const targets = [...routes, "/main.js", "/llms.txt", "/llms-full.txt", "/.well-known/ai.txt", "/ai/summary.json", "/ai/service.json", "/ai/faq.json"];
+  for (const path of targets) {
+    const body = await (await request.get(path)).text();
+    expect(body, path).not.toContain("abdullahlp114");
+    expect(body, path).not.toMatch(/mail\.google\.com|\/api\/contact|RESEND|CONTACT_FROM_EMAIL/);
+    expect(body.split(CANONICAL_EMAIL).join(""), path).not.toMatch(/gmail/i);
+    for (const match of body.matchAll(/href="(mailto:[^"]+)"/g)) expect(match[1], path).toMatch(new RegExp(`^mailto:${CANONICAL_EMAIL.replace(".", "\\.")}(\\?|$)`));
+  }
+  const contact = await (await request.get("/contact/")).text();
+  expect(contact).toContain(`href="mailto:${CANONICAL_EMAIL}"`);
+  expect(visibleText(contact)).toContain(CANONICAL_EMAIL);
+  expect(visibleText(contact)).toMatch(/default email app/i);
+  const home = await (await request.get("/")).text();
+  expect(home).toContain(`href="mailto:${CANONICAL_EMAIL}?subject=Project%20inquiry"`);
+  expect(visibleText(home)).toContain(CANONICAL_EMAIL);
+});
+
+test("every resume action resolves to the one CV, byte-identical to the supplied PDF", async ({ request }) => {
+  const { createHash } = await import("node:crypto");
+  const { readFileSync } = await import("node:fs");
+  const hrefs = new Set<string>();
+  for (const route of routes) {
+    for (const match of (await (await request.get(route)).text()).matchAll(/href="([^"]*(?:[Rr]esume|\.pdf)[^"]*)"/g)) hrefs.add(match[1]);
+  }
+  expect([...hrefs]).toEqual(["/Muhammad_Abdullah_Resume.pdf"]);
+  const served = Buffer.from(await (await request.get("/Muhammad_Abdullah_Resume.pdf")).body());
+  expect(createHash("sha256").update(served).digest("hex")).toBe(CV_SHA256);
+  expect(createHash("sha256").update(readFileSync("public/Muhammad_Abdullah_Resume.pdf")).digest("hex")).toBe(CV_SHA256);
+  for (const route of ["/", "/about/"]) expect(await (await request.get(route)).text(), route).toContain('href="/Muhammad_Abdullah_Resume.pdf"');
 });

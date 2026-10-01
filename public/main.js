@@ -171,73 +171,53 @@ if (portrait && !reducedMotion.matches) {
 
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
-let contactEmailDelivery = false;
+const CONTACT_EMAIL = 'mabdullah.built@gmail.com';
+function buildInquiryMailto(data, pageUrl) {
+  const get = (key) => String(data.get(key) || '').trim();
+  const name = get('name'), service = get('service');
+  const subject = (service ? service + ' inquiry' : 'Project inquiry') + ' from ' + name;
+  const lines = [
+    'Name: ' + name,
+    'Email: ' + get('email'),
+    service ? 'Relevant service: ' + service : '',
+    get('stage') ? 'Current stage: ' + get('stage') : '',
+    get('projectUrl') ? 'Useful link: ' + get('projectUrl') : '',
+    get('timeline') ? 'Timeline: ' + get('timeline') : '',
+    get('budget') ? 'Budget range: ' + get('budget') : '',
+    'Source: ' + (get('source') || pageUrl),
+    '',
+    get('message')
+  ].filter((line, index) => line !== '' || index > 0);
+  return 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+}
 if (contactForm && formStatus) {
 const requestedService = new URLSearchParams(window.location.search).get('service');
 const serviceField = contactForm.elements.namedItem('service');
 if (requestedService && serviceField instanceof HTMLSelectElement && [...serviceField.options].some(option => option.value === requestedService)) {
   serviceField.value = requestedService;
 }
-fetch('/api/contact').then((response) => response.json()).then((result) => {
-  contactEmailDelivery = Boolean(result.emailDeliveryAvailable);
-  if (!contactEmailDelivery) contactForm.querySelector('button[type="submit"]').innerHTML = 'Continue to email <span aria-hidden="true">↗</span>';
-}).catch(() => {});
-contactForm.addEventListener('submit', async (event) => {
+const serviceLabel = (field, value) => field instanceof HTMLSelectElement ? ([...field.options].find(option => option.value === value)?.textContent || value) : value;
+contactForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: 'contact_form_submit', service: String(new FormData(contactForm).get('service') || 'general') });
-  const button = contactForm.querySelector('button[type="submit"]');
-  const data = new FormData(contactForm);
-  button.disabled = true;
-  button.textContent = 'Sending…';
-  formStatus.textContent = '';
   formStatus.className = 'form-status';
-  try {
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: String(data.get('name') || ''),
-        email: String(data.get('email') || ''),
-        message: String(data.get('message') || ''),
-        service: String(data.get('service') || ''),
-        stage: String(data.get('stage') || ''),
-        projectUrl: String(data.get('projectUrl') || ''),
-        timeline: String(data.get('timeline') || ''),
-        budget: String(data.get('budget') || ''),
-        source: String(data.get('source') || ''),
-        website: String(data.get('website') || '')
-      })
-    });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || 'The message could not be saved.');
-    if (!result.emailed) {
-      formStatus.textContent = 'Opening your prepared email. Please press Send in Gmail to finish.';
-      const details = [
-        'Name: ' + data.get('name'),
-        'Email: ' + data.get('email'),
-        data.get('service') ? 'Service: ' + data.get('service') : '',
-        data.get('stage') ? 'Current stage: ' + data.get('stage') : '',
-        data.get('projectUrl') ? 'Useful link: ' + data.get('projectUrl') : '',
-        data.get('timeline') ? 'Timeline: ' + data.get('timeline') : '',
-        data.get('budget') ? 'Budget range: ' + data.get('budget') : '',
-        '',
-        String(data.get('message') || '')
-      ].filter(Boolean).join('\n');
-      const draftUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=mabdullah.built%40gmail.com&su=' + encodeURIComponent('Project inquiry from ' + data.get('name')) + '&body=' + encodeURIComponent(details);
-      window.location.assign(draftUrl);
-      return;
-    }
-    formStatus.textContent = 'Message sent. I’ll reply to the email address you entered.';
-    formStatus.classList.add('success');
-    contactForm.reset();
-  } catch (error) {
-    formStatus.textContent = (error instanceof Error ? error.message : 'Something went wrong.') + ' You can email me using the address on the left.';
+  if (!contactForm.checkValidity()) {
+    contactForm.reportValidity();
+    formStatus.textContent = 'Please complete the required fields.';
     formStatus.classList.add('error');
-  } finally {
-    button.disabled = false;
-    button.innerHTML = (contactEmailDelivery ? 'Send message' : 'Continue to email') + ' <span aria-hidden="true">↗</span>';
+    return;
   }
+  const data = new FormData(contactForm);
+  if (data.get('website')) return;
+  if (serviceField instanceof HTMLSelectElement && data.get('service')) data.set('service', serviceLabel(serviceField, String(data.get('service'))));
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'contact_form_submit', service: String(serviceField?.value || 'general') });
+  formStatus.textContent = 'Opening your email app. Review the message and press Send to finish.';
+  formStatus.classList.add('success');
+  const draft = document.createElement('a');
+  draft.href = buildInquiryMailto(data, window.location.href);
+  document.body.appendChild(draft);
+  draft.click();
+  draft.remove();
 });
 contactForm.addEventListener('focusin', () => {
   if (contactForm.dataset.started) return;

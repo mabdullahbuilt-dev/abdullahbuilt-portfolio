@@ -41,6 +41,6 @@ The SEO regression check crawls every canonical URL in `public/sitemap.xml` and 
 - Vercel preview deployments and every `*.vercel.app` host receive `noindex` directives.
 - Canonical URLs remain on `https://abdullahbuilt.top/`.
 
-## Contact delivery
+## Contact
 
-When `RESEND_API_KEY` and `CONTACT_FROM_EMAIL` are available, inquiries are sent through Resend. Without those variables, the form opens a prepared Gmail message containing the visitor's submitted project context.
+The portfolio has no email-delivery backend. The inquiry form validates the visitor's input and opens their default email app through a `mailto:` link addressed to mabdullah.built@gmail.com, prefilled with the submitted details. The address is always visible on the page as a fallback. No API key or mail provider is required.
