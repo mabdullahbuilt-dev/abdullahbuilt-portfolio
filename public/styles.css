@@ -121,3 +121,70 @@ html,body{overflow-x:clip}
   .badge-caption{padding:12px 14px}
 }
 .footer>span{flex:none}.footer-pages{display:flex;gap:17px;flex-wrap:wrap}
+
+/* ==========================================================================
+   Mobile and small-tablet homepage (<=900px). Phones get a purpose-built stacked layout instead
+   of the desktop hero scaled down. Desktop (>=751px) is untouched.
+   ========================================================================== */
+@media(max-width:900px){
+  .wrap{width:min(100% - 32px,1050px)}
+
+  /* Header: full-width compact bar with its own backdrop so copy never reads through it. */
+  .topbar{left:0;right:0;top:0;align-items:center;padding:max(8px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 8px max(16px,env(safe-area-inset-left));background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .wordmark{display:inline-flex;align-items:center;min-height:44px;padding:0 17px;box-shadow:none}
+  .menu-button,.theme-button{width:44px;height:44px;box-shadow:none}
+  .menu{right:max(16px,env(safe-area-inset-right));top:calc(100% + 8px);width:min(250px,calc(100vw - 32px));max-height:calc(100dvh - 92px);overflow-y:auto;overscroll-behavior:contain}
+  .menu a{min-height:48px;align-items:center}
+
+  /* Hero: normal flow, sized by its content. */
+  .hero{display:block;min-height:0;height:auto;padding:calc(88px + env(safe-area-inset-top)) 0 48px}
+  .hero-copy{max-width:100%;padding-top:0;position:relative;z-index:2}
+  .hello{display:block;width:fit-content;max-width:100%;white-space:normal;overflow-wrap:anywhere;border-radius:16px;font-size:clamp(10.5px,3.2vw,12px);line-height:1.5;letter-spacing:.05em;padding:8px 12px;margin-bottom:22px}
+  .greeting{margin-bottom:4px}
+  .hero h1{font-size:clamp(2.7rem,14vw,4.5rem);line-height:1.04;letter-spacing:-.04em;margin-bottom:18px;overflow-wrap:normal}
+  .hero .role{font-size:clamp(15px,4.2vw,17px);line-height:1.5;margin-bottom:16px}
+  .hero .intro{font-size:clamp(16px,4.4vw,18px);line-height:1.62;max-width:34em;margin-bottom:0}
+  .hero-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:26px;max-width:420px}
+  .hero-links .main-button{grid-column:1/-1;justify-content:center;min-height:50px;padding:0 18px;font-size:15px}
+  .hero-links .hero-social{width:auto;height:48px;min-width:44px}
+  .hero-links a:focus-visible,.menu-button:focus-visible,.wordmark:focus-visible,.row-actions a:focus-visible,.row-actions button:focus-visible,.logo-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .section{padding:68px 0}
+  .scroll-cue,.badge-hint,.lanyard{display:none!important}
+
+  /* Portrait: compact static badge below the actions. No drag, no tilt, no touch capture. */
+  .portrait-wrap{position:relative;inset:auto;left:auto;top:auto;bottom:auto;right:auto;transform:none!important;width:min(228px,62vw);height:auto;margin:40px auto 0;opacity:1;perspective:none;transform-style:flat;cursor:auto;touch-action:auto;pointer-events:none;user-select:auto}
+  .portrait-wrap:before{width:130%;height:110%;top:12%;filter:blur(22px)}
+  .badge-assembly{position:relative;inset:auto;display:flex;flex-direction:column;align-items:center;transform:none!important;will-change:auto}
+  .badge-assembly:before{content:"";display:block;width:24px;height:46px;flex:none;background:repeating-linear-gradient(90deg,#081016 0 3px,#102332 3px 7px,#09141c 7px 11px);border-left:2px solid #45687a;border-right:2px solid #3b5e70;border-top:4px solid #72909f;box-shadow:inset 5px 0 9px #0009}
+  .badge-connector{position:relative;inset:auto;left:auto;top:auto;flex:none;width:24px;height:30px;margin:-2px 0 -12px;border-width:4px}
+  .badge-connector:after{width:5px;height:20px;left:5px;top:15px}
+  .portrait-frame{position:relative;inset:auto;left:auto;right:auto;top:auto;width:100%;height:auto;aspect-ratio:4/5;transform:none!important;will-change:auto;border-radius:14px}
+  .portrait-frame img{position:absolute;inset:0}
+  .badge-caption{padding:10px 12px}
+  .badge-caption strong{font-size:9px}
+
+  /* Selected work: stacked rows that wrap instead of squeezing. */
+  .work-row{display:grid;grid-template-columns:minmax(0,1fr);gap:0;padding:20px 0;min-height:0}
+  .row-main{min-width:0;align-items:flex-start;gap:14px}
+  .project-identity{min-width:0}
+  .project-identity h3,.project-heading h3{white-space:normal;overflow-wrap:anywhere}
+  .project-identity p{white-space:normal;overflow:visible;overflow-wrap:anywhere;line-height:1.5}
+  .row-right{margin:14px 0 0;padding-left:56px;min-width:0;max-width:none;justify-content:flex-start;flex-wrap:wrap;gap:6px}
+  .row-right span{white-space:normal;overflow-wrap:anywhere}
+  .row-actions{margin:12px 0 0;padding-left:56px;grid-column:1;opacity:1;transform:none;display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+  .row-actions a,.row-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;font-size:13px}
+  .logo-button{width:44px;height:44px}
+}
+@media(max-width:360px){
+  .row-right,.row-actions{padding-left:0}
+}
+/* Any touch/coarse-pointer device: the decorative badge never intercepts gestures. */
+@media(hover:none),(pointer:coarse){
+  .portrait-wrap{touch-action:auto!important;cursor:auto!important;pointer-events:none}
+  .portrait-wrap *{pointer-events:none}
+  .portrait-frame,.badge-assembly{transform:none!important}
+}
+@media(max-width:900px){
+  .footer a{display:inline-flex;align-items:center;min-height:44px}
+  .footer>span{text-align:left}
+}
