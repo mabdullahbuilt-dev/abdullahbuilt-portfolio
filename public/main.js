@@ -2,6 +2,8 @@ const menuButton = document.getElementById('menuButton');
 const menu = document.getElementById('siteMenu');
 const portrait = document.getElementById('portraitWrap');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+// The draggable badge is a desktop-only interaction. Touch, coarse-pointer and phone-width layouts get a static card.
+const badgeInteractive = window.matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
 
 function closeMenu() {
   if (!menu || !menuButton) return;
@@ -20,7 +22,7 @@ if (menuButton && menu) {
   document.addEventListener('click', (event) => {
     if (!menu.hidden && !menu.contains(event.target) && !menuButton.contains(event.target)) closeMenu();
   });
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !menu.hidden) { closeMenu(); menuButton.focus(); } });
 }
 
 const projects = {
@@ -86,7 +88,7 @@ if (hoverPreview && hoverScreen && hoverImage && window.matchMedia('(hover: hove
   window.addEventListener('scroll', () => hoverPreview.classList.remove('visible'), { passive: true });
 }
 
-if (portrait && !reducedMotion.matches) {
+if (portrait && !reducedMotion.matches && badgeInteractive.matches) {
   const hero = portrait.closest('.hero');
   const card = document.getElementById('badgeCard');
   const assembly = document.getElementById('badgeAssembly');
@@ -135,7 +137,7 @@ if (portrait && !reducedMotion.matches) {
     else moving = false;
   }
   function pointAt(event, force) {
-    if (event.pointerType === 'touch' && !force) return;
+    if (!badgeInteractive.matches || (event.pointerType === 'touch' && !force)) return;
     const rect = hero.getBoundingClientRect();
     const x = Math.max(-1, Math.min(1, (event.clientX - rect.left - rect.width / 2) / (rect.width / 2)));
     const y = Math.max(-1, Math.min(1, (event.clientY - rect.top - rect.height / 2) / (rect.height / 2)));
@@ -156,6 +158,7 @@ if (portrait && !reducedMotion.matches) {
     if (!moving) { moving = true; requestAnimationFrame(animateBadge); }
   });
   portrait.addEventListener('pointerdown', (event) => {
+    if (!badgeInteractive.matches || event.pointerType === 'touch') return;
     if (event.button !== 0 && event.pointerType === 'mouse') return;
     event.preventDefault();
     dragging = true;
